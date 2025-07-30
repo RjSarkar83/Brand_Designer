@@ -1,0 +1,1232 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>RJ Sarkar - Visual Designer 2025</title>
+  <meta name="viewport" content="width=360, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="description" content="RJ Sarkar - Visual Designer 2025: Portfolio card, contact details, special offer, and more.">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
+  <style>
+    :root {
+      --main-red: #ff0000;
+      --accent-red: #ff3333;
+      --calculator-dark: #1a0a0a;
+      --calculator-btn: #ff1c38;
+      --calculator-btn-hover: #fff;
+      --calculator-btn-text: #fff;
+      --calculator-btn-hover-text: #e0002b;
+      --btn-radius: 28px;
+      --white: #fff;
+      --btn-shadow: 0 2px 22px rgba(255,0,0,0.17);
+      --focus-outline: 2px solid #fff;
+      --focus-shadow: 0 0 0 2px var(--accent-red);
+      --matrix-green: #0f0;
+      --darkgrey: transparent;
+      --lightgrey: #470000;
+      --lightestgrey: #472d2d;
+      --red: #870000;
+      --yellow: #ff0000;
+      --nearlyblack: #008a17;
+      --lightyellow: #00ff2a;
+      --grey: #ff0000;
+    }
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body {
+      width: 100vw;
+      min-height: 100vh;
+      font-family: 'Montserrat', Arial, sans-serif;
+      color: var(--white);
+      overflow-x: hidden;
+    }
+    body {
+      padding: 0;
+      margin: 0;
+      position: relative;
+      z-index: 0;
+      min-height: 100vh;
+      background: linear-gradient(135deg, #0e0909 0%, #211919 33%, #2b0e13 66%, #ff0000 100%);
+      background-size: 200% 200%;
+      animation: bggradientmove 3s ease-in-out infinite alternate;
+    }
+    @keyframes bggradientmove {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 100% 50%; }
+    }
+    .holo-grid {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      pointer-events: none;
+      background-image:
+        repeating-linear-gradient(0deg, rgba(255,0,0,0.14) 0 2px, transparent 2px 50px),
+        repeating-linear-gradient(90deg, rgba(255,0,0,0.12) 0 2px, transparent 2px 50px);
+      z-index: 2;
+      animation: gridPulse 3s ease-in-out infinite alternate;
+      opacity: 0.19;
+      background-size: 50px 50px;
+      will-change: opacity;
+      mix-blend-mode: lighten;
+    }
+    @keyframes gridPulse {
+      0%, 100% { opacity: 0.14; }
+      50% { opacity: 0.32; }
+    }
+    #matrix-canvas {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      z-index: 1;
+      pointer-events: none;
+      opacity: 0.2;
+      background: transparent;
+      mix-blend-mode: lighten;
+    }
+    .container {
+      width: 100vw;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      position: relative;
+      z-index: 10;
+      padding-bottom: 30px;
+      border: 0px solid var(--main-red);
+      box-sizing: border-box;
+    }
+    .card-container {
+      width: 320px;
+      height: 480px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      margin: 0 auto;
+      z-index: 10;
+    }
+    .business-card {
+      position: relative;
+      width: 320px;
+      height: 480px;
+      border-radius: 15px;
+      background: linear-gradient(135deg, rgba(26,10,10,0.5) 0%, rgba(15,15,15,0.5) 50%, rgba(26,10,10,0.5) 100%);
+      background-clip: padding-box;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      text-align: center;
+      box-sizing: border-box;
+      overflow: visible;
+      box-shadow: 0 8px 36px 0 rgba(255,0,0,0.35), 0 0 0 1px rgba(255,0,0,0.15);
+      z-index: 10;
+    }
+    /* Calculator Screen with enhanced glass effect */
+    .calculator-screen {
+      width: 92%;
+      min-height: 150px;
+      max-height: 170px;
+      margin: 0 auto;
+      margin-top: 22px;
+      margin-bottom: 14px;
+      background: linear-gradient(135deg, rgba(25,0,0,0.42) 0%, rgba(25,0,0,0.45) 50%, rgba(25,0,0,0.42) 100%);
+      border-radius: 10px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      box-shadow: 
+        0 4px 28px 0 rgba(0,0,0,0.55),
+        inset 0 1px 0 rgba(255,0,0,0.15),
+        0 0 0 1px rgba(255,0,0,0.08);
+      position: relative;
+      padding: 1.1rem 1.1rem 0.7rem 1.1rem;
+      overflow: hidden;
+      backdrop-filter: blur(5px) saturate(210%);
+      -webkit-backdrop-filter: blur(5px) saturate(210%);
+      border: 1.5px solid rgba(255,0,0,0.18);
+    }
+    /* Enhanced glass shine overlay */
+    .glass-shine {
+      position: absolute;
+      top: -60%;
+      left: -60%;
+      width: 200%;
+      height: 120%;
+      pointer-events: none;
+      z-index: 2;
+      background: linear-gradient(120deg, rgba(255,0,0,0.35) 0%, rgba(255,0,0,0.15) 20%, rgba(255,0,0,0.12) 50%, rgba(255,0,0,0.25) 70%);
+      transform: rotate(-13deg);
+      animation: shineMove 3s linear infinite;
+      border-radius: 15px;
+      opacity: 0.7;
+      filter: blur(5px);
+      -webkit-filter: blur(50px);
+      mix-blend-mode: lighten;
+      transition: filter 0.2s, opacity 0.2s;
+    }
+    @keyframes shineMove {
+      0% { top: -60%; left: -60%; }
+      60% { top: 10%; left: 30%; opacity: 1; }
+      100% { top: 140%; left: 110%; opacity: 0.6; }
+    }
+    .neon-text {
+      font-family: 'Playfair Display', serif;
+      font-weight: 700;
+      font-size: 2.3rem;
+      color: #fff;
+      letter-spacing: 2px;
+      margin-bottom: 0.17rem;
+      word-break: break-word;
+      line-height: 1.1;
+      text-shadow:
+        0 0 9px var(--main-red),
+        0 0 18px var(--accent-red),
+        0 0 10px var(--main-red);
+      transition: color 0.2s;
+      z-index: 3;
+      position: relative;
+    }
+    .subtitle {
+      font-family: 'Montserrat', Arial, sans-serif;
+      font-size: 1.02rem;
+      color: var(--accent-red);
+      opacity: 0.92;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 0.04rem;
+      font-weight: 400;
+      z-index: 3;
+      position: relative;
+    }
+    .year-animate {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 0.13rem;
+      margin-bottom: 0.09rem;
+      min-height: 2.0rem;
+      z-index: 3;
+      position: relative;
+    }
+    .year-digit {
+      font-family: 'Montserrat', Arial, sans-serif;
+      font-weight: 400;
+      font-size: 1.11rem;
+      color: #fff;
+      animation: funny-bounce 3s infinite alternate cubic-bezier(.44,1.36,.89,.62);
+      text-shadow: none;
+      margin: 0 1px;
+      letter-spacing: 1px;
+    }
+    .year-digit:nth-child(2) { animation-delay: 0.15s;}
+    .year-digit:nth-child(3) { animation-delay: 0.3s;}
+    .year-digit:nth-child(4) { animation-delay: 0.45s;}
+    @keyframes funny-bounce {
+      0% { transform: translateY(0) rotate(-5deg) scale(1);}
+      30% { transform: translateY(-5px) rotate(5deg) scale(1.08);}
+      60% { transform: translateY(0) rotate(-3deg) scale(1);}
+      100% { transform: translateY(-7px) rotate(8deg) scale(1.1);}
+    }
+    .screen-headline-bar {
+      width: 100%;
+      background: transparent;
+      color: #fff;
+      z-index: 10;
+      overflow: hidden;
+      min-height: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      font-family: 'Montserrat', Arial, sans-serif;
+      font-weight: 400;
+      font-size: 0.97rem;
+      padding: 0;
+      margin-top: 9px;
+      position: relative;
+      border-radius: 15px;
+      letter-spacing: 0.02em;
+      justify-content: center;
+    }
+    .screen-scroll-container {
+      width: 100%;
+      overflow: hidden;
+      white-space: nowrap;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .screen-scroll-text {
+      display: flex;
+      align-items: center;
+      font-size: 0.97rem;
+      font-weight: 300;
+      letter-spacing: 0.05em;
+      line-height: 24px;
+      height: 24px;
+      color: #fff;
+      text-shadow: 0 0 6px #000, 0 0 1px var(--accent-red);
+      font-family: 'Montserrat', Arial, sans-serif;
+      position: relative;
+      z-index: 3;
+    }
+    .scrolling-text-inner {
+      display: inline-block;
+      white-space: nowrap;
+      will-change: transform;
+    }
+    .contact-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-gap: 18px 18px;
+      width: 92%;
+      margin: 0 auto 0.17rem auto;
+      z-index: 2;
+      padding: 0 7px;
+    }
+    .contact-btn, .offer-btn {
+      min-width: 0;
+      width: 100%;
+      padding: 0.98rem 0.14rem 0.98rem 0.14rem;
+      border-radius: 50px;
+      border: none;
+      background: linear-gradient(100deg, var(--main-red) 80%, #ff3333 100%);
+      color: var(--calculator-btn-text);
+      font-weight: 400;
+      font-size: 0.93rem;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      gap: 0.31rem;
+      cursor: pointer;
+      transition: background 0.17s, color 0.17s, box-shadow 0.18s;
+      position: relative;
+      overflow: hidden;
+      text-decoration: none;
+      min-height: 46px;
+      max-height: 60px;
+      outline: none;
+      text-align: center;
+      box-sizing: border-box;
+      box-shadow: var(--btn-shadow);
+      margin: 0;
+      user-select: none;
+      font-family: 'Montserrat', Arial, sans-serif;
+    }
+    .contact-btn:focus, .offer-btn:focus {
+      outline: var(--focus-outline);
+      box-shadow: var(--focus-shadow);
+    }
+    .contact-btn::before, .offer-btn::before {
+      content: '';
+      position: absolute;
+      top: 0; left: -100%;
+      width: 100%; height: 100%;
+      background: linear-gradient(90deg, transparent 0%, rgba(255,255,255,0.11) 50%, transparent 100%);
+      transition: left 0.5s;
+      z-index: 1;
+      pointer-events: none;
+    }
+    .contact-btn:hover::before, .offer-btn:hover::before {
+      left: 100%;
+    }
+    .contact-btn:hover, .contact-btn:focus-visible,
+    .offer-btn:hover, .offer-btn:focus-visible {
+      background: var(--calculator-btn-hover);
+      color: var(--calculator-btn-hover-text);
+      box-shadow: 0 3px 14px 0px var(--accent-red), var(--btn-shadow);
+      z-index: 2;
+    }
+    /* Ensures emoji and icon stay visible (red) on hover/focus */
+    .contact-btn:hover i, 
+    .contact-btn:focus-visible i,
+    .contact-btn:hover span,
+    .contact-btn:focus-visible span,
+    .offer-btn:hover i,
+    .offer-btn:focus-visible i,
+    .offer-btn:hover span,
+    .offer-btn:focus-visible span {
+      color: #e0002b !important;
+    }
+    .contact-btn i, .offer-btn i {
+      font-size: 1.1rem;
+      color: #fff;
+      min-width: 1.1rem;
+    }
+    .contact-btn span, .offer-btn span {
+      font-size: 0.80rem;
+      line-height: .5;
+      z-index: 2;
+      color: inherit;
+      font-family: 'Montserrat', Arial, sans-serif;
+      font-weight: 400;
+      text-transform: none;
+      letter-spacing: 0.01em;
+      margin-left: 1px;
+    }
+    .offer-section {
+      width: 92%;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-gap: 18px 18px;
+      margin: 0 auto 0.12rem auto;
+      z-index: 2;
+      padding: 0 7px;
+    }
+    .offer-btn {
+      min-width: 0;
+      width: 100%;
+      margin: 0;
+      padding: 0.98rem 0.14rem 0.98rem 0.14rem;
+    }
+    .floating-elements {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      pointer-events: none;
+      z-index: 3;
+    }
+    .floating-icon {
+      position: absolute;
+      font-size: 1.8rem;
+      opacity: 0.13;
+      color: var(--main-red);
+      animation: floatIcon 5s infinite ease-in-out;
+      pointer-events: none;
+    }
+    .floating-icon.fa-code { top: 12%; left: 10%; animation-delay: 0s;}
+    .floating-icon.fa-palette { top: 30%; right: 7%; animation-delay: 10s;}
+    .floating-icon.fa-rocket { top: 65%; left: 8%; animation-delay: 20s;}
+    .floating-icon.fa-star { top: 82%; right: 23%; animation-delay: 30s;}
+    .floating-icon.fa-heart { top: 47%; right: 5%; animation-delay: 40s;}
+    .floating-icon.fa-lightbulb { top: 15%; right: 30%; animation-delay: 3.2s;}
+    .floating-icon.fa-magic { top: 75%; left: 25%; animation-delay: 5.3s;}
+    .floating-icon.fa-music { top: 50%; left: 40%; animation-delay: 2.6s;}
+    .floating-icon.fa-gamepad { top: 80%; left: 70%; animation-delay: 3.2s;}
+    .floating-icon.fa-glasses { top: 20%; right: 45%; animation-delay: 4.1s;}
+    .floating-icon.fa-calculator { top: 35%; left: 60%; animation-delay: 1.3s;}
+    .floating-icon.fa-equals { top: 60%; right: 18%; animation-delay: 2.9s;}
+    .floating-icon.fa-divide { top: 25%; left: 20%; animation-delay: 3.8s;}
+    .floating-icon.fa-square-root-alt { top: 70%; right: 5%; animation-delay: 1.7s;}
+    .floating-icon.fa-plus { top: 25%; right: 15%; animation-delay: 2.5s;}
+    .floating-icon.fa-minus { top: 80%; left: 15%; animation-delay: 2.2s;}
+    @keyframes floatIcon {
+      0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.13; }
+      50% { transform: translateY(-18px) rotate(180deg); opacity: 0.05; }
+    }
+    .share-fab {
+      position: fixed;
+      bottom: 32px;
+      right: 8px;
+      width: 24px;
+      height: 24px;
+      background: linear-gradient(45deg, var(--main-red), var(--accent-red));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      cursor: pointer;
+      z-index: 100;
+      box-shadow: 0 2px 6px rgba(255,0,0,0.23);
+      transition: all 0.15s ease;
+      border: none;
+      font-size: 0.85rem;
+      outline: none;
+    }
+    .share-fab:focus {
+      outline: var(--focus-outline);
+      box-shadow: var(--focus-shadow);
+    }
+    .share-fab:hover, .share-fab:focus-visible {
+      transform: scale(1.07) rotate(360deg);
+      box-shadow: 0 4px 12px rgba(255,0,0,0.28);
+    }
+    .quantum-cursor {
+      pointer-events: none;
+      position: fixed;
+      z-index: 999;
+      left: 0; top: 0;
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,0,0,0.09) 0%, rgba(255,0,0,0.03) 40%, transparent 70%);
+      transform: translate(-50%, -50%);
+      transition: all 0.1s ease;
+      mix-blend-mode: screen;
+      animation: quantumPulse 2s infinite;
+    }
+    @keyframes quantumPulse {
+      0%, 100% { transform: translate(-50%, -50%) scale(1); }
+      50% { transform: translate(-50%, -50%) scale(1.11); }
+    }
+    .toast {
+      position: fixed;
+      bottom: 60px;
+      right: 8px;
+      background: linear-gradient(45deg, var(--main-red), var(--accent-red));
+      color: white;
+      padding: 0.34rem 0.7rem;
+      border-radius: 15px;
+      font-weight: 600;
+      z-index: 1000;
+      opacity: 1;
+      transition: opacity 0.5s ease;
+      box-shadow: 0 2px 8px rgba(255,0,0,0.13);
+      font-size: 0.67rem;
+    }
+    @media (max-width: 370px) {
+      .card-container, .business-card { width: 98vw !important; }
+      .calculator-screen { width: 92vw !important;}
+    }
+
+    /* Flip Card and Typing Animation CSS */
+    .card-flip-container {
+      perspective: 1200px;
+      width: 320px;
+      height: 480px;
+      position: relative;
+    }
+
+    .card-flip {
+      width: 100%;
+      height: 100%;
+      transform-style: preserve-3d;
+      transition: transform 0.8s ease-in-out;
+      position: relative;
+    }
+
+    .card-flip.flipped {
+      transform: rotateY(180deg);
+    }
+
+    .card-face {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      border-radius: 15px;
+      overflow: hidden;
+    }
+
+    .card-face.back {
+      transform: rotateY(180deg);
+      background: linear-gradient(135deg, #000000, #1a1a1a);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 30px;
+      flex-direction: column;
+    }
+
+    /* Smooth Typing Animation */
+    .typing-box {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 1rem;
+      color: #fff;
+      text-shadow: 0 0 6px #ff0000, 0 0 10px #ff3333;
+      overflow: hidden;
+      white-space: nowrap;
+      border-right: 2px solid #ff3333;
+      width: 100%;
+      max-width: 280px;
+      animation: typing 5s steps(30, end), blink 0.75s step-end infinite;
+    }
+
+    @keyframes typing {
+      from { width: 0; }
+      to { width: 100%; }
+    }
+
+    @keyframes blink {
+      50% { border-color: transparent; }
+    }
+
+    /* Audio toggle button styling */
+    #audio-toggle {
+      position: fixed;
+      bottom: 60px;
+      right: 8px;
+      width: 24px;
+      height: 24px;
+      background: linear-gradient(45deg, var(--main-red), var(--accent-red));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      cursor: pointer;
+      z-index: 100;
+      box-shadow: 0 2px 6px rgba(255,0,0,0.23);
+      transition: all 0.15s ease;
+      border: none;
+      font-size: 0.85rem;
+      outline: none;
+    }
+
+    #audio-toggle:focus {
+      outline: var(--focus-outline);
+      box-shadow: var(--focus-shadow);
+    }
+
+    #audio-toggle:hover, #audio-toggle:focus-visible {
+      transform: scale(1.07) rotate(360deg);
+      box-shadow: 0 4px 12px rgba(255,0,0,0.28);
+    }
+
+    /* Firefly Container Styles */
+    .firefly-mini-container {
+      position: relative;
+      width: 80vmin;
+      height: 80vmin;
+      font-family: 'Playfair Display', serif;
+    }
+
+    .jar {
+      position: absolute;
+      width: 60vmin;
+      height: 60vmin;
+      background: var(--lightgrey);
+      border-bottom-left-radius: 10vmin;
+      border-bottom-right-radius: 10vmin;
+      top: 30vmin;
+      left: 10vmin;
+    }
+
+    .jartop {
+      position: absolute;
+      width: 48vmin;
+      height: 20vmin;
+      background: var(--lightgrey);
+      top: -21vmin;
+      left: 6vmin;
+      z-index: 1;
+    }
+
+    .jarlid {
+      position: absolute;
+      width: 55vmin;
+      height: 6vmin;
+      background: var(--lightestgrey);
+      border-radius: 10vmin;
+      top: -28vmin;
+      left: 2.3vmin;
+      transform-origin: 100% 100%;
+    }
+
+    .wording {
+      position: absolute;
+      left: 2vmin;
+      font-size: 10vmin;
+      color: #ff0000;
+      user-select: none;
+    }
+
+    .help {
+      transform: rotate(-20deg);
+      opacity: 1;
+      transition: opacity 2s;
+      transition-delay: 1s;
+    }
+
+    .thanks {
+      transform: rotate(0deg);
+      opacity: 0;
+      left: 0vmin;
+      top: 10vmin;
+    }
+
+    .firefly {
+      position: absolute;
+      width: 0vmin;
+      height: 0vmin;
+      left: 10vmin;
+      top: +10vmin;
+      z-index: 1;
+    }
+
+    .body {
+      position: absolute;
+      width: 12vmin;
+      height: 10vmin;
+      background: var(--red);
+      left: 14vmin;
+      top: 15vmin;
+      z-index: 1;
+    }
+
+    .bodybottom {
+      position: absolute;
+      width: 12vmin;
+      height: 12vmin;
+      background: var(--yellow);
+      top: 9vmin;
+      border-radius: 0 0 10vmin 10vmin;
+      z-index: -1;
+    }
+
+    .wing {
+      position: absolute;
+      background: var(--nearlyblack);
+      border-radius: 50%;
+      width: 25vmin;
+      height: 9.5vmin;
+      top: 7vmin;
+      transform-origin: 100% 50%;
+      z-index: 3;
+    }
+
+    .wing-left {
+      left: -5vmin;
+      transform: rotate(-45deg);
+    }
+
+    .wing-right {
+      left: 20vmin;
+      transform: rotate(45deg);
+      transform-origin: 0% 50%;
+    }
+
+    .head {
+      position: absolute;
+      width: 8vmin;
+      height: 8vmin;
+      border-radius: 50%;
+      background: var(--nearlyblack);
+      left: 16vmin;
+      top: 4vmin;
+      z-index: 2;
+    }
+
+    .head::before, .head::after {
+      content: "";
+      position: absolute;
+      width: 6vmin;
+      height: 6vmin;
+      border: 0.6vmin solid;
+      border-radius: 50%;
+      border-color: var(--nearlyblack) transparent transparent transparent;
+      top: -2vmin;
+    }
+
+    .head::before {
+      left: 5vmin;
+      transform: rotate(-30deg);
+    }
+
+    .head::after {
+      left: -4vmin;
+      transform: rotate(30deg);
+    }
+
+    .jar:hover .bodybottom {
+      box-shadow: inset 0vmin 18vmin 0vmin var(--lightyellow), 0px 0px 40vmin 20vmin var(--yellow);
+    }
+
+    .jar:hover .wing {
+      background: var(--grey);
+    }
+
+    .jar:hover .wing-left {
+      animation: flap-left 0.2s 2.4s 20 linear;
+    }
+
+    .jar:hover .wing-right {
+      animation: flap-right 0.2s 2.4s 20 linear;
+    }
+
+    .jar:hover .head {
+      background: var(--grey);
+    }
+
+    .jar:hover .head::before,
+    .jar:hover .head::after {
+      border-color: var(--grey) transparent transparent transparent;
+    }
+
+    .jar:hover {
+      animation: shake 1s 3 linear;
+    }
+
+    .jar:hover .firefly {
+      animation: fly 1s 3s linear forwards;
+    }
+
+    .jar:hover .jarlid {
+      animation: lid-rise 5s 2s linear;
+    }
+
+    .jar:hover .help {
+      opacity: 0;
+    }
+
+    .jar:hover .thanks {
+      animation: fade-in 5s 1s normal forwards;
+    }
+
+    @keyframes flap-left {
+      0% { transform: rotate(-75deg); }
+      50% { transform: rotate(-15deg); }
+    }
+
+    @keyframes flap-right {
+      0% { transform: rotate(75deg); }
+      50% { transform: rotate(15deg); }
+    }
+
+    @keyframes shake {
+      0%, 100% { transform: translate(1px, 1px) rotate(0deg); }
+      10% { transform: translate(-1px, -2px) rotate(-1deg); }
+      20% { transform: translate(-3px, 0px) rotate(1deg); }
+      30% { transform: translate(3px, 2px) rotate(0deg); }
+      40% { transform: translate(1px, -1px) rotate(1deg); }
+      50% { transform: translate(-1px, 2px) rotate(-1deg); }
+      60% { transform: translate(-3px, 1px) rotate(0deg); }
+      70% { transform: translate(3px, 1px) rotate(-1deg); }
+      80% { transform: translate(-1px, -1px) rotate(1deg); }
+      90% { transform: translate(1px, 2px) rotate(0deg); }
+    }
+
+    @keyframes lid-rise {
+      0% { transform: rotate(0deg); }
+      20% { transform: rotate(90deg); }
+      100% { transform: rotate(90deg); }
+    }
+
+    @keyframes fly {
+      0% { transform: translateY(-5vmin); }
+      100% { transform: translateY(-150vmin); }
+    }
+
+    @keyframes fade-in {
+      0%, 66% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+
+    @keyframes ripple {
+      to {
+        transform: scale(3.2);
+        opacity: 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="holo-grid"></div>
+  <canvas id="matrix-canvas"></canvas>
+  <div class="floating-elements" aria-hidden="true">
+    <i class="floating-icon fas fa-code"></i>
+    <i class="floating-icon fas fa-palette"></i>
+    <i class="floating-icon fas fa-rocket"></i>
+    <i class="floating-icon fas fa-star"></i>
+    <i class="floating-icon fas fa-heart"></i>
+    <i class="floating-icon fas fa-lightbulb"></i>
+    <i class="floating-icon fas fa-magic"></i>
+    <i class="floating-icon fas fa-music"></i>
+    <i class="floating-icon fas fa-gamepad"></i>
+    <i class="floating-icon fas fa-glasses"></i>
+    <i class="floating-icon fas fa-calculator"></i>
+    <i class="floating-icon fas fa-equals"></i>
+    <i class="floating-icon fas fa-divide"></i>
+    <i class="floating-icon fas fa-square-root-alt"></i>
+    <i class="floating-icon fas fa-plus"></i>
+    <i class="floating-icon fas fa-minus"></i>
+  </div>
+  
+  <main class="container" tabindex="-1">
+    <div class="card-container">
+      <div class="card-flip-container">
+        <div class="card-flip" id="card-flip">
+          <section class="business-card card-face front" id="card" aria-label="RJ Sarkar Visual Designer Card" tabindex="0">
+            <div class="calculator-screen" aria-label="Calculator Display">
+              <div class="glass-shine"></div>
+              <h1 class="neon-text">Rj Sarkar</h1>
+              <p class="subtitle">Visual Designer</p>
+              <div class="year-animate" aria-hidden="false">
+                <span class="year-digit">2</span>
+                <span class="year-digit">0</span>
+                <span class="year-digit">2</span>
+                <span class="year-digit">5</span>
+              </div>
+              <div class="screen-headline-bar">
+                <div class="screen-scroll-container">
+                  <div class="screen-scroll-text" id="headline-english">
+                    <span class="scrolling-text-inner"></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <nav class="contact-grid" aria-label="Contact methods">
+              <a href="https://wa.me/919009001551" class="contact-btn" target="_blank" rel="noopener" aria-label="WhatsApp. Chat on WhatsApp">
+                <i class="fab fa-whatsapp" aria-hidden="true"></i>
+                <span>WhatsApp</span>
+              </a>
+              <a href="mailto:ranjansarkar83@gmail.com" class="contact-btn" aria-label="Email. Send an email">
+                <i class="fas fa-envelope" aria-hidden="true"></i>
+                <span>Gmail</span>
+              </a>
+              <a href="https://www.instagram.com/artvision_p.design/" class="contact-btn" target="_blank" rel="noopener" aria-label="Instagram. View Instagram profile">
+                <i class="fab fa-instagram" aria-hidden="true"></i>
+                <span>Instagram</span>
+              </a>
+              <a href="https://sites.google.com/view/rjsarkar" class="contact-btn" target="_blank" rel="noopener" aria-label="Website. Visit my website">
+                <i class="fas fa-globe" aria-hidden="true"></i>
+                <span>Website</span>
+              </a>
+              <a href="https://maps.app.goo.gl/oxMcf8cr7QyxJL7s5" class="contact-btn" target="_blank" rel="noopener" aria-label="Location. See my location on map">
+                <i class="fas fa-map-marker-alt" aria-hidden="true"></i>
+                <span>Location</span>
+              </a>
+              <a href="tel:+919009001551" class="contact-btn" aria-label="Call. Make a phone call">
+                <i class="fas fa-phone" aria-hidden="true"></i>
+                <span>Call Now</span>
+              </a>
+              <button class="offer-btn" id="saveContactBtn" aria-label="Save Contact to Google Contacts">
+                <i class="fas fa-address-book"></i>
+                <span>Save Contact</span>
+              </button>
+              <a href="https://sites.google.com/view/rjsarkar/the-offer" class="offer-btn" target="_blank" rel="noopener" aria-label="Special Offer. View my special offer">
+                <i class="fas fa-gift" aria-hidden="true"></i>
+                <span>Special Offer</span>
+              </a>
+            </nav>
+          </section>
+        
+          <section class="business-card card-face back">
+            <div class="firefly-mini-container" style="transform: scale(0.32); margin-top: -60px;">
+              <div class="container">
+                <div class="jar">
+                  <div class="wording help">Help!</div>
+                  <div class="wording thanks">🪬 Thanks 🪬 🫂 Dear 🩵</div>
+                  <div class="jartop"></div>
+                  <div class="jarlid"></div>
+                  <div class="firefly">
+                    <div class="body">
+                      <div class="bodybottom"></div>
+                    </div>
+                    <div class="wing wing-left"></div>
+                    <div class="wing wing-right"></div>
+                    <div class="head"></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div class="typing-box typing-animate">
+              " 🧿 Your ViSi🧿N, Our Creation"
+            </div>
+          </section>
+        </div>
+      </div>
+    </div>
+  </main>
+  
+  <button class="share-fab" id="shareFab" aria-label="Share this card">
+    <i class="fas fa-share-alt" aria-hidden="true"></i>
+  </button>
+
+  <!-- Music Button -->
+  <button id="audio-toggle">🔇</button>
+
+  <!-- SoundCloud Player -->
+  <iframe
+    id="soundcloud-iframe"
+    width="0"
+    height="0"
+    scrolling="no"
+    frameborder="no"
+    allow="autoplay"
+    src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/rj-sarkar/navras-drum-and-bass-remix&color=%23ff5500&auto_play=false&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false&visual=false&loop=true">
+  </iframe>
+
+  <script>
+    // Quantum cursor effect
+    const cursorEl = document.createElement('div');
+    cursorEl.className = 'quantum-cursor';
+    cursorEl.id = 'cursor';
+    document.body.appendChild(cursorEl);
+    document.addEventListener('mousemove', (e) => {
+      cursorEl.style.left = e.clientX + 'px';
+      cursorEl.style.top = e.clientY + 'px';
+    });
+
+    // Matrix Rain Animation with Hindi/English and small light stars
+    function matrixRain() {
+      let frameCount = 0;
+      const canvas = document.getElementById("matrix-canvas");
+      const ctx = canvas.getContext("2d");
+
+      function resizeCanvas() {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
+      resizeCanvas();
+      window.addEventListener("resize", resizeCanvas);
+
+      const chars = "रंजन सरकार DESIGN विज़ुअल ART ABC abc 123";
+      const fontSize = 18;
+      let columns = Math.floor(window.innerWidth / fontSize);
+      let drops = Array(columns).fill(1);
+      let stars = [];
+
+      function createStar() {
+        if (Math.random() > 0.985) {
+          stars.push({
+            x: Math.random() * canvas.width,
+            y: canvas.height + 10,
+            size: Math.random() * 2 + 1,
+            speed: Math.random() * 1.5 + 0.5,
+            opacity: Math.random() * 0.8 + 0.2,
+            twinkle: Math.random() * Math.PI * 2
+          });
+        }
+      }
+
+      function drawStars() {
+        for (let i = stars.length - 1; i >= 0; i--) {
+          const s = stars[i];
+          s.y -= s.speed * 0.6;
+          s.twinkle += 0.05;
+          if (s.y < -20) stars.splice(i, 1);
+          const glow = ctx.createRadialGradient(s.x, s.y, 0, s.x, s.y, s.size * 3);
+          glow.addColorStop(0, "#fff");
+          glow.addColorStop(0.3, "#fcc");
+          glow.addColorStop(1, "rgba(255,0,0,0)");
+          ctx.globalAlpha = s.opacity * (Math.sin(s.twinkle * 2) * 0.4 + 0.6);
+          ctx.fillStyle = glow;
+          ctx.beginPath();
+          ctx.arc(s.x, s.y, s.size * 3, 0, Math.PI * 2);
+          ctx.fill();
+          ctx.fillStyle = "#fff";
+          ctx.beginPath();
+          ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
+          ctx.fill();
+        }
+      }
+
+      function draw() {
+        frameCount++;
+        if (frameCount % 2 !== 0) {
+          requestAnimationFrame(draw);
+          return;
+        }
+
+        ctx.fillStyle = "rgba(0, 0, 0, 0.15)";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.font = fontSize + "px monospace";
+
+        for (let i = 0; i < drops.length; i++) {
+          const text = chars.charAt(Math.floor(Math.random() * chars.length));
+          const x = i * fontSize;
+          const y = drops[i] * fontSize;
+
+          ctx.fillStyle = Math.random() > 0.975 ? "#fb0" : "#ff4444";
+          ctx.shadowColor = "#ff0000";
+          ctx.shadowBlur = 3;
+          ctx.fillText(text, x, y);
+
+          if (y > canvas.height && Math.random() > 0.965) drops[i] = 0;
+          drops[i] += 0.5;
+        }
+
+        createStar();
+        drawStars();
+        requestAnimationFrame(draw);
+      }
+
+      draw();
+    }
+
+    // Headline auto-scrolling seamless loop
+    (function(){
+      const headline = "..........................................................🏁 🚀 Ranjan Sarkar Client-Focused specialize in converting ideas into Powerful Visual Experiences across both Digital & Physical formats | 🔥 Branding 🎨 | 🔥 Print 📰 | 🔥 Poster Art 🖼️ | 🔥 Packaging 📦 | 🔥 CNC 🎯 | 🔥 Digital Assets 💻 | 🔥 Animation 🎬 | 🔥 Social Media 📱 | 🔥 Ads 📢 | 🔥 Graphic Design 💡 | 🔥 Vector Illustration ✨";
+      const scrollContainer = document.querySelector('.screen-scroll-text .scrolling-text-inner');
+      // Repeat the text twice for seamless loop
+      scrollContainer.textContent = headline + "   " + headline;
+      // Animation parameters
+      let pos = 0;
+      let requestId;
+      let speed = 1; // px per frame (slower is smoother)
+      function step() {
+        pos -= speed;
+        const textWidth = scrollContainer.offsetWidth / 2;
+        if (-pos >= textWidth) {
+          pos = 0;
+        }
+        scrollContainer.style.transform = `translateX(${pos}px)`;
+        requestId = requestAnimationFrame(step);
+      }
+      // Wait for font to load for correct width
+      window.addEventListener('load', ()=> {
+        pos = 0;
+        scrollContainer.style.willChange = "transform";
+        step();
+      });
+    })();
+
+    // Fixed Music Toggle Functionality
+    let isMuted = true;
+    const toggle = document.getElementById("audio-toggle");
+    const iframe = document.getElementById("soundcloud-iframe");
+    
+    toggle.addEventListener("click", () => {
+      isMuted = !isMuted;
+      if (isMuted) {
+        // Hide iframe and stop music
+        iframe.style.display = 'none';
+        iframe.src = "about:blank";
+        toggle.innerHTML = "🔇";
+      } else {
+        // Show iframe and start music
+        iframe.style.display = 'block';
+        iframe.src = "https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/rj-sarkar/navras-drum-and-bass-remix&color=%23ff5500&auto_play=true&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false&visual=false&loop=true";
+        toggle.innerHTML = "🔊";
+      }
+    });
+
+    // Auto unmute after 3 seconds
+    setTimeout(() => {
+      if (isMuted) {
+        isMuted = false;
+        iframe.style.display = 'block';
+        iframe.src = "https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/rj-sarkar/navras-drum-and-bass-remix&color=%23ff5500&auto_play=true&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false&visual=false&loop=true";
+        toggle.innerHTML = "🔊";
+      }
+    }, 3000);
+
+    // Share functionality
+    document.getElementById('shareFab').addEventListener('click', async () => {
+      try {
+        if (navigator.share && navigator.canShare && navigator.canShare({
+          title: 'RJ Sarkar - Visual Designer 2025',
+          text: 'Check out this amazing digital portfolio card!',
+          url: window.location.href
+        })) {
+          await navigator.share({
+            title: 'RJ Sarkar - Visual Designer 2025',
+            text: 'Check out this amazing digital portfolio card!',
+            url: window.location.href
+          });
+        } else {
+          await navigator.clipboard.writeText(window.location.href);
+          showToast('Link copied to clipboard! 🚀');
+        }
+      } catch (err) {
+        try {
+          await navigator.clipboard.writeText(window.location.href);
+          showToast('Link copied to clipboard! 📋');
+        } catch (clipErr) {
+          showToast('Share feature not available 😔');
+        }
+      }
+    });
+
+    // Save Contact Functionality
+    document.getElementById('saveContactBtn').addEventListener('click', function() {
+      const vcf =
+`BEGIN:VCARD
+VERSION:3.0
+FN:RJ Sarkar
+N:Sarkar;Ranjan;;;
+ORG:ArtViSiON
+TEL;TYPE=CELL:+91 9009001551
+EMAIL:ranjansarkar83@gmail.com
+END:VCARD`;
+      const blob = new Blob([vcf], {type: 'text/vcard'});
+      const url = URL.createObjectURL(blob);
+
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = "RJ_Sarkar.vcf";
+      document.body.appendChild(a);
+      a.click();
+      setTimeout(() => {
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+      }, 600);
+
+      showToast("Contact saved! Tap RJ_Sarkar.vcf to add to your contacts.");
+    });
+
+    function showToast(message) {
+      const toast = document.createElement('div');
+      toast.className = 'toast';
+      toast.textContent = message;
+      document.body.appendChild(toast);
+
+      setTimeout(() => {
+        toast.style.opacity = '0';
+        setTimeout(() => {
+          toast.remove();
+        }, 500);
+      }, 1800);
+    }
+
+    // Button ripple effect for all
+    document.querySelectorAll('.contact-btn, .offer-btn').forEach(btn => {
+      btn.addEventListener('click', (e) => {
+        const ripple = document.createElement('div');
+        ripple.style.position = 'absolute';
+        ripple.style.borderRadius = '50%';
+        ripple.style.background = 'rgba(255,255,255,0.33)';
+        ripple.style.transform = 'scale(0)';
+        ripple.style.animation = 'ripple 10s linear';
+        const rect = btn.getBoundingClientRect();
+        let x = e.type.startsWith('touch')
+          ? rect.width / 2
+          : e.clientX - rect.left;
+        let y = e.type.startsWith('touch')
+          ? rect.height / 2
+          : e.clientY - rect.top;
+        ripple.style.left = `${x}px`;
+        ripple.style.top = `${y}px`;
+        ripple.style.width = ripple.style.height = Math.max(rect.width, rect.height) + 'px';
+        ripple.style.pointerEvents = 'none';
+        ripple.style.zIndex = 10;
+        btn.appendChild(ripple);
+        setTimeout(() => ripple.remove(), 500);
+      });
+      btn.addEventListener('keydown', e => {
+        if (e.key === "Enter" || e.key === " ") {
+          const ripple = document.createElement('div');
+          ripple.style.position = 'absolute';
+          ripple.style.borderRadius = '50%';
+          ripple.style.background = 'rgba(255,255,255,0.33)';
+          ripple.style.transform = 'scale(0)';
+          ripple.style.animation = 'ripple 10s linear';
+          ripple.style.left = `${btn.offsetWidth/2}px`;
+          ripple.style.top = `${btn.offsetHeight/2}px`;
+          ripple.style.width = ripple.style.height = Math.max(btn.offsetWidth, btn.offsetHeight) + 'px';
+          ripple.style.pointerEvents = 'none';
+          ripple.style.zIndex = 10;
+          btn.appendChild(ripple);
+          setTimeout(() => ripple.remove(), 500);
+        }
+      });
+    });
+
+    // Card flip functionality
+    const flipContainer = document.querySelector('.card-flip');
+    flipContainer.addEventListener('click', () => {
+      flipContainer.classList.toggle('flipped');
+    });
+
+    // Start matrix rain animation
+    setTimeout(matrixRain, 50);
+
+    // Prevent zoom on double tap (mobile)
+    let lastTouchEnd = 0;
+    document.addEventListener('touchend', function (event) {
+      const now = (new Date()).getTime();
+      if (now - lastTouchEnd <= 400) {
+        event.preventDefault();
+      }
+      lastTouchEnd = now;
+    }, false);
+  </script>
+</body>
+</html>
