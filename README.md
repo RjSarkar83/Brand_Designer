@@ -2,7 +2,7 @@
 
 > **Art + Vision + Production.** Designing systems that look powerful and work everywhere.
 >
-> **हिंदी टैगलाइन:** *“कला + दृष्टि + निर्माण — विचारों को वास्तविक दुनिया में प्रभावशाली रूप देना।”*
+> *“आपकी दृष्टि, हमारी रचना...”*
 
 ---
 
