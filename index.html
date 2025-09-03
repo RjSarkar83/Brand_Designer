@@ -1102,12 +1102,12 @@
     document.getElementById('shareFab').addEventListener('click', async () => {
       try {
         if (navigator.share && navigator.canShare && navigator.canShare({
-          title: 'RJ Sarkar - Visual Designer 2025',
+          title: 'RJ Sarkar - Visual/Brand Designer 2025',
           text: 'Check out this amazing digital portfolio card!',
           url: window.location.href
         })) {
           await navigator.share({
-            title: 'RJ Sarkar - Visual Designer 2025',
+            title: 'RJ Sarkar - Visual/Brand Designer 2025',
             text: 'Check out this amazing digital portfolio card!',
             url: window.location.href
           });
