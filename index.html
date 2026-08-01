@@ -30,6 +30,8 @@
       --nearlyblack: #a80b00;
       --lightyellow: #fff;
       --grey: #ff0000;
+      --card-w: clamp(272px, 88vw, 340px);
+      --card-ratio: 2 / 3;
     }
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html, body {
@@ -47,7 +49,7 @@
       min-height: 100vh;
       background: linear-gradient(135deg, #0e0909 0%, #211919 33%, #2b0e13 66%, #ff0000 100%);
       background-size: 200% 200%;
-      animation: bggradientmove 3s ease-in-out infinite alternate;
+      animation: bggradientmove 6s ease-in-out infinite alternate;
     }
     @keyframes bggradientmove {
       0% { background-position: 0% 50%; }
@@ -62,7 +64,7 @@
         repeating-linear-gradient(0deg, rgba(255,0,0,0.14) 0 2px, transparent 2px 50px),
         repeating-linear-gradient(90deg, rgba(255,0,0,0.12) 0 2px, transparent 2px 50px);
       z-index: 2;
-      animation: gridPulse 3s ease-in-out infinite alternate;
+      animation: gridPulse 5s ease-in-out infinite alternate;
       opacity: 0.19;
       background-size: 50px 50px;
       will-change: opacity;
@@ -96,8 +98,9 @@
       box-sizing: border-box;
     }
     .card-container {
-      width: 320px;
-      height: 480px;
+      width: var(--card-w);
+      aspect-ratio: var(--card-ratio);
+      height: auto;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -107,8 +110,9 @@
     }
     .business-card {
       position: relative;
-      width: 320px;
-      height: 480px;
+      width: var(--card-w);
+      aspect-ratio: var(--card-ratio);
+      height: auto;
       border-radius: 15px;
       background: linear-gradient(135deg, rgba(26,10,10,0.5) 0%, rgba(15,15,15,0.5) 50%, rgba(26,10,10,0.5) 100%);
       background-clip: padding-box;
@@ -157,7 +161,7 @@
       z-index: 2;
       background: linear-gradient(120deg, rgba(255,0,0,0.35) 0%, rgba(255,0,0,0.15) 20%, rgba(255,0,0,0.12) 50%, rgba(255,0,0,0.25) 70%);
       transform: rotate(-13deg);
-      animation: shineMove 3s linear infinite;
+      animation: shineMove 4.5s linear infinite;
       border-radius: 15px;
       opacity: 0.7;
       filter: blur(5px);
@@ -173,23 +177,23 @@
     .neon-text {
       font-family: 'playfair+display', serif;
       font-weight: 700;
-      font-size: 2.3rem;
+      font-size: clamp(1.6rem, 6.5vw, 2.15rem);
       color: #fff;
-      letter-spacing: 2px;
+      letter-spacing: 1.5px;
       margin-bottom: 0.17rem;
       word-break: break-word;
-      line-height: 1.1;
+      line-height: 1.15;
       text-shadow:
-        0 0 9px var(--main-red),
-        0 0 18px var(--accent-red),
-        0 0 10px var(--main-red);
+        0 0 7px var(--main-red),
+        0 0 14px var(--accent-red),
+        0 0 8px var(--main-red);
       transition: color 0.2s;
       z-index: 3;
       position: relative;
     }
     .subtitle {
       font-family: 'Montserrat', Arial, sans-serif;
-      font-size: 1.02rem;
+      font-size: clamp(0.85rem, 3.4vw, 1rem);
       color: var(--accent-red);
       opacity: 0.92;
       text-transform: uppercase;
@@ -212,9 +216,9 @@
     .year-digit {
       font-family: 'Montserrat', Arial, sans-serif;
       font-weight: 400;
-      font-size: 1.11rem;
+      font-size: clamp(0.95rem, 3.4vw, 1.08rem);
       color: #fff;
-      animation: funny-bounce 3s infinite alternate cubic-bezier(.44,1.36,.89,.62);
+      animation: funny-bounce 4s infinite alternate cubic-bezier(.44,1.36,.89,.62);
       text-shadow: none;
       margin: 0 1px;
       letter-spacing: 1px;
@@ -260,9 +264,9 @@
     .screen-scroll-text {
       display: flex;
       align-items: center;
-      font-size: 0.97rem;
+      font-size: clamp(0.82rem, 2.8vw, 0.95rem);
       font-weight: 300;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.04em;
       line-height: 24px;
       height: 24px;
       color: #fff;
@@ -279,7 +283,7 @@
     .contact-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      grid-gap: 18px 18px;
+      grid-gap: clamp(10px, 3.2vw, 18px) clamp(10px, 3.2vw, 18px);
       width: 92%;
       margin: 0 auto 0.17rem auto;
       z-index: 2;
@@ -288,7 +292,7 @@
     .contact-btn, .offer-btn {
       min-width: 0;
       width: 100%;
-      padding: 0.98rem 0.14rem 0.98rem 0.14rem;
+      padding: clamp(0.72rem, 2.6vw, 0.98rem) 0.14rem;
       border-radius: 50px;
       border: none;
       background: linear-gradient(100deg, var(--main-red) 80%, #ff3333 100%);
@@ -305,7 +309,7 @@
       position: relative;
       overflow: hidden;
       text-decoration: none;
-      min-height: 46px;
+      min-height: clamp(44px, 11.5vw, 48px);
       max-height: 60px;
       outline: none;
       text-align: center;
@@ -344,12 +348,12 @@
       color: #e0002b !important;
     }
     .contact-btn i, .offer-btn i {
-      font-size: 1.1rem;
+      font-size: clamp(0.95rem, 3.2vw, 1.1rem);
       color: #fff;
       min-width: 1.1rem;
     }
     .contact-btn span, .offer-btn span {
-      font-size: 0.80rem;
+      font-size: clamp(0.7rem, 2.4vw, 0.8rem);
       line-height: .5;
       z-index: 2;
       color: inherit;
@@ -416,14 +420,14 @@
       white-space: nowrap;
       font-family: 'Montserrat', Arial, sans-serif;
       font-weight: 500;
-      font-size: 0.7rem;
+      font-size: clamp(0.6rem, 2vw, 0.7rem);
       letter-spacing: 0.03em;
       color: #ffc9c9;
       background: rgba(255, 0, 0, 0.07);
-      border: 1px solid rgba(255, 51, 51, 0.28);
+      border: 1px solid rgba(255, 51, 51, 0.25);
       padding: 6px 14px;
       border-radius: 20px;
-      text-shadow: 0 0 6px rgba(255, 0, 0, 0.45);
+      text-shadow: 0 0 5px rgba(255, 0, 0, 0.4);
       backdrop-filter: blur(2px);
       opacity: 0;
       animation-name: chipFloat;
@@ -435,7 +439,7 @@
       white-space: normal;
       max-width: 190px;
       text-align: center;
-      font-size: 0.63rem;
+      font-size: clamp(0.56rem, 1.9vw, 0.63rem);
       line-height: 1.35;
       padding: 8px 12px;
     }
@@ -508,14 +512,11 @@
       box-shadow: 0 2px 8px rgba(255,0,0,0.13);
       font-size: 0.67rem;
     }
-    @media (max-width: 370px) {
-      .card-container, .business-card { width: 98vw !important; }
-      .calculator-screen { width: 92vw !important;}
-    }
     .card-flip-container {
       perspective: 1200px;
-      width: 320px;
-      height: 480px;
+      width: var(--card-w);
+      aspect-ratio: var(--card-ratio);
+      height: auto;
       position: relative;
     }
     .card-flip {
@@ -545,7 +546,7 @@
     }
     .typing-box {
       font-family: 'Montserrat', sans-serif;
-      font-size: 1rem;
+      font-size: clamp(0.85rem, 3.2vw, 1rem);
       color: #fff;
       text-shadow: 0 0 6px #ff0000, 0 0 10px #ff3333;
       overflow: hidden;
@@ -853,7 +854,7 @@
       }
       function draw() {
         frameCount++;
-        if (frameCount % 2 !== 0) { requestAnimationFrame(draw); return; }
+        if (frameCount % 3 !== 0) { requestAnimationFrame(draw); return; }
         ctx.fillStyle = "rgba(0, 0, 0, 0.15)";
         ctx.fillRect(0, 0, canvas.width, canvas.height);
         ctx.font = fontSize + "px monospace";
@@ -864,7 +865,7 @@
           ctx.shadowBlur = 3;
           ctx.fillText(text, i * fontSize, drops[i] * fontSize);
           if (drops[i] * fontSize > canvas.height && Math.random() > 0.965) drops[i] = 0;
-          drops[i] += 0.5;
+          drops[i] += 0.35;
         }
         createStar();
         drawStars();
@@ -874,11 +875,11 @@
     }
 
     (function(){
-      const headline = ".....................🏁 🚀 🙏🏻 नमस्ते | Welcome 🤝 ∞ ArtViSiON: PRODUCTiōn̄ - DESiGN 🏛️  ➤ • Ar̄tWORKin̄ḡ - BRANDiNG | CREATiVE - DESiGNiNG • ➤ From Concept Research to Crafted Manufacturing Design. BRANDin̄ḡ & PRODUCTiōn̄ solution by Ranjan Sarkar";
+      const headline = ".....................................🏁 🚀 🙏🏻 नमस्ते | Welcome to 🤝 ∞ ArtViSiON: PRODUCTiōn̄ - DESiGN 🏛️  ➤ • Ar̄tWORKin̄ḡ • BRANDiNG • CREATiVE • DESiGNiNG • EXECUTiON • ➤ From Concept Research to Crafted Manufacturing Design. BRANDin̄ḡ & PRODUCTiōn̄ solution by Ranjan Sarkar";
       const scrollContainer = document.querySelector('.screen-scroll-text .scrolling-text-inner');
       scrollContainer.textContent = headline + "   " + headline;
       let pos = 0;
-      let speed = 2;
+      let speed = 1.3;
       function step() {
         pos -= speed;
         const textWidth = scrollContainer.offsetWidth / 2;
@@ -896,25 +897,10 @@
     /* ---------- Floating Services Background ---------- */
     (function(){
       const shortServices = [
-        "Brand Identity Design", "Retail Branding", "Environmental Graphic Design (EGD)",
-        "Signage Design", "Wayfinding Systems", "Visual Communication", "POSM Design",
-        "In-Store Branding", "Store Branding", "Retail Experience Design", "Exhibition Graphics",
-        "Large Format Printing", "Production Artwork", "Pre-Press Preparation", "Fabrication Drawings",
-        "Architectural Branding", "Façade Branding", "Brand Rollout", "Marketing Collateral",
-        "Campaign Adaptation", "Vendor Management", "Creative Execution", "Print Production",
-        "Artwork Adaptation", "Packaging Graphics", "Corporate Branding", "Outdoor Media",
-        "Display Design", "Visual Merchandising", "Project Coordination", "Stakeholder Management",
-        "Quality Control"
+        "Recce", "Site Survey", "Measurement", "Brand Strategy", "Brand Identity", "Logo Design", "Logo Redesign", "Rebranding", "Brand Refresh", "Corporate Identity", "Visual Identity", "Personal Branding", "Startup Branding", "Brand Guidelines", "Graphic Design", "Creative Design", "Art Direction", "Creative Direction", "Visual Communication", "Communication Design", "Advertising Design", "Campaign Design", "Print Design", "Publication Design", "Brochure Design", "Catalogue Design", "Flyer Design", "Poster Design", "Leaflet Design", "Pamphlet Design", "Company Profile Design", "Presentation Design", "Pitch Deck Design", "Infographic Design", "Annual Report Design", "Newsletter Design", "Marketing Collateral", "Sales Collateral", "Retail Branding", "Store Branding", "Showroom Branding", "Shop Branding", "Dealer Branding", "Channel Branding", "Retail Communication", "In-Store Branding", "Retail Graphics", "Visual Merchandising", "VM Design", "Product Display Design", "Window Display Design", "Display Unit Design", "Display Graphics", "POSM Design", "POP Design", "Standee Design", "Dangler Design", "Wobbler Design", "Shelf Branding", "Counter Branding", "Kiosk Branding", "Retail Asset Design", "Signage Design", "Facade Signage", "Glow Sign Design", "ACP Signage", "LED Signage", "Wayfinding Design", "Directional Signage", "Safety Signage", "Informational Signage", "Architectural Branding", "Environmental Graphics", "Building Branding", "Cladding Design", "Wall Graphics", "Glass Branding", "Office Branding", "Corporate Branding", "Hospital Branding", "School Branding", "College Branding", "Campus Branding", "Industrial Branding", "Production Design", "Production Artwork", "Artwork Adaptation", "Artwork Finalization", "Print Production", "Prepress Design", "Print Ready Files", "Large Format Artwork", "Offset Printing Artwork", "Digital Printing Artwork", "Fabrication Drawings", "Shop Drawings", "Technical Drawings", "Execution Drawings", "Installation Drawings", "2D Layouts", "Production Layouts", "CNC Files", "Laser Cutting Files", "Router Cutting Files", "DXF Files", "Machine Ready Files", "Vector Artwork", "Vector Tracing", "Vector Illustration", "Line Art", "Icon Design", "Pattern Design", "Packaging Design", "Label Design", "Box Design", "Packaging Artwork", "Product Packaging", "Mockup Design", "3D Mockups", "3D Visualization", "Concept Visualization", "Brand Visualization", "Retail Visualization", "Signage Visualization", "Showroom Visualization", "Adaptation Design", "Photo Manipulation", "Image Editing", "Background Removal", "Photo Retouching", "Color Correction", "Social Media Design", "Facebook Creatives", "Instagram Creatives", "LinkedIn Creatives", "Banner Design", "Web Graphics", "Website Assets", "Landing Page Graphics", "Digital Creatives", "Emailer Design", "Outdoor Advertising", "Billboard Design", "Hoarding Design", "Pole Kiosk Design", "Transit Branding", "Vehicle Branding", "Bus Branding", "Auto Branding", "Wall Painting Design", "Mural Graphics", "Exhibition Design", "Event Branding", "Stall Design", "Booth Graphics", "Trade Show Graphics", "Corporate Event Graphics", "Brand Rollout", "Brand Implementation", "Multi-Location Branding", "Vendor Coordination", "Printer Coordination", "Fabricator Coordination", "Installation Support", "Site Execution", "Quality Control", "Project Coordination", "Creative Consulting", "Brand Consulting", "Production Consulting", "Design Audit", "Brand Audit", "Communication Audit", "Marketing Design", "Trade Marketing", "BTL Design", "ATL Design", "Product Communication", "Corporate Communication", "Marketing Communication", "Store Launch Branding", "Retail Launch Campaigns", "Branch Branding", "Dealer Board Design", "Pylon Sign Design", "Totem Design", "Canopy Design", "Sunboard Design", "Acrylic Letter Design", "Metal Letter Design", "Neon Sign Design", "Frosted Film Graphics", "One Way Vision Graphics", "Vinyl Graphics", "Canvas Artwork", "Wall Art Design", "Spiritual Art Design", "Minimal Vector Art", "CNC Art Panels", "Laser Cut Patterns", "Decorative Panels", "Architectural Artworks"
       ];
       const longServices = [
-        "Production-ready artwork and print-ready file preparation.",
-        "CNC/Laser-ready cutting files and fabrication drawings.",
-        "2D layout development and production documentation.",
-        "Showroom branding and façade signage systems.",
-        "Display units and retail communication assets.",
-        "Visual merchandising and environmental graphics.",
-        "Architectural branding and cladding layouts.",
-        "Brand rollout and multi-location implementation programs."
+        "BRAND STRATEGY & IDENTITY.", "GRAPHIC DESIGN.", "ADVERTISING DESIGN.", "RETAIL BRANDING.", "VISUAL MERCHANDISING.", "SIGNAGE & WAYFINDING.", "ARCHITECTURAL BRANDING.", "PRODUCTION DESIGN.", "CNC & FABRICATION.", "PRINT & PREPRESS.", "PACKAGING DESIGN.", "VECTOR ARTWORK.", "DIGITAL DESIGN.", "VISUALIZATION.", "EXECUTION & PROJECT MANAGEMENT.", "INDUSTRY SPECIALIZATION."
       ];
 
       const bg = document.getElementById('servicesBg');
@@ -931,8 +917,8 @@
         chip.textContent = text;
 
         const leftPos = Math.random() * 78 + 4;      // 4vw - 82vw
-        const duration = 11 + Math.random() * 7;      // 11s - 18s
-        const drift = Math.round(Math.random() * 70 - 35) + 'px';
+        const duration = 14 + Math.random() * 8;      // 14s - 22s (calmer, slower drift)
+        const drift = Math.round(Math.random() * 60 - 30) + 'px';
 
         chip.style.left = leftPos + 'vw';
         chip.style.setProperty('--drift', drift);
@@ -942,9 +928,9 @@
         setTimeout(() => chip.remove(), duration * 1000 + 300);
       }
 
-      // gentle staggered start, then a steady drip of new chips
-      for (let i = 0; i < 4; i++) { setTimeout(spawnChip, i * 900); }
-      setInterval(spawnChip, 1500);
+      // gentle staggered start, then a steady, unhurried drip of new chips
+      for (let i = 0; i < 3; i++) { setTimeout(spawnChip, i * 1100); }
+      setInterval(spawnChip, 2200);
     })();
     /* ---------------------------------------------------- */
 
