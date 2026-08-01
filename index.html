@@ -400,6 +400,56 @@
       0%, 100% { transform: translateY(0) rotate(0deg); opacity: 0.13; }
       50% { transform: translateY(-18px) rotate(180deg); opacity: 0.05; }
     }
+
+    /* ---------- Services floating background ---------- */
+    .services-bg {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100vw; height: 100vh;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 3;
+    }
+    .service-chip {
+      position: absolute;
+      bottom: -60px;
+      white-space: nowrap;
+      font-family: 'Montserrat', Arial, sans-serif;
+      font-weight: 500;
+      font-size: 0.7rem;
+      letter-spacing: 0.03em;
+      color: #ffc9c9;
+      background: rgba(255, 0, 0, 0.07);
+      border: 1px solid rgba(255, 51, 51, 0.28);
+      padding: 6px 14px;
+      border-radius: 20px;
+      text-shadow: 0 0 6px rgba(255, 0, 0, 0.45);
+      backdrop-filter: blur(2px);
+      opacity: 0;
+      animation-name: chipFloat;
+      animation-timing-function: linear;
+      animation-fill-mode: forwards;
+      will-change: transform, opacity;
+    }
+    .service-chip.long {
+      white-space: normal;
+      max-width: 190px;
+      text-align: center;
+      font-size: 0.63rem;
+      line-height: 1.35;
+      padding: 8px 12px;
+    }
+    @keyframes chipFloat {
+      0%   { transform: translateY(0) translateX(0); opacity: 0; }
+      8%   { opacity: 0.8; }
+      88%  { opacity: 0.8; }
+      100% { transform: translateY(-130vh) translateX(var(--drift, 0px)); opacity: 0; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .service-chip { animation: none; opacity: 0; }
+    }
+    /* ---------------------------------------------------- */
+
     .share-fab {
       position: fixed;
       bottom: 32px;
@@ -647,7 +697,9 @@
     <i class="floating-icon fas fa-plus"></i>
     <i class="floating-icon fas fa-minus"></i>
   </div>
-  
+
+  <div class="services-bg" id="servicesBg" aria-hidden="true"></div>
+
   <main class="container" tabindex="-1">
     <div class="card-container">
       <div class="card-flip-container">
@@ -656,7 +708,7 @@
             <div class="calculator-screen" aria-label="Calculator Display">
               <div class="glass-shine"></div>
               <h1 class="neon-text">Rj Sarkar</h1>
-              <p class="subtitle">Designer</p>
+              <p class="subtitle">Brand Designer</p>
               <div class="year-animate" aria-hidden="false">
                 <span class="year-digit">2</span>
                 <span class="year-digit">0</span>
@@ -684,7 +736,7 @@
                 <i class="fab fa-instagram" aria-hidden="true"></i>
                 <span>Instagram</span>
               </a>
-              <a href="https://sites.google.com/view/rjsarkar" class="contact-btn" target="_blank" rel="noopener" aria-label="Website">
+              <a href="https://sites.google.com/view/rj-sarkar" class="contact-btn" target="_blank" rel="noopener" aria-label="Website">
                 <i class="fas fa-globe" aria-hidden="true"></i>
                 <span>Website</span>
               </a>
@@ -822,7 +874,7 @@
     }
 
     (function(){
-      const headline = ".....................🏁 🚀 🙏🏻 नमस्ते | Welcome 🤝 ∞ ArtViSiON: PRODUCTiōn̄ - DESiGN 🏛️  ➤ • Ar̄tWORKin̄ḡ - BRANDiNG | CREATiVE - DESiGNiNG • ➤ From Concept Research to Crafted Manufacturing Design. BRANDin̄ḡ & PRODUCTiōn̄ solution by Ranjan Sarkar";
+      const headline = ".....................🏁 🚀 🙏🏻 नमस्ते | Welcome 🤝 ∞ ArtViSiON: PRODUCTiōn̄ - DESiGN 🏛️  ➤ • Ar̄tWORKin̄ḡ - BRANDiNG | CREATiVE - DESiGNiNG • ➤ From Concept Research to Crafted Manufacturing Design. BRANDin̄ḡ & PRODUCTiōn̄ solution by Ranjan Sarkar";
       const scrollContainer = document.querySelector('.screen-scroll-text .scrolling-text-inner');
       scrollContainer.textContent = headline + "   " + headline;
       let pos = 0;
@@ -840,6 +892,61 @@
         step();
       });
     })();
+
+    /* ---------- Floating Services Background ---------- */
+    (function(){
+      const shortServices = [
+        "Brand Identity Design", "Retail Branding", "Environmental Graphic Design (EGD)",
+        "Signage Design", "Wayfinding Systems", "Visual Communication", "POSM Design",
+        "In-Store Branding", "Store Branding", "Retail Experience Design", "Exhibition Graphics",
+        "Large Format Printing", "Production Artwork", "Pre-Press Preparation", "Fabrication Drawings",
+        "Architectural Branding", "Façade Branding", "Brand Rollout", "Marketing Collateral",
+        "Campaign Adaptation", "Vendor Management", "Creative Execution", "Print Production",
+        "Artwork Adaptation", "Packaging Graphics", "Corporate Branding", "Outdoor Media",
+        "Display Design", "Visual Merchandising", "Project Coordination", "Stakeholder Management",
+        "Quality Control"
+      ];
+      const longServices = [
+        "Production-ready artwork and print-ready file preparation.",
+        "CNC/Laser-ready cutting files and fabrication drawings.",
+        "2D layout development and production documentation.",
+        "Showroom branding and façade signage systems.",
+        "Display units and retail communication assets.",
+        "Visual merchandising and environmental graphics.",
+        "Architectural branding and cladding layouts.",
+        "Brand rollout and multi-location implementation programs."
+      ];
+
+      const bg = document.getElementById('servicesBg');
+      const prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      if (!bg || prefersReducedMotion) return;
+
+      function spawnChip() {
+        const isLong = Math.random() < 0.22;
+        const pool = isLong ? longServices : shortServices;
+        const text = pool[Math.floor(Math.random() * pool.length)];
+
+        const chip = document.createElement('div');
+        chip.className = 'service-chip' + (isLong ? ' long' : '');
+        chip.textContent = text;
+
+        const leftPos = Math.random() * 78 + 4;      // 4vw - 82vw
+        const duration = 11 + Math.random() * 7;      // 11s - 18s
+        const drift = Math.round(Math.random() * 70 - 35) + 'px';
+
+        chip.style.left = leftPos + 'vw';
+        chip.style.setProperty('--drift', drift);
+        chip.style.animationDuration = duration + 's';
+
+        bg.appendChild(chip);
+        setTimeout(() => chip.remove(), duration * 1000 + 300);
+      }
+
+      // gentle staggered start, then a steady drip of new chips
+      for (let i = 0; i < 4; i++) { setTimeout(spawnChip, i * 900); }
+      setInterval(spawnChip, 1500);
+    })();
+    /* ---------------------------------------------------- */
 
     let isMuted = true;
     const toggle = document.getElementById("audio-toggle");
