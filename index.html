@@ -135,7 +135,7 @@
       margin: 0 auto;
       margin-top: 22px;
       margin-bottom: 14px;
-      background: linear-gradient(135deg, rgba(25,0,0,0.42) 0%, rgba(25,0,0,0.45) 50%, rgba(25,0,0,0.42) 100%);
+      background: linear-gradient(135deg, rgba(125,0,0,0.42) 0%, rgba(25,0,0,0.45) 50%, rgba(125,0,0,0.42) 100%);
       border-radius: 10px;
       display: flex;
       flex-direction: column;
@@ -143,7 +143,8 @@
       justify-content: flex-start;
       box-shadow: 
         0 4px 28px 0 rgba(0,0,0,0.55),
-        inset 0 1px 0 rgba(255,0,0,0.15),
+        inset 0 1px 0 rgba(255,255,255,0.22),
+        inset 0 -12px 20px -12px rgba(0,0,0,0.5),
         0 0 0 1px rgba(255,0,0,0.08);
       position: relative;
       padding: 1.1rem 1.1rem 0.7rem 1.1rem;
@@ -152,29 +153,55 @@
       -webkit-backdrop-filter: blur(5px) saturate(210%);
       border: 1.5px solid rgba(255,0,0,0.18);
     }
+    .glass-panel { position: relative; overflow: hidden; }
+    .glass-panel::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        180deg,
+        rgba(255,255,255,0.045) 0px,
+        rgba(255,255,255,0.045) 1px,
+        transparent 1px,
+        transparent 3px
+      );
+      mix-blend-mode: overlay;
+      pointer-events: none;
+      z-index: 4;
+    }
+    .screen-glare {
+      position: absolute;
+      top: -25%;
+      left: -85%;
+      width: 55%;
+      height: 150%;
+      background: linear-gradient(115deg, rgba(255,255,255,0.18) 0%, rgba(255,255,255,0.05) 45%, transparent 72%);
+      transform: rotate(-11deg);
+      pointer-events: none;
+      z-index: 3;
+    }
     .glass-shine {
       position: absolute;
-      top: -60%;
-      left: -60%;
-      width: 200%;
-      height: 120%;
+      top: 0;
+      left: -30%;
+      width: 52%;
+      height: 100%;
       pointer-events: none;
-      z-index: 2;
-      background: linear-gradient(120deg, rgba(255,0,0,0.35) 0%, rgba(255,0,0,0.15) 20%, rgba(255,0,0,0.12) 50%, rgba(255,0,0,0.25) 70%);
-      transform: rotate(-13deg);
-      -webkit-transform: rotate(-13deg);
-      animation: shineMove 4.5s linear infinite;
-      border-radius: 15px;
-      opacity: 0.7;
-      filter: blur(6px);
-      -webkit-filter: blur(6px);
-      mix-blend-mode: lighten;
-      transition: filter 0.2s, opacity 0.2s;
+      z-index: 5;
+      background: linear-gradient(120deg, transparent 0%, rgba(255,255,255,0.04) 30%, rgba(255,255,255,0.5) 50%, rgba(255,255,255,0.04) 70%, transparent 100%);
+      transform: skewX(-18deg);
+      -webkit-transform: skewX(-18deg);
+      animation: shineSweep 5s ease-in-out infinite;
+      opacity: 0.9;
+      filter: blur(2px);
+      -webkit-filter: blur(2px);
+      mix-blend-mode: overlay;
+      transition: opacity 0.2s;
     }
-    @keyframes shineMove {
-      0% { top: -60%; left: -60%; }
-      60% { top: 10%; left: 30%; opacity: 1; }
-      100% { top: 140%; left: 110%; opacity: 0.6; }
+    @keyframes shineSweep {
+      0% { left: -60%; }
+      28% { left: 130%; }
+      100% { left: 130%; }
     }
     .neon-text {
       font-family: 'Playfair Display', serif;
@@ -195,7 +222,7 @@
     }
     .subtitle {
       font-family: 'Montserrat', Arial, sans-serif;
-      font-size: clamp(0.85rem, 3.4vw, 1rem);
+      font-size: clamp(0.65rem, 1vw, 0.78rem);
       color: var(--accent-red);
       opacity: 0.92;
       text-transform: uppercase;
@@ -559,19 +586,54 @@
       padding: 30px;
       flex-direction: column;
     }
+    .signature-screen {
+      position: relative;
+      width: 88%;
+      max-width: 280px;
+      margin-top: 16px;
+      padding: 0.9rem 1rem;
+      border-radius: 10px;
+      background: linear-gradient(135deg, rgba(25,0,0,0.42) 0%, rgba(25,0,0,0.45) 50%, rgba(25,0,0,0.42) 100%);
+      border: 1.5px solid rgba(255,0,0,0.18);
+      box-shadow:
+        0 4px 28px 0 rgba(0,0,0,0.55),
+        inset 0 1px 0 rgba(255,255,255,0.2),
+        inset 0 -10px 18px -12px rgba(0,0,0,0.5),
+        0 0 0 1px rgba(255,0,0,0.08);
+      backdrop-filter: blur(5px) saturate(210%);
+      -webkit-backdrop-filter: blur(5px) saturate(210%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 44px;
+    }
     .typing-box {
       font-family: 'Montserrat', sans-serif;
-      font-size: clamp(0.85rem, 3.2vw, 1rem);
+      font-size: clamp(0.68rem, 2.4vw, 0.82rem);
       color: #fff;
-      text-shadow: 0 0 6px #ff0000, 0 0 10px #ff3333;
       overflow: hidden;
       white-space: nowrap;
       border-right: 2px solid #ff3333;
-      width: 100%;
-      max-width: 280px;
-      animation: typing 5s steps(30, end), blink 0.75s step-end infinite;
+      width: auto;
+      max-width: 100%;
+      position: relative;
+      z-index: 6;
+      animation: glowPulse 2.6s ease-in-out infinite, blink 0.75s step-end infinite;
     }
-    @keyframes typing { from { width: 0; } to { width: 100%; } }
+    @keyframes glowPulse {
+      0%, 100% { text-shadow: 0 0 5px #ff0000, 0 0 8px #ff3333; }
+      50% { text-shadow: 0 0 10px #ff2222, 0 0 18px #ff4444, 0 0 26px #ff0000; }
+    }
+    .blink-eye {
+      display: inline-block;
+      transform-origin: center;
+      animation: eyeBlink 4s ease-in-out infinite;
+    }
+    @keyframes eyeBlink {
+      0%, 88%, 100% { transform: scaleY(1); }
+      92% { transform: scaleY(0.12); }
+      96% { transform: scaleY(1); }
+    }
     @keyframes blink { 50% { border-color: transparent; } }
     #audio-toggle {
       -webkit-appearance: none;
@@ -668,17 +730,28 @@
     }
     .head::before { left: 5vmin; transform: rotate(-30deg); }
     .head::after { left: -4vmin; transform: rotate(30deg); }
-    .jar:hover .bodybottom { box-shadow: inset 0vmin 18vmin 0vmin var(--lightyellow), 0px 0px 40vmin 20vmin var(--yellow); }
-    .jar:hover .wing { background: var(--grey); }
-    .jar:hover .wing-left { animation: flap-left 0.2s 2.4s 20 linear; }
-    .jar:hover .wing-right { animation: flap-right 0.2s 2.4s 20 linear; }
-    .jar:hover .head { background: var(--grey); }
-    .jar:hover .head::before, .jar:hover .head::after { border-color: var(--grey) transparent transparent transparent; }
-    .jar:hover { animation: shake 1s 3 linear; }
-    .jar:hover .firefly { animation: fly 1s 3s linear forwards; }
-    .jar:hover .jarlid { animation: lid-rise 5s 2s linear; }
-    .jar:hover .help { opacity: 0; }
-    .jar:hover .thanks { animation: fade-in 5s 1s normal forwards; }
+    .jar:hover .bodybottom,
+    .card-flip.flipped .jar .bodybottom { box-shadow: inset 0vmin 18vmin 0vmin var(--lightyellow), 0px 0px 40vmin 20vmin var(--yellow); }
+    .jar:hover .wing,
+    .card-flip.flipped .jar .wing { background: var(--grey); }
+    .jar:hover .wing-left,
+    .card-flip.flipped .jar .wing-left { animation: flap-left 0.2s 1.2s 50 linear; }
+    .jar:hover .wing-right,
+    .card-flip.flipped .jar .wing-right { animation: flap-right 0.2s 1.2s 50 linear; }
+    .jar:hover .head,
+    .card-flip.flipped .jar .head { background: var(--grey); }
+    .jar:hover .head::before, .jar:hover .head::after,
+    .card-flip.flipped .jar .head::before, .card-flip.flipped .jar .head::after { border-color: var(--grey) transparent transparent transparent; }
+    .jar:hover,
+    .card-flip.flipped .jar { animation: shake 1s 3 linear; }
+    .jar:hover .firefly,
+    .card-flip.flipped .jar .firefly { animation: fly 1s 1.8s linear forwards; }
+    .jar:hover .jarlid,
+    .card-flip.flipped .jar .jarlid { animation: lid-rise 3.5s 1s linear; }
+    .jar:hover .help,
+    .card-flip.flipped .jar .help { opacity: 0; }
+    .jar:hover .thanks,
+    .card-flip.flipped .jar .thanks { animation: fade-in 3.5s 0.5s normal forwards; }
     @keyframes flap-left { 0% { transform: rotate(-75deg); } 50% { transform: rotate(-15deg); } }
     @keyframes flap-right { 0% { transform: rotate(75deg); } 50% { transform: rotate(15deg); } }
     @keyframes shake {
@@ -694,7 +767,7 @@
       90% { transform: translate(1px, 2px) rotate(0deg); }
     }
     @keyframes lid-rise { 0% { transform: rotate(0deg); } 20% { transform: rotate(90deg); } 100% { transform: rotate(90deg); } }
-    @keyframes fly { 0% { transform: translateY(-5vmin); } 100% { transform: translateY(-150vmin); } }
+    @keyframes fly { 0% { transform: translateY(-5vmin); } 100% { transform: translateY(-250vmin); } }
     @keyframes fade-in { 0%, 66% { opacity: 0; } 100% { opacity: 1; } }
     @keyframes ripple { to { transform: scale(3.2); opacity: 0; } }
   </style>
@@ -728,10 +801,11 @@
       <div class="card-flip-container">
         <div class="card-flip" id="card-flip">
           <section class="business-card card-face front" id="card" aria-label="RJ Sarkar Visual Designer Card" tabindex="0">
-            <div class="calculator-screen" aria-label="Calculator Display">
+            <div class="calculator-screen glass-panel" aria-label="Calculator Display">
               <div class="glass-shine"></div>
+              <div class="screen-glare"></div>
               <h1 class="neon-text">Rj Sarkar</h1>
-              <p class="subtitle">Brand Designer</p>
+              <p class="subtitle">Brand Production Designer</p>
               <div class="year-animate" aria-hidden="false">
                 <span class="year-digit">2</span>
                 <span class="year-digit">0</span>
@@ -783,7 +857,7 @@
           </section>
         
           <section class="business-card card-face back">
-            <div class="firefly-mini-container" style="transform: scale(0.32); margin-top: -60px;">
+            <div class="firefly-mini-container" style="transform: scale(0.22); margin-top: -95px;">
               <div class="firefly-inner">
                 <div class="jar">
                   <div class="wording help">Help!</div>
@@ -801,8 +875,10 @@
                 </div>
               </div>
             </div>
-            <div class="typing-box typing-animate">
-              " Your ViSi&#x1F9FF;N,   &#x1F9FF; ur Creation"...
+            <div class="signature-screen glass-panel">
+              <div class="glass-shine"></div>
+              <div class="screen-glare"></div>
+              <div class="typing-box typing-animate"></div>
             </div>
           </section>
         </div>
@@ -897,7 +973,7 @@
     }
 
     (function(){
-      const headline = ".....................................🏁 🚀 🙏🏻 नमस्ते | Welcome to 🤝 ∞ ArtViSiON: PRODUCTiōn̄ - DESiGN 🏛️  ➤ • Ar̄tWORKin̄ḡ • BRANDiNG • CREATiVE • DESiGNiNG • EXECUTiON • ➤ From Concept Research to Crafted Manufacturing Design. BRANDin̄ḡ & PRODUCTiōn̄ solution by Ranjan Sarkar";
+      const headline = ".....................................🏁 🚀 🙏🏻 नमस्ते | Welcome to 🤝 ∞ ArtViSiON: PRODUCTiōn̄ - DESiGN 🏛️  ➤ • Ar̄tWORKin̄ḡ • BRANDiNG • CREATiVE • DESiGNiNG • EXECUTiON • ➤ From Concept Research to Crafted Manufacturing Design. BRANDin̄ḡ Specialist & PRODUCTiōn̄ Solution by Ranjan Sarkar";
       const scrollContainer = document.querySelector('.screen-scroll-text .scrolling-text-inner');
       scrollContainer.textContent = headline + "   " + headline;
       let pos = 0;
@@ -1027,6 +1103,35 @@
         setTimeout(() => ripple.remove(), 500);
       });
     });
+
+    (function(){
+      const el = document.querySelector('.typing-box');
+      if (!el) return;
+      const text = '" Your ViSi\u{1F9FF}N,   \u{1F9FF} ur Creation"...';
+      const textWithBlinkingEyes = text.replace(/\u{1F9FF}/gu, '<span class="blink-eye">\u{1F9FF}</span>');
+      let i = 0, deleting = false;
+      function tick() {
+        if (!deleting) {
+          i++;
+          if (i >= text.length) {
+            el.innerHTML = textWithBlinkingEyes;
+            setTimeout(() => { deleting = true; tick(); }, 1900);
+            return;
+          }
+          el.textContent = text.slice(0, i);
+        } else {
+          i--;
+          el.textContent = text.slice(0, i);
+          if (i <= 0) {
+            deleting = false;
+            setTimeout(tick, 650);
+            return;
+          }
+        }
+        setTimeout(tick, deleting ? 40 : 80);
+      }
+      tick();
+    })();
 
     document.querySelector('.card-flip').addEventListener('click', () => {
       document.querySelector('.card-flip').classList.toggle('flipped');
