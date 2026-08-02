@@ -5,7 +5,7 @@
   <title>RJ Sarkar - Visual/Brand Designer 2026</title>
   <meta name="viewport" content="width=360, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
   <meta name="description" content="🏁 🚀 ♾️ ArtViSiON: PRODUCTiōn̄ DESiGN ✨"Your Vision, Our Creation"✨ 📢 ADVERTiSiNG | 🏷️ BRANDiNG | 🧠 CREATiVE | 🎨 DESiGNiNG | ✂️ EDiTiNG | 🔥 FUSiON | 🖼️ GRAPHiCS">
-  <link href="https://fonts.googleapis.com/css2?family=playfair+display:wght@700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
   <style>
     :root {
@@ -33,13 +33,14 @@
       --card-w: clamp(272px, 88vw, 340px);
       --card-ratio: 2 / 3;
     }
-    * { margin: 0; padding: 0; box-sizing: border-box; }
+    * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
     html, body {
       width: 100vw;
       min-height: 100vh;
       font-family: 'Montserrat', Arial, sans-serif;
       color: var(--white);
       overflow-x: hidden;
+      -webkit-text-size-adjust: 100%;
     }
     body {
       padding: 0;
@@ -161,11 +162,12 @@
       z-index: 2;
       background: linear-gradient(120deg, rgba(255,0,0,0.35) 0%, rgba(255,0,0,0.15) 20%, rgba(255,0,0,0.12) 50%, rgba(255,0,0,0.25) 70%);
       transform: rotate(-13deg);
+      -webkit-transform: rotate(-13deg);
       animation: shineMove 4.5s linear infinite;
       border-radius: 15px;
       opacity: 0.7;
-      filter: blur(5px);
-      -webkit-filter: blur(50px);
+      filter: blur(6px);
+      -webkit-filter: blur(6px);
       mix-blend-mode: lighten;
       transition: filter 0.2s, opacity 0.2s;
     }
@@ -175,7 +177,7 @@
       100% { top: 140%; left: 110%; opacity: 0.6; }
     }
     .neon-text {
-      font-family: 'playfair+display', serif;
+      font-family: 'Playfair Display', serif;
       font-weight: 700;
       font-size: clamp(1.6rem, 6.5vw, 2.15rem);
       color: #fff;
@@ -290,6 +292,8 @@
       padding: 0 7px;
     }
     .contact-btn, .offer-btn {
+      -webkit-appearance: none;
+      appearance: none;
       min-width: 0;
       width: 100%;
       padding: clamp(0.72rem, 2.6vw, 0.98rem) 0.14rem;
@@ -316,6 +320,7 @@
       box-sizing: border-box;
       box-shadow: var(--btn-shadow);
       margin: 0;
+      -webkit-user-select: none;
       user-select: none;
       font-family: 'Montserrat', Arial, sans-serif;
     }
@@ -429,6 +434,7 @@
       border-radius: 20px;
       text-shadow: 0 0 5px rgba(255, 0, 0, 0.4);
       backdrop-filter: blur(2px);
+      -webkit-backdrop-filter: blur(2px);
       opacity: 0;
       animation-name: chipFloat;
       animation-timing-function: linear;
@@ -455,6 +461,8 @@
     /* ---------------------------------------------------- */
 
     .share-fab {
+      -webkit-appearance: none;
+      appearance: none;
       position: fixed;
       bottom: 32px;
       right: 8px;
@@ -514,6 +522,7 @@
     }
     .card-flip-container {
       perspective: 1200px;
+      -webkit-perspective: 1200px;
       width: var(--card-w);
       aspect-ratio: var(--card-ratio);
       height: auto;
@@ -523,20 +532,26 @@
       width: 100%;
       height: 100%;
       transform-style: preserve-3d;
+      -webkit-transform-style: preserve-3d;
       transition: transform 0.8s ease-in-out;
       position: relative;
     }
-    .card-flip.flipped { transform: rotateY(180deg); }
+    .card-flip.flipped {
+      transform: rotateY(180deg);
+      -webkit-transform: rotateY(180deg);
+    }
     .card-face {
       position: absolute;
       width: 100%;
       height: 100%;
       backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
       border-radius: 15px;
       overflow: hidden;
     }
     .card-face.back {
       transform: rotateY(180deg);
+      -webkit-transform: rotateY(180deg);
       background: linear-gradient(135deg, #000000, #1a1a1a);
       display: flex;
       align-items: center;
@@ -559,6 +574,8 @@
     @keyframes typing { from { width: 0; } to { width: 100%; } }
     @keyframes blink { 50% { border-color: transparent; } }
     #audio-toggle {
+      -webkit-appearance: none;
+      appearance: none;
       position: fixed;
       bottom: 60px;
       right: 8px;
@@ -587,7 +604,12 @@
       position: relative;
       width: 80vmin;
       height: 80vmin;
-      font-family: 'playfair+display', serif;
+      font-family: 'Playfair Display', serif;
+    }
+    .firefly-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
     }
     .jar {
       position: absolute;
@@ -762,7 +784,7 @@
         
           <section class="business-card card-face back">
             <div class="firefly-mini-container" style="transform: scale(0.32); margin-top: -60px;">
-              <div class="container">
+              <div class="firefly-inner">
                 <div class="jar">
                   <div class="wording help">Help!</div>
                   <div class="wording thanks">Thanks&#10084;&#65039; Dear&#128139;</div>
