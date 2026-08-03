@@ -1009,7 +1009,7 @@
     }
 
     (function(){
-      const headline = ".....................................🏁 🚀 🙏🏻 नमस्ते | Welcome to 🤝 ∞ ArtViSiON: PRODUCTiōn̄ - DESiGN 🏛️  ➤ • Ar̄tWORKin̄ḡ • BRANDiNG • CREATiVE • DESiGNiNG • EXECUTiON • ➤ From Concept Research to Crafted Manufacturing Design. Advertising Brandin̄ḡ Specialist & Productiōn̄ Solution by  Ranjan (Rj) Sarkar";
+      const headline = ".........................................🏁 🚀 🙏🏻 नमस्ते | Welcome to 🤝 ∞ ArtViSiON: PRODUCTiōn̄ - DESiGN 🏛️  ➤ • Ar̄tWORKin̄ḡ • BRANDiNG • CREATiVE • DESiGNiNG • EXECUTiON • ➤ From Brand Concept Research to Crafted Manufacturing 360° End-to-End Design. Advertising-Brandin̄ḡ Specialist & Productiōn̄ Solution by Ranjan (Rj) Sarkar, Personally developed Print Files, CNC/Laser-Ready Cutting Files, Fabrication Drawings, 2D Layouts & Production Artwork in CorelDRAW (JPG, PNG, PDF, EPS, SVG, TIFF, DXF), Along with 3D Mockup Visualization and Design Adaptations in Adobe Photoshop.";
       const scrollContainer = document.querySelector('.screen-scroll-text .scrolling-text-inner');
       scrollContainer.textContent = headline + "   " + headline;
       let pos = 0;
@@ -1095,7 +1095,7 @@
     document.getElementById('shareFab').addEventListener('click', async () => {
       try {
         if (navigator.share && navigator.canShare && navigator.canShare({ title: 'RJ Sarkar - Brand & Production Designer', text: 'Check out this amazing digital Business Card!', url: window.location.href })) {
-          await navigator.share({ title: 'RJ Sarkar - Brand & Production Designer', text: 'Check out this amazing digital portfolio card!', url: window.location.href });
+          await navigator.share({ title: 'RJ Sarkar - Brand & Production Designer', text: 'Check out this amazing business card!', url: window.location.href });
         } else {
           await navigator.clipboard.writeText(window.location.href);
           showToast('Link copied to clipboard! 🚀');
