@@ -1144,7 +1144,7 @@
     (function(){
       const el = document.querySelector('.typing-box');
       if (!el) return;
-      const text = '" Your ViSi\u{1F9FF}N,   \u{1F9FF} ur Creation"...';
+      const text = '" Your ViSi\u{1F9FF}N,   \u{1F9FF}ur Creation"...';
       const textWithBlinkingEyes = text.replace(/\u{1F9FF}/gu, '<span class="blink-eye">\u{1F9FF}</span>');
       let i = 0, deleting = false;
       function tick() {
