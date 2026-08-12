@@ -617,16 +617,17 @@
       background: linear-gradient(135deg, #000000, #1a1a1a);
       display: flex;
       align-items: center;
-      justify-content: center;
-      padding: 30px;
+      justify-content: flex-end;
+      padding: 16px 16px 14px 16px;
       flex-direction: column;
+      gap: 12px;
     }
     .signature-screen {
       position: relative;
       width: 88%;
       max-width: 280px;
-      margin-top: 16px;
-      padding: 0.9rem 1rem;
+      margin-top: 0;
+      padding: 0.7rem 1rem;
       border-radius: 10px;
       background: linear-gradient(135deg, rgba(25,0,0,0.42) 0%, rgba(25,0,0,0.45) 50%, rgba(25,0,0,0.42) 100%);
       border: 1.5px solid rgba(255,0,0,0.18);
@@ -640,7 +641,20 @@
       display: flex;
       align-items: center;
       justify-content: center;
-      min-height: 44px;
+      min-height: 40px;
+    }
+    .social-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-gap: 10px 10px;
+      width: 92%;
+      margin-top: 0;
+      z-index: 2;
+    }
+    .social-grid .contact-btn:last-child:nth-child(odd) {
+      grid-column: 1 / span 2;
+      max-width: 48%;
+      margin: 0 auto;
     }
     .typing-box {
       font-family: 'Montserrat', sans-serif;
@@ -865,9 +879,9 @@
                 <i class="fas fa-envelope" aria-hidden="true"></i>
                 <span>Gmail</span>
               </a>
-              <a href="https://www.instagram.com/artvision_studion/" class="contact-btn" target="_blank" rel="noopener" aria-label="Instagram">
-                <i class="fab fa-instagram" aria-hidden="true"></i>
-                <span>Instagram</span>
+              <a href="https://www.linkedin.com/in/rj-sarkar/" class="contact-btn" target="_blank" rel="noopener" aria-label="LinkedIn">
+                <i class="fab fa-linkedin-in" aria-hidden="true"></i>
+                <span>LinkedIn</span>
               </a>
               <a href="https://sites.google.com/view/rj-sarkar" class="contact-btn" target="_blank" rel="noopener" aria-label="Website">
                 <i class="fas fa-globe" aria-hidden="true"></i>
@@ -893,7 +907,7 @@
           </section>
         
           <section class="business-card card-face back">
-            <div class="firefly-mini-container" style="transform: scale(0.22); margin-top: -95px;">
+            <div class="firefly-mini-container" style="transform: scale(0.13); margin-top: -142px; margin-bottom: -142px;">
               <div class="firefly-inner">
                 <div class="jar">
                   <div class="wording help">Help!</div>
@@ -916,6 +930,32 @@
               <div class="screen-glare"></div>
               <div class="typing-box typing-animate"></div>
             </div>
+            <nav class="social-grid" aria-label="Social media">
+              <a href="https://www.facebook.com/ArtvisionDesign" class="contact-btn" target="_blank" rel="noopener" aria-label="Facebook">
+                <i class="fab fa-facebook-f" aria-hidden="true"></i>
+                <span>Facebook</span>
+              </a>
+              <a href="https://www.instagram.com/artvision_studion/" class="contact-btn" target="_blank" rel="noopener" aria-label="Instagram">
+                <i class="fab fa-instagram" aria-hidden="true"></i>
+                <span>Instagram</span>
+              </a>
+              <a href="https://www.behance.net/gallery/219553967/ArtViSiON-PRODUCTion-DESiGN" class="contact-btn" target="_blank" rel="noopener" aria-label="Behance">
+                <i class="fab fa-behance" aria-hidden="true"></i>
+                <span>Behance</span>
+              </a>
+              <a href="https://www.reddit.com/user/RjSarkar83/" class="contact-btn" target="_blank" rel="noopener" aria-label="Reddit">
+                <i class="fab fa-reddit-alien" aria-hidden="true"></i>
+                <span>Reddit</span>
+              </a>
+              <a href="https://x.com/rj_sarkar83" class="contact-btn" target="_blank" rel="noopener" aria-label="X (Twitter)">
+                <i class="fab fa-x-twitter" aria-hidden="true"></i>
+                <span>X (Twitter)</span>
+              </a>
+              <a href="https://sites.google.com/view/mlsk/maa-laxmi-swarn-kala?authuser=0" class="contact-btn" target="_blank" rel="noopener" aria-label="Gold Calculator">
+                <i class="fas fa-calculator" aria-hidden="true"></i>
+                <span>Calculator</span>
+              </a>
+            </nav>
           </section>
         </div>
       </div>
