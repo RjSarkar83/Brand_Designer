@@ -793,8 +793,6 @@
     .card-flip.flipped .jar .head::before, .card-flip.flipped .jar .head::after { border-color: var(--grey) transparent transparent transparent; }
     .jar:hover,
     .card-flip.flipped .jar { animation: shake 1s 3 linear; }
-    .jar:hover .firefly,
-    .card-flip.flipped .jar .firefly { animation: fly 2s 2.8s linear forwards; }
     .jar:hover .jarlid,
     .card-flip.flipped .jar .jarlid { animation: lid-rise 3.5s 1s linear; }
     .jar:hover .help,
@@ -819,6 +817,42 @@
     @keyframes fly { 0% { transform: translateY(-5vmin); } 100% { transform: translateY(-250vmin); } }
     @keyframes fade-in { 0%, 66% { opacity: 0; } 100% { opacity: 1; } }
     @keyframes ripple { to { transform: scale(3.2); opacity: 0; } }
+
+    /* ---------- Free-roaming firefly (same firefly, just released from the jar) ---------- */
+    .firefly.roaming {
+      position: fixed !important;
+      left: 0 !important;
+      top: 0 !important;
+      margin: 0;
+      z-index: 500;
+      pointer-events: none;
+      transform-origin: center center;
+      will-change: transform;
+    }
+    .firefly.roaming .bodybottom {
+      animation: fireflyGlowPulse 1.3s ease-in-out infinite;
+    }
+    .firefly.roaming .wing {
+      background: var(--grey);
+    }
+    .firefly.roaming .wing-left {
+      animation: flap-left 0.16s ease-in-out infinite;
+    }
+    .firefly.roaming .wing-right {
+      animation: flap-right 0.16s ease-in-out infinite;
+    }
+    .firefly.roaming .head {
+      background: var(--grey);
+    }
+    .firefly.roaming .head::before,
+    .firefly.roaming .head::after {
+      border-color: var(--grey) transparent transparent transparent;
+    }
+    @keyframes fireflyGlowPulse {
+      0%, 100% { box-shadow: inset 0vmin 10vmin 0vmin var(--lightyellow), 0px 0px 18vmin 8vmin var(--yellow); }
+      50% { box-shadow: inset 0vmin 20vmin 0vmin var(--lightyellow), 0px 0px 42vmin 22vmin var(--yellow); }
+    }
+    /* ------------------------------------------------------------------------------------- */
   </style>
 </head>
 <body>
@@ -1210,9 +1244,97 @@
       tick();
     })();
 
-    document.querySelector('.card-flip').addEventListener('click', () => {
-      document.querySelector('.card-flip').classList.toggle('flipped');
-    });
+    (function(){
+      const cardFlip = document.getElementById('card-flip');
+      const fireflyEl = document.querySelector('.firefly');
+      if (!cardFlip || !fireflyEl) return;
+
+      // lock in the exact scale the firefly is rendered at inside the jar (see
+      // .firefly-mini-container's inline "scale(0.13)") so its size never changes once released.
+      const FIXED_SCALE = 0.13;
+      const homeParent = fireflyEl.parentElement;
+      const homeNextSibling = fireflyEl.nextSibling;
+
+      let mouseX = window.innerWidth / 2;
+      let mouseY = window.innerHeight / 2;
+      let hasPointer = false;
+      document.addEventListener('mousemove', (e) => { mouseX = e.clientX; mouseY = e.clientY; hasPointer = true; });
+      document.addEventListener('touchmove', (e) => {
+        if (e.touches && e.touches[0]) { mouseX = e.touches[0].clientX; mouseY = e.touches[0].clientY; hasPointer = true; }
+      }, { passive: true });
+
+      let state = 'jar'; // 'jar' | 'free' | 'fleeing'
+      let releaseTimer = null;
+      let rafId = null;
+      let curX = 0, curY = 0;
+      let angle = Math.random() * Math.PI * 2;
+
+      function releaseFirefly() {
+        if (state !== 'jar') return;
+        const rect = fireflyEl.getBoundingClientRect();
+        curX = rect.left + rect.width / 2;
+        curY = rect.top + rect.height / 2;
+        document.body.appendChild(fireflyEl);
+        fireflyEl.classList.add('roaming');
+        fireflyEl.style.transition = 'none';
+        fireflyEl.style.transform = `translate(${curX}px, ${curY}px) translate(-50%, -50%) scale(${FIXED_SCALE})`;
+        state = 'free';
+        rafId = requestAnimationFrame(loop);
+      }
+
+      function loop(now) {
+        if (state !== 'free') return;
+        angle += 0.018;
+        const orbitRadius = 55 + Math.sin(now / 900) * 28;
+        const baseX = hasPointer ? mouseX : window.innerWidth / 2;
+        const baseY = hasPointer ? mouseY : window.innerHeight / 2;
+        const targetX = baseX + Math.cos(angle) * orbitRadius;
+        const targetY = baseY + Math.sin(angle * 1.3) * orbitRadius * 0.6 - 40;
+
+        curX += (targetX - curX) * 0.045;
+        curY += (targetY - curY) * 0.045;
+
+        fireflyEl.style.transform = `translate(${curX}px, ${curY}px) translate(-50%, -50%) rotate(${Math.sin(now/500)*8}deg) scale(${FIXED_SCALE})`;
+        rafId = requestAnimationFrame(loop);
+      }
+
+      function fleeFirefly() {
+        if (state !== 'free') return;
+        state = 'fleeing';
+        if (rafId) cancelAnimationFrame(rafId);
+        const dx = curX - window.innerWidth / 2;
+        const dy = curY - window.innerHeight / 2;
+        let targetX, targetY;
+        if (Math.abs(dx) > Math.abs(dy)) {
+          targetX = dx > 0 ? window.innerWidth + 200 : -200;
+          targetY = curY - 250 - Math.random() * 150;
+        } else {
+          targetX = curX + (Math.random() - 0.5) * 200;
+          targetY = dy > 0 ? window.innerHeight + 200 : -200;
+        }
+        fireflyEl.style.transition = 'transform 0.8s cubic-bezier(.4,0,.6,1)';
+        fireflyEl.style.transform = `translate(${targetX}px, ${targetY}px) translate(-50%, -50%) scale(${FIXED_SCALE})`;
+        setTimeout(() => {
+          fireflyEl.classList.remove('roaming');
+          fireflyEl.removeAttribute('style');
+          if (homeNextSibling) { homeParent.insertBefore(fireflyEl, homeNextSibling); }
+          else { homeParent.appendChild(fireflyEl); }
+          state = 'jar';
+        }, 820);
+      }
+
+      cardFlip.addEventListener('click', () => {
+        cardFlip.classList.toggle('flipped');
+        const isFlipped = cardFlip.classList.contains('flipped');
+        if (isFlipped) {
+          if (releaseTimer) clearTimeout(releaseTimer);
+          releaseTimer = setTimeout(releaseFirefly, 2800);
+        } else {
+          if (releaseTimer) { clearTimeout(releaseTimer); releaseTimer = null; }
+          if (state === 'free') fleeFirefly();
+        }
+      });
+    })();
 
     setTimeout(matrixRain, 50);
 
