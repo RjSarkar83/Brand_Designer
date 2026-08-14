@@ -2325,152 +2325,6 @@
     })();
     /* ---------------------------------------------------- */
 
-    /* ---------------------------------------------------- */
-    /* SHANKH (conch) - plays softly on ANY click, layered   */
-    /* under the water music. Synthesized live via WebAudio, */
-    /* so there is no extra file to download and it works    */
-    /* completely offline.                                   */
-    /* ---------------------------------------------------- */
-    const Shankh = (function () {
-      let ctx = null;
-      let master = null;
-      let last = 0;
-      const VOLUME = 0.10;          // reduced a touch more so the conch stays subtle
-      const MIN_GAP_MS = 420;       // no machine-gun retrigger on fast clicks
-
-      function ensure() {
-        if (ctx) return ctx;
-        const AC = window.AudioContext || window.webkitAudioContext;
-        if (!AC) return null;
-        ctx = new AC();
-        master = ctx.createGain();
-        master.gain.value = VOLUME;
-
-        // shell resonance: hollow, horn-like body
-        const shell = ctx.createBiquadFilter();
-        shell.type = 'peaking';
-        shell.frequency.value = 720;
-        shell.Q.value = 1.1;
-        shell.gain.value = 5;
-
-        // roll off the harsh top so it sounds like a temple conch, not a buzzer
-        const tame = ctx.createBiquadFilter();
-        tame.type = 'lowpass';
-        tame.frequency.value = 2600;
-        tame.Q.value = 0.7;
-
-        shell.connect(tame);
-        tame.connect(master);
-        master.connect(ctx.destination);
-        master._in = shell;
-        return ctx;
-      }
-
-      // short reverb tail so it rings like it is in a big room
-      function makeTail(c) {
-        const len = Math.floor(c.sampleRate * 1.5);
-        const buf = c.createBuffer(2, len, c.sampleRate);
-        for (let ch = 0; ch < 2; ch++) {
-          const d = buf.getChannelData(ch);
-          for (let i = 0; i < len; i++) {
-            d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, 2.6);
-          }
-        }
-        return buf;
-      }
-
-      function blow() {
-        const c = ensure();
-        if (!c) return;
-        if (c.state === 'suspended') c.resume();
-
-        const now = c.currentTime;
-        const t0 = now + 0.005;
-        const dur = 2.4;
-        const f0 = 233;                       // ~Bb3, classic shankh pitch
-
-        const bus = c.createGain();
-        bus.gain.value = 1;
-        bus.connect(master._in);
-
-        // reverb send
-        if (!master._verb) {
-          const cv = c.createConvolver();
-          cv.buffer = makeTail(c);
-          const sendGain = c.createGain();
-          sendGain.gain.value = 0.5;
-          cv.connect(sendGain);
-          sendGain.connect(master);
-          master._verb = cv;
-        }
-        bus.connect(master._verb);
-
-        // --- harmonic stack: odd partials strong = hollow conch timbre ---
-        const partials = [[1, 1.0], [2, 0.5], [3, 0.42], [4, 0.17], [5, 0.13], [6, 0.06], [7, 0.045]];
-        partials.forEach(function (p) {
-          const k = p[0], amp = p[1];
-          const osc = c.createOscillator();
-          osc.type = 'sine';
-          // pitch scoops UP into the note, exactly like a real blow
-          osc.frequency.setValueAtTime(f0 * k * 0.87, t0);
-          osc.frequency.exponentialRampToValueAtTime(f0 * k, t0 + 0.17);
-          // soft vibrato once the note settles
-          const lfo = c.createOscillator();
-          lfo.frequency.value = 4.8;
-          const lfoAmt = c.createGain();
-          lfoAmt.gain.setValueAtTime(0, t0);
-          lfoAmt.gain.linearRampToValueAtTime(f0 * k * 0.006, t0 + 0.5);
-          lfo.connect(lfoAmt);
-          lfoAmt.connect(osc.frequency);
-
-          const g = c.createGain();
-          g.gain.setValueAtTime(0.0001, t0);
-          // higher partials fade in later -> the horn "opens up"
-          g.gain.exponentialRampToValueAtTime(amp, t0 + 0.07 + k * 0.012);
-          g.gain.setValueAtTime(amp, t0 + 0.7);
-          g.gain.exponentialRampToValueAtTime(0.0001, t0 + dur);
-
-          osc.connect(g);
-          g.connect(bus);
-          osc.start(t0); osc.stop(t0 + dur + 0.05);
-          lfo.start(t0);  lfo.stop(t0 + dur + 0.05);
-        });
-
-        // --- breath / air rushing through the shell ---
-        const nLen = Math.floor(c.sampleRate * 0.6);
-        const nBuf = c.createBuffer(1, nLen, c.sampleRate);
-        const nd = nBuf.getChannelData(0);
-        for (let i = 0; i < nLen; i++) nd[i] = Math.random() * 2 - 1;
-        const noise = c.createBufferSource();
-        noise.buffer = nBuf;
-        const nf = c.createBiquadFilter();
-        nf.type = 'bandpass';
-        nf.frequency.value = 950;
-        nf.Q.value = 0.8;
-        const ng = c.createGain();
-        ng.gain.setValueAtTime(0.0001, t0);
-        ng.gain.exponentialRampToValueAtTime(0.35, t0 + 0.05);
-        ng.gain.exponentialRampToValueAtTime(0.0001, t0 + 0.45);
-        noise.connect(nf); nf.connect(ng); ng.connect(bus);
-        noise.start(t0); noise.stop(t0 + 0.62);
-      }
-
-      let muted = false;
-      function setMuted(m) {
-        muted = !!m;
-        if (master) master.gain.value = muted ? 0 : VOLUME;
-      }
-
-      function play() {
-        if (muted) return;
-        const now = Date.now();
-        if (now - last < MIN_GAP_MS) return;   // throttle
-        last = now;
-        try { blow(); } catch (e) { /* audio unavailable - stay silent */ }
-      }
-
-      return { play: play, ensure: ensure, setMuted: setMuted };
-    })();
 
     /* ------------------------------------------------------------ */
     /* FOREST AMBIENCE - soft nature bed for the intro animation.   */
@@ -2631,7 +2485,7 @@
       let ctx = null;
       let master = null;
       let last = 0;
-      const VOLUME = 0.22;
+      const VOLUME = 0.30;   // slightly fuller now that it is the only click sound
       const MIN_GAP_MS = 90;
 
       function ensure() {
@@ -2698,10 +2552,9 @@
       return { play: play, ensure: ensure, setMuted: setMuted };
     })();
 
-    // ANY click anywhere on the page: soft conch + water drop layered together
+    // ANY click anywhere on the page: a soft water drop (the only click sound).
     // (capture phase, so it fires even for handlers that stop propagation).
     document.addEventListener('pointerdown', function () {
-      Shankh.play();
       WaterDrop.play();
     }, { capture: true, passive: true });
 
@@ -2723,20 +2576,37 @@
 
     // Background music starts only AFTER the intro forest ambience has played,
     // so the intro stays calm and curious before the track drops in.
+    // Background music volume is set to 75% (25% lower than full) via the
+    // SoundCloud Widget API, so the track sits comfortably in the background.
+    const SC_URL = "https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/rj-sarkar/navras-drum-and-bass-remix&color=%23ff5500&auto_play=true&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false&visual=false&loop=true";
+    const SC_VOLUME = 75;   // percent (0-100)
+
+    function setSCVolume() {
+      try {
+        const w = iframe.contentWindow;
+        if (w) {
+          w.postMessage(JSON.stringify({ method: 'setVolume', value: SC_VOLUME }), '*');
+        }
+      } catch (e) { /* widget not ready yet - ignore */ }
+    }
+    // The widget loads asynchronously, so re-apply the volume a few times.
+    function scheduleSCVolume() {
+      [700, 1500, 2800, 4500].forEach(function (ms) { setTimeout(setSCVolume, ms); });
+    }
+
     function startBackgroundMusic() {
       if (bgStarted) return;
       bgStarted = true;
       isMuted = false;
-      Shankh.setMuted(false);
       WaterDrop.setMuted(false);
       iframe.style.display = 'block';
-      iframe.src = "https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/rj-sarkar/navras-drum-and-bass-remix&color=%23ff5500&auto_play=true&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false&visual=false&loop=true";
+      iframe.src = SC_URL;
       toggle.innerHTML = "🔊";
+      scheduleSCVolume();
     }
 
     toggle.addEventListener("click", () => {
       isMuted = !isMuted;
-      Shankh.setMuted(isMuted);
       WaterDrop.setMuted(isMuted);
       if (isMuted) {
         iframe.style.display = 'none';
@@ -2744,8 +2614,9 @@
         toggle.innerHTML = "🔇";
       } else {
         iframe.style.display = 'block';
-        iframe.src = "https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/rj-sarkar/navras-drum-and-bass-remix&color=%23ff5500&auto_play=true&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false&visual=false&loop=true";
+        iframe.src = SC_URL;
         toggle.innerHTML = "🔊";
+        scheduleSCVolume();
       }
     });
 
@@ -3064,5 +2935,5 @@
       lastTouchEnd = now;
     }, false);
   </script>
-<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a2ae82a9bed9a6ad',t:'MTc4NjY5NTMxMg=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a2ae82a9bed9a6ad',t:'MTc4NjY5NTMxMg=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a2aec8a9ac91fc3c',t:'MTc4NjY5ODE4MA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
