@@ -9,6 +9,17 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
   <style>
     :root {
+      /* ---- 24 karat gold palette (single source of truth) ---- */
+      --au-white:  #fffdf2;   /* specular hit          */
+      --au-light:  #ffeeb0;   /* lit face              */
+      --au-mid:    #f0c84a;   /* true 24k body         */
+      --au-rich:   #e0a91c;   /* saturated core        */
+      --au-deep:   #b8800c;   /* shadow side           */
+      --au-dark:   #8a5f06;   /* darkest crease        */
+      --au-glow:   255,184,28;/* rgb for glow shadows  */
+      --au-yellow: #ffd400;   /* pure yellow highlight */
+      --au-yellow-lt: #ffee55;/* soft yellow           */
+
       --main-red: #ff0000;
       --accent-red: #ff3333;
       --calculator-dark: #1a0a0a;
@@ -117,8 +128,11 @@
       aspect-ratio: var(--card-ratio);
       height: auto;
       border-radius: 15px;
-      background: linear-gradient(135deg, rgba(26,10,10,0.5) 0%, rgba(15,15,15,0.5) 50%, rgba(26,10,10,0.5) 100%);
+      background:
+        linear-gradient(135deg, rgba(30,12,12,0.82) 0%, rgba(14,14,14,0.86) 50%, rgba(30,12,12,0.82) 100%);
       background-clip: padding-box;
+      backdrop-filter: blur(16px) saturate(135%) brightness(0.62);
+      -webkit-backdrop-filter: blur(16px) saturate(135%) brightness(0.62);
       padding: 0;
       display: flex;
       flex-direction: column;
@@ -132,17 +146,19 @@
     }
     .calculator-screen {
       width: 92%;
-      min-height: 150px;
-      max-height: 170px;
+      min-height: 186px;
+      max-height: 214px;
+      flex: 0 0 auto;
       margin: 0 auto;
-      margin-top: 22px;
-      margin-bottom: 14px;
-      background: linear-gradient(135deg, rgba(125,0,0,0.42) 0%, rgba(25,0,0,0.45) 50%, rgba(125,0,0,0.42) 100%);
+      margin-top: 16px;
+      margin-bottom: 0;
+      justify-content: center;
+      background:
+        linear-gradient(135deg, rgba(150,14,14,0.62) 0%, rgba(30,6,6,0.74) 52%, rgba(150,14,14,0.62) 100%);
       border-radius: 10px;
       display: flex;
       flex-direction: column;
       align-items: center;
-      justify-content: flex-start;
       box-shadow: 
         0 4px 28px 0 rgba(0,0,0,0.55),
         inset 0 1px 0 rgba(255,255,255,0.22),
@@ -151,21 +167,51 @@
       position: relative;
       padding: 1.1rem 1.1rem 0.7rem 1.1rem;
       overflow: hidden;
-      backdrop-filter: blur(5px) saturate(210%);
-      -webkit-backdrop-filter: blur(5px) saturate(210%);
-      border: 1.5px solid rgba(255,0,0,0.18);
+      backdrop-filter: blur(20px) saturate(155%) brightness(0.68);
+      -webkit-backdrop-filter: blur(20px) saturate(155%) brightness(0.68);
+      border: 1.5px solid rgba(255,80,80,0.26);
     }
     .glass-panel { position: relative; overflow: hidden; }
+    /* ---- water-glass texture: soft refraction ripples + frost grain ---- */
+    .glass-panel::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      z-index: 3;
+      background:
+        radial-gradient(120% 60% at 18% 8%,  rgba(255,255,255,0.16), transparent 58%),
+        radial-gradient(90%  50% at 82% 92%, rgba(255,255,255,0.09), transparent 62%),
+        radial-gradient(38% 26% at 66% 22%, rgba(255,255,255,0.11), transparent 70%),
+        radial-gradient(30% 20% at 24% 74%, rgba(255,255,255,0.08), transparent 72%),
+        repeating-linear-gradient(104deg,
+          rgba(255,255,255,0.030) 0px,
+          rgba(255,255,255,0.030) 2px,
+          rgba(255,255,255,0.0)   2px,
+          rgba(255,255,255,0.0)   16px),
+        repeating-linear-gradient(104deg,
+          rgba(0,0,0,0.035) 0px,
+          rgba(0,0,0,0.035) 3px,
+          rgba(0,0,0,0.0)   3px,
+          rgba(0,0,0,0.0)   22px);
+      box-shadow:
+        inset 0  1px 0 rgba(255,255,255,0.34),
+        inset 0 -1px 0 rgba(255,255,255,0.10),
+        inset  1px 0 0 rgba(255,255,255,0.13),
+        inset -1px 0 0 rgba(255,255,255,0.13),
+        inset 0 0 26px rgba(0,0,0,0.42);
+      border-radius: inherit;
+    }
     .glass-panel::after {
       content: '';
       position: absolute;
       inset: 0;
       background: repeating-linear-gradient(
         180deg,
-        rgba(255,255,255,0.045) 0px,
-        rgba(255,255,255,0.045) 1px,
+        rgba(255,255,255,0.022) 0px,
+        rgba(255,255,255,0.022) 1px,
         transparent 1px,
-        transparent 3px
+        transparent 4px
       );
       mix-blend-mode: overlay;
       pointer-events: none;
@@ -211,7 +257,8 @@
       font-size: clamp(1.6rem, 6.5vw, 2.15rem);
       color: #fff;
       letter-spacing: 1.5px;
-      margin-bottom: 0.17rem;
+      margin-top: 0;
+      margin-bottom: 0.2rem;
       word-break: break-word;
       line-height: 1.15;
       text-shadow:
@@ -229,7 +276,7 @@
       opacity: 0.92;
       text-transform: uppercase;
       letter-spacing: 1px;
-      margin-bottom: 0.04rem;
+      margin-bottom: 0.28rem;
       font-weight: 400;
       z-index: 3;
       position: relative;
@@ -239,8 +286,8 @@
       justify-content: center;
       align-items: center;
       gap: 0.13rem;
-      margin-bottom: 0.09rem;
-      min-height: 2.0rem;
+      margin-bottom: 0;
+      min-height: 1.9rem;
       z-index: 3;
       position: relative;
     }
@@ -277,7 +324,10 @@
       font-weight: 400;
       font-size: 0.97rem;
       padding: 0;
-      margin-top: 9px;
+      /* balanced gap under the year row */
+      margin-top: 18px;
+      margin-bottom: 0;
+      flex: 0 0 auto;
       position: relative;
       border-radius: 15px;
       letter-spacing: 0.02em;
@@ -307,6 +357,8 @@
       z-index: 3;
     }
     .scrolling-text-inner {
+      backface-visibility: hidden;
+      transform: translate3d(0,0,0);
       display: inline-block;
       white-space: nowrap;
       will-change: transform;
@@ -314,9 +366,11 @@
     .contact-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
-      grid-gap: clamp(10px, 3.2vw, 18px) clamp(10px, 3.2vw, 18px);
+      grid-gap: clamp(9px, 2.8vw, 15px) clamp(10px, 3.2vw, 18px);
       width: 92%;
-      margin: 0 auto 0.17rem auto;
+      /* bottom-aligned, exactly like the back face's social grid */
+      margin: auto auto 0 auto;
+      flex: 0 0 auto;
       z-index: 2;
       padding: 0 7px;
     }
@@ -497,13 +551,14 @@
       padding: 6px 14px;
       border-radius: 20px;
       text-shadow: 0 0 5px rgba(255, 0, 0, 0.4);
-      backdrop-filter: blur(2px);
-      -webkit-backdrop-filter: blur(2px);
       opacity: 0;
       animation-name: chipFloat;
       animation-timing-function: linear;
       animation-fill-mode: forwards;
       will-change: transform, opacity;
+      transform: translate3d(0,0,0);
+      backface-visibility: hidden;
+      contain: layout paint;
     }
     .service-chip.long {
       white-space: normal;
@@ -514,10 +569,10 @@
       padding: 8px 12px;
     }
     @keyframes chipFloat {
-      0%   { transform: translateY(0) translateX(0); opacity: 0; }
+      0%   { transform: translate3d(0, 0, 0); opacity: 0; }
       8%   { opacity: 0.8; }
       88%  { opacity: 0.8; }
-      100% { transform: translateY(-130vh) translateX(var(--drift, 0px)); opacity: 0; }
+      100% { transform: translate3d(var(--drift, 0px), -130vh, 0); opacity: 0; }
     }
     @media (prefers-reduced-motion: reduce) {
       .service-chip { animation: none; opacity: 0; }
@@ -640,6 +695,9 @@
       -webkit-transform: translateZ(1px);
       transform: translateZ(1px);
       z-index: 2;
+      /* same bottom breathing room as .card-face.back so both sides match */
+      padding-bottom: 14px;
+      justify-content: flex-start;
     }
     /* ---- Safari/WebKit backface-visibility fix ----
        WebKit does not reliably honour backface-visibility:hidden for these
@@ -678,9 +736,10 @@
       margin-bottom: auto;
     }
     .card-face.back .social-grid {
-      order: 3;
+      order: 4;
       flex: 0 0 auto;
       margin-top: 0;
+      margin-bottom: 0;
     }
     .signature-screen {
       position: relative;
@@ -689,20 +748,20 @@
       margin-top: 0;
       padding: 0.7rem 1rem;
       border-radius: 10px;
-      background: linear-gradient(135deg, rgba(25,0,0,0.42) 0%, rgba(25,0,0,0.45) 50%, rgba(25,0,0,0.42) 100%);
-      border: 1.5px solid rgba(255,0,0,0.18);
+      background:
+        linear-gradient(160deg, rgba(24,24,27,0.86) 0%, rgba(14,14,16,0.90) 55%, rgba(22,20,22,0.86) 100%);
+      border: 1px solid rgba(255,255,255,0.10);
       box-shadow:
-        0 4px 28px 0 rgba(0,0,0,0.55),
-        inset 0 1px 0 rgba(255,255,255,0.2),
-        inset 0 -10px 18px -12px rgba(0,0,0,0.5),
-        0 0 0 1px rgba(255,0,0,0.08);
-      backdrop-filter: blur(5px) saturate(210%);
-      -webkit-backdrop-filter: blur(5px) saturate(210%);
+        0 6px 26px 0 rgba(0,0,0,0.6),
+        inset 0 1px 0 rgba(255,255,255,0.14),
+        inset 0 -1px 0 rgba(0,0,0,0.45);
+      backdrop-filter: blur(16px) saturate(115%) brightness(0.72);
+      -webkit-backdrop-filter: blur(16px) saturate(115%) brightness(0.72);
       display: flex;
       flex-direction: column;
       align-items: stretch;
       justify-content: center;
-      gap: 5px;
+      gap: 0;
       min-height: 40px;
       min-width: 0;
       overflow: hidden;
@@ -713,6 +772,7 @@
       position: relative;
       z-index: 6;
       width: 100%;
+      padding: 6px 0;
       min-width: 0;
       max-width: 100%;
       overflow: hidden;
@@ -724,6 +784,8 @@
       align-items: center;
       white-space: nowrap;
       will-change: transform;
+      transform: translate3d(0,0,0);
+      backface-visibility: hidden;
       animation: marqueeRTL linear infinite;
     }
     .marquee-track > span {
@@ -732,38 +794,46 @@
       padding-right: 2.2em;
     }
     @keyframes marqueeRTL {
-      from { transform: translateX(0); }
-      to   { transform: translateX(-50%); }
+      from { transform: translate3d(0, 0, 0); }
+      to   { transform: translate3d(-50%, 0, 0); }
     }
     /* row 1 - the ViSiON line (was typewriter, now right-to-left loop) */
     .marquee-row.row-vision .marquee-track {
       font-family: 'Montserrat', sans-serif;
-      font-size: clamp(0.68rem, 2.4vw, 0.82rem);
-      color: #fff;
-      animation-duration: 14s;
-      text-shadow: 0 0 5px #ff0000, 0 0 9px #ff3333;
+      font-weight: 600;
+      font-size: clamp(0.68rem, 2.4vw, 0.80rem);
+      letter-spacing: 0.015em;
+      color: #f4f4f5;
+      animation-duration: 16s;
+      text-shadow: none;
     }
     /* row 2 - bold services strip */
     .marquee-row.row-services .marquee-track {
       font-family: 'Montserrat', sans-serif;
-      font-weight: 800;
-      font-size: clamp(0.56rem, 2vw, 0.68rem);
-      letter-spacing: 0.04em;
-      color: #ffd9d9;
-      animation-duration: 16s;
-      text-shadow: 0 0 6px #ff1a1a, 0 0 12px rgba(255,40,40,0.7);
+      font-weight: 700;
+      font-size: clamp(0.53rem, 1.9vw, 0.64rem);
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      color: #d8d8dc;
+      animation-duration: 18s;
+      text-shadow: none;
     }
     /* row 3 - discipline list */
     .marquee-row.row-disciplines .marquee-track {
       font-family: 'Montserrat', sans-serif;
-      font-weight: 500;
-      font-size: clamp(0.5rem, 1.8vw, 0.62rem);
-      letter-spacing: 0.05em;
-      color: #ffb3b3;
-      animation-duration: 19s;
-      text-shadow: 0 0 5px rgba(255,0,0,0.75);
+      font-weight: 400;
+      font-size: clamp(0.47rem, 1.7vw, 0.58rem);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: #9c9ca4;
+      animation-duration: 21s;
+      text-shadow: none;
     }
+    .marquee-row + .marquee-row { border-top: 1px solid rgba(255,255,255,0.075); }
     .marquee-row .blink-eye { display: inline-block; }
+    /* no glow on the back-face display: the eye emoji keeps its own colour */
+    .signature-screen .glass-shine,
+    .signature-screen .screen-glare { display: none; }
     @media (prefers-reduced-motion: reduce) {
       .marquee-track { animation: none !important; }
       .marquee-row {
@@ -771,6 +841,96 @@
         mask-image: none;
         text-overflow: ellipsis;
       }
+    }
+
+    /* ---- Gallery button: identical styling to .contact-btn, only wider ---- */
+    .gallery-btn {
+      order: 5;                 /* bottom-most element on the back face */
+      flex: 0 0 auto;
+      width: 92%;
+      margin: 10px 0 0 0;
+      z-index: 3;
+    }
+    .gallery-btn.is-busy { pointer-events: none; opacity: 0.55; }
+
+    /* ---- "Coming Soon" overlay: sits over the back face for 5s ---- */
+    .coming-soon {
+      position: absolute;
+      inset: 0;
+      z-index: 60;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 12px;
+      border-radius: 15px;
+      background: rgba(8,8,10,0.86);
+      backdrop-filter: blur(14px) saturate(120%);
+      -webkit-backdrop-filter: blur(14px) saturate(120%);
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity 0.36s ease, visibility 0s linear 0.36s;
+    }
+    .coming-soon.show {
+      opacity: 1;
+      visibility: visible;
+      pointer-events: auto;
+      transition: opacity 0.36s ease, visibility 0s linear 0s;
+    }
+    .cs-mark {
+      width: 46px; height: 46px;
+      border-radius: 50%;
+      border: 2px solid rgba(240,200,74,0.18);
+      border-top-color: var(--au-mid);
+      animation: csSpin 1.05s linear infinite;
+    }
+    @keyframes csSpin { to { transform: rotate(360deg); } }
+    .cs-title {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 800;
+      font-size: clamp(0.95rem, 4vw, 1.25rem);
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: #e03535;
+      text-shadow: none;
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    .coming-soon.show .cs-title { animation: csRise 0.5s ease 0.14s forwards; }
+    .cs-sub {
+      font-family: 'Montserrat', sans-serif;
+      font-weight: 500;
+      font-size: clamp(0.55rem, 2vw, 0.66rem);
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: #c9ab6b;
+      opacity: 0;
+      transform: translateY(8px);
+    }
+    .coming-soon.show .cs-sub { animation: csRise 0.5s ease 0.30s forwards; }
+    @keyframes csRise { to { opacity: 1; transform: translateY(0); } }
+    /* thin progress bar that drains over the 5 seconds */
+    .cs-bar {
+      width: 128px; height: 2px;
+      border-radius: 2px;
+      background: rgba(255,255,255,0.10);
+      overflow: hidden;
+      margin-top: 2px;
+    }
+    .cs-bar > i {
+      display: block; height: 100%; width: 100%;
+      background: linear-gradient(90deg, var(--au-deep), var(--au-yellow), var(--au-deep));
+      transform-origin: left center;
+      transform: scaleX(0);
+    }
+    .coming-soon.show .cs-bar > i { animation: csDrain 5s linear forwards; }
+    @keyframes csDrain { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+    @media (prefers-reduced-motion: reduce) {
+      .cs-mark { animation: none !important; }
+      .coming-soon.show .cs-title,
+      .coming-soon.show .cs-sub { animation: none !important; opacity: 1; transform: none; }
+      .coming-soon.show .cs-bar > i { animation: none !important; transform: scaleX(1); }
     }
     .social-grid {
       display: grid;
@@ -1032,131 +1192,478 @@
     }
 
     /* ---- gate doors ---- */
-    /* ---- PREMIUM GOLDEN GATE ---- */
+    /* ---- GATE: dark theme body, PREMIUM MINIMAL GOLDEN GLITTER FRAME ONLY ---- */
     .gate-panel {
       position: absolute;
       top: 0;
       bottom: 0;
       width: 50.4%;
+      /* body stays on-theme: deep black lacquer with the card's red undertone */
       background:
-        /* brushed-gold micro grain */
-        repeating-linear-gradient(90deg,
-          rgba(255,240,200,0.10) 0px, rgba(255,240,200,0.10) 1px,
-          rgba(90,60,15,0.10) 1px, rgba(90,60,15,0.10) 3px),
-        /* vertical polished sheen */
-        linear-gradient(180deg,
-          rgba(255,247,220,0.42) 0%,
-          rgba(255,215,140,0.10) 16%,
-          rgba(40,26,5,0.30) 44%,
-          rgba(40,26,5,0.30) 58%,
-          rgba(255,215,140,0.12) 82%,
-          rgba(255,247,220,0.36) 100%),
-        /* deep lacquer body */
-        linear-gradient(160deg,
-          #6b4a15 0%,
-          #a97c2b 14%,
-          #e8c469 27%,
-          #8a6320 40%,
-          #4e380f 52%,
-          #7d5a1c 66%,
-          #d4ab52 78%,
-          #7a5718 90%,
-          #3d2b0c 100%);
-      box-shadow:
-        inset 0 0 70px rgba(60,38,6,0.45),
-        inset 0 0 30px rgba(255,205,110,0.16),
-        inset 0 1px 0 rgba(255,240,190,0.45),
-        inset 0 -1px 0 rgba(120,80,20,0.6);
+        linear-gradient(180deg, rgba(255,255,255,0.028) 0%, transparent 14%),
+        radial-gradient(120% 80% at 50% 0%, rgba(120,0,0,0.16) 0%, transparent 62%),
+        linear-gradient(135deg, #080505 0%, #150d0d 46%, #0a0606 100%);
+      box-shadow: inset 0 0 90px rgba(0,0,0,0.85);
       transition: transform 1s cubic-bezier(.77,0,.18,1);
       z-index: 3;
       overflow: hidden;
     }
-    .gate-left  { left: 0;  transform: translateX(0); border-right: 1px solid rgba(255,236,180,0.55); }
-    .gate-right { right: 0; transform: translateX(0); border-left:  1px solid rgba(255,236,180,0.55); }
+    .gate-left  { left: 0;  transform: translateX(0); }
+    .gate-right { right: 0; transform: translateX(0); }
 
-    /* molten-gold seam down the centre join */
+    /* thin molten-gold seam at the centre join */
     .gate-panel::after {
       content: '';
       position: absolute;
       top: 0; bottom: 0;
-      width: 3px;
+      width: 2px;
       background: linear-gradient(180deg,
         transparent 0%,
-        rgba(255,196,80,0.35) 12%,
-        rgba(255,240,190,0.95) 50%,
-        rgba(255,196,80,0.35) 88%,
+        rgba(255,212,0,0.38) 14%,
+        rgba(255,250,190,0.98) 46%,
+        rgba(255,222,40,0.55) 62%,
+        rgba(255,212,0,0.34) 86%,
         transparent 100%);
-      filter: blur(0.6px);
-      box-shadow: 0 0 14px rgba(255,190,70,0.65), 0 0 30px rgba(255,160,40,0.35);
-      animation: gateSeamGlow 2.6s ease-in-out infinite;
+      box-shadow: 0 0 10px rgba(255,214,30,0.62), 0 0 22px rgba(230,180,10,0.34);
+      animation: gateSeamGlow 2.8s ease-in-out infinite;
+      z-index: 2;
     }
     @keyframes gateSeamGlow {
-      0%, 100% { opacity: 0.72; box-shadow: 0 0 10px rgba(255,190,70,0.5), 0 0 22px rgba(255,160,40,0.25); }
-      50%      { opacity: 1;    box-shadow: 0 0 20px rgba(255,205,95,0.9), 0 0 44px rgba(255,170,50,0.5); }
+      0%, 100% { opacity: 0.68; }
+      50%      { opacity: 1; }
     }
-    .gate-left::after  { right: -1px; }
-    .gate-right::after { left: -1px; }
+    .gate-left::after  { right: 0; }
+    .gate-right::after { left: 0; }
 
-    /* travelling specular highlight across each leaf */
-    .gate-panel::before {
-      content: '';
-      position: absolute;
-      top: -25%;
-      bottom: -25%;
-      left: -60%;
-      width: 42%;
-      background: linear-gradient(105deg,
-        transparent 0%,
-        rgba(255,236,190,0.05) 30%,
-        rgba(255,246,215,0.30) 50%,
-        rgba(255,236,190,0.05) 70%,
-        transparent 100%);
-      transform: rotate(8deg);
-      filter: blur(6px);
-      animation: gateSheen 4.2s ease-in-out infinite;
-      pointer-events: none;
-    }
-    .gate-right::before { animation-delay: 0.5s; }
-    @keyframes gateSheen {
-      0%        { left: -60%; opacity: 0; }
-      18%       { opacity: 1; }
-      70%       { opacity: 1; }
-      100%      { left: 130%; opacity: 0; }
-    }
-
-    /* engraved gold filigree border inset on each leaf */
+    /* ---- the golden frame: a hairline gold border, nothing filled ---- */
     .gate-ornament {
       position: absolute;
-      top: 14px; bottom: 14px; left: 14px; right: 14px;
-      border: 1px solid rgba(70,45,8,0.55);
-      border-radius: 3px;
+      top: 16px; bottom: 16px; left: 16px; right: 16px;
+      border: 1.4px solid transparent;
+      border-radius: 2px;
       pointer-events: none;
       z-index: 1;
+      /* gradient border via two backgrounds clipped to padding/border box */
+      background:
+        linear-gradient(#0000, #0000) padding-box,
+        repeating-linear-gradient(180deg,
+          #c99522 0px,
+          #ffe93a 20px,
+          #fffbe6 40px,
+          #ffd400 62px,
+          #ffffff 80px,
+          #f5e02a 100px,
+          #f0c84a 118px,
+          #a8760c 140px,
+          #ffee55 164px,
+          #fffdf2 184px,
+          #ffd400 204px,
+          #ffffff 222px,
+          #e0a91c 238px,
+          #c99522 250px) border-box;
+      -webkit-mask: linear-gradient(#000 0 0) padding-box, linear-gradient(#000 0 0);
+      mask: linear-gradient(#000 0 0) padding-box, linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      filter: drop-shadow(0 0 6px rgba(255,220,60,0.85)) drop-shadow(0 0 14px rgba(255,196,20,0.42));
     }
+    .gate-left .gate-ornament  { border-right-color: transparent; }
+
+    /* glitter: fine sparkle grains that drift along the frame only */
     .gate-ornament::before {
       content: '';
       position: absolute;
-      top: 5px; bottom: 5px; left: 5px; right: 5px;
-      border: 1px solid rgba(255,246,214,0.45);
-      border-radius: 2px;
+      inset: -3px;
+      border-radius: 4px;
+      background-image:
+        radial-gradient(circle, rgba(255,246,150,1) 0 1.5px, transparent 2.4px),
+        radial-gradient(circle, rgba(255,212,0,0.95) 0 1.2px, transparent 2px),
+        radial-gradient(circle, rgba(255,255,225,1) 0 1px, transparent 1.7px);
+      background-size: 13px 13px, 19px 19px, 29px 29px;
+      background-position: 0 0, 6px 9px, 15px 4px;
+      /* keep the sparkles strictly on the frame line */
+      -webkit-mask: linear-gradient(#000 0 0) padding-box, linear-gradient(#000 0 0);
+      mask: linear-gradient(#000 0 0) padding-box, linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      border: 7px solid #000;
+      animation: gateGlitter 3.4s linear infinite, gateGlitterFade 2.2s ease-in-out infinite;
+      filter: drop-shadow(0 0 4px rgba(255,232,80,1)) drop-shadow(0 0 9px rgba(255,205,0,0.75));
     }
-    /* corner gold pips */
+    @keyframes gateGlitter {
+      0%   { background-position: 0 0, 6px 9px, 15px 4px; }
+      100% { background-position: 0 -13px, 6px -10px, 15px -25px; }
+    }
+    @keyframes gateGlitterFade {
+      0%, 100% { opacity: 0.6; }
+      50%      { opacity: 1; }
+    }
+
+    /* single specular glint that sweeps the frame, corner to corner */
     .gate-ornament::after {
       content: '';
       position: absolute;
-      inset: -4px;
-      background:
-        radial-gradient(circle at 0 0,     rgba(255,250,225,0.95) 0 2.2px, transparent 2.6px),
-        radial-gradient(circle at 100% 0,  rgba(255,250,225,0.95) 0 2.2px, transparent 2.6px),
-        radial-gradient(circle at 0 100%,  rgba(255,250,225,0.95) 0 2.2px, transparent 2.6px),
-        radial-gradient(circle at 100% 100%, rgba(255,250,225,0.95) 0 2.2px, transparent 2.6px);
-      filter: drop-shadow(0 0 4px rgba(255,190,80,0.8));
+      inset: -2.5px;
+      border-radius: 4px;
+      background: linear-gradient(115deg,
+        transparent 38%,
+        rgba(255,240,150,0.0) 44%,
+        rgba(255,248,180,0.98) 50%,
+        rgba(255,240,150,0.0) 56%,
+        transparent 62%);
+      background-size: 260% 260%;
+      -webkit-mask: linear-gradient(#000 0 0) padding-box, linear-gradient(#000 0 0);
+      mask: linear-gradient(#000 0 0) padding-box, linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      border: 6px solid #000;
+      animation: gateGlint 3.8s ease-in-out infinite;
+    }
+    .gate-right .gate-ornament::after { animation-delay: 0.6s; }
+    @keyframes gateGlint {
+      0%       { background-position: 120% 120%; opacity: 0; }
+      12%      { opacity: 1; }
+      68%      { opacity: 1; }
+      100%     { background-position: -30% -30%; opacity: 0; }
+    }
+
+    /* corner gold pips - minimal accents */
+    .gate-corner {
+      position: absolute;
+      width: 13px; height: 13px;
+      border: 0 solid var(--au-yellow-lt);
+      pointer-events: none;
+      z-index: 2;
+      filter: drop-shadow(0 0 4px var(--au-yellow)) drop-shadow(0 0 10px rgba(255,212,0,0.95)) drop-shadow(0 0 20px rgba(205,155,10,0.5));
+      animation: gateCornerPulse 2.8s ease-in-out infinite;
+    }
+    .gate-corner.tl { top: 13px;    left: 13px;  border-top-width: 2px; border-left-width: 2px; }
+    .gate-corner.tr { top: 13px;    right: 13px; border-top-width: 2px; border-right-width: 2px; }
+    .gate-corner.bl { bottom: 13px; left: 13px;  border-bottom-width: 2px; border-left-width: 2px; }
+    .gate-corner.br { bottom: 13px; right: 13px; border-bottom-width: 2px; border-right-width: 2px; }
+    @keyframes gateCornerPulse {
+      0%, 100% { opacity: 0.65; }
+      50%      { opacity: 1; }
     }
     @media (prefers-reduced-motion: reduce) {
-      .gate-panel::before, .gate-panel::after { animation: none !important; }
+      .gate-panel::after, .gate-ornament::before,
+      .gate-ornament::after, .gate-corner { animation: none !important; }
     }
+
     #introRoot.stage-open .gate-left  { transform: translateX(-101%); }
     #introRoot.stage-open .gate-right { transform: translateX(101%); }
+
+    /* ---- BENGALI ALPONA MOTIF (minimal, on the gate leaves) ---- */
+    .alpona {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: min(88%, 250px);
+      aspect-ratio: 1;
+      opacity: 0;
+      pointer-events: none;
+      z-index: 1;
+      color: #ff2222;
+      transition: opacity 0.9s ease;
+    }
+    .alpona svg { fill: none; }
+    .alpona svg .draw { stroke: currentColor; vector-effect: non-scaling-stroke; }
+    .alpona svg .pip { fill: currentColor; stroke: none; }
+    .alpona svg { width: 100%; height: 100%; display: block; overflow: visible; }
+    .alpona svg [stroke] {
+      fill: none;
+      stroke: currentColor;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      vector-effect: non-scaling-stroke;
+    }
+    #introRoot.stage-alpona .alpona { opacity: 0.9; }
+
+    /* the alpona draws itself on, stroke by stroke */
+    .alpona .draw {
+      stroke-dasharray: var(--len, 900);
+      stroke-dashoffset: var(--len, 900);
+      filter: drop-shadow(0 0 4px rgba(255,30,30,0.85));
+    }
+    #introRoot.stage-alpona .alpona .draw {
+      animation: alponaDraw 1.5s cubic-bezier(.55,.1,.35,1) forwards;
+    }
+    #introRoot.stage-alpona .alpona .d2 { animation-delay: 0.18s; }
+    #introRoot.stage-alpona .alpona .d3 { animation-delay: 0.34s; }
+    #introRoot.stage-alpona .alpona .d4 { animation-delay: 0.5s; }
+    @keyframes alponaDraw { to { stroke-dashoffset: 0; } }
+
+    /* dotted rice-flour pips that pop in after the lines */
+    .alpona .pip {
+      fill: currentColor;
+      stroke: none;
+      opacity: 0;
+      transform-box: fill-box;
+      transform-origin: center;
+      filter: drop-shadow(0 0 3px rgba(255,40,40,0.9));
+    }
+    #introRoot.stage-alpona .alpona .pip {
+      animation: alponaPip 0.5s ease-out forwards, alponaTwinkle 2.4s ease-in-out 1.4s infinite;
+    }
+    #introRoot.stage-alpona .alpona .pip:nth-of-type(even) { animation-delay: 1.05s, 1.7s; }
+    #introRoot.stage-alpona .alpona .pip:nth-of-type(odd)  { animation-delay: 0.92s, 1.55s; }
+    @keyframes alponaPip {
+      0%   { opacity: 0; transform: scale(0.2); }
+      70%  { opacity: 1; transform: scale(1.35); }
+      100% { opacity: 0.92; transform: scale(1); }
+    }
+    @keyframes alponaTwinkle {
+      0%, 100% { opacity: 0.55; }
+      50%      { opacity: 1; }
+    }
+    /* slow ceremonial rotation on the outer ring only */
+    .alpona .spin { transform-origin: 100px 100px; animation: alponaSpin 34s linear infinite; }
+
+    @keyframes alponaSpin { to { transform: rotate(360deg); } }
+
+    /* ---- GATE WORDS: red-only, WELCOME (left) then CONNECTION (right) ---- */
+    .gate-word {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      width: 100%;
+      text-align: center;
+      font-family: 'Playfair Display', Georgia, serif;
+      font-weight: 700;
+      line-height: 1;
+      white-space: nowrap;
+      pointer-events: none;
+      z-index: 4;
+      opacity: 0;
+      transition: opacity 0.5s ease;
+    }
+    .gate-left  .gate-word { font-size: clamp(0.62rem, 3.05vw, 1.02rem); letter-spacing: 0.12em; }
+    .gate-right .gate-word { font-size: clamp(0.62rem, 3.05vw, 1.02rem); letter-spacing: 0.12em; }
+    #introRoot.stage-word-l .gate-left  .gate-word,
+    #introRoot.stage-word-r .gate-right .gate-word { opacity: 1; }
+
+    .gate-word .ltr {
+      display: inline-block;
+      color: #4a0d0d;                       /* unlit filament */
+      opacity: 0;
+      transform: translateY(6px);
+      text-shadow: none;
+    }
+    /* strike each letter on, RED only */
+    #introRoot.stage-word-l .gate-left  .gate-word .ltr,
+    #introRoot.stage-word-r .gate-right .gate-word .ltr {
+      animation: redStrike 0.45s ease-out forwards;
+    }
+    .gate-word .ltr:nth-child(1)  { animation-delay: 0.00s, 0.62s; }
+    .gate-word .ltr:nth-child(2)  { animation-delay: 0.07s, 0.69s; }
+    .gate-word .ltr:nth-child(3)  { animation-delay: 0.14s, 0.76s; }
+    .gate-word .ltr:nth-child(4)  { animation-delay: 0.21s, 0.83s; }
+    .gate-word .ltr:nth-child(5)  { animation-delay: 0.28s, 0.90s; }
+    .gate-word .ltr:nth-child(6)  { animation-delay: 0.35s, 0.97s; }
+    .gate-word .ltr:nth-child(7)  { animation-delay: 0.42s, 1.04s; }
+    .gate-word .ltr:nth-child(8)  { animation-delay: 0.49s, 1.11s; }
+    .gate-word .ltr:nth-child(9)  { animation-delay: 0.56s, 1.18s; }
+    .gate-word .ltr:nth-child(10) { animation-delay: 0.63s, 1.25s; }
+    /* clean fade-up reveal - flat red, NO glow at all */
+    @keyframes redStrike {
+      0%   { opacity: 0; transform: translateY(6px); color: #4a0d0d; }
+      100% { opacity: 1; transform: translateY(0);   color: #e63030; }
+    }
+    @keyframes redHum {
+      0%, 100% { filter: none; }
+    }
+    /* glow pool removed - the words are flat red now */
+    .gate-word-glow { display: none; }
+    #introRoot.stage-word-l .gate-left  .gate-word-glow,
+    #introRoot.stage-word-r .gate-right .gate-word-glow { opacity: 1; }
+
+    /* everything on the leaves dims out just before the doors part */
+    /* ---- GATE ICONS: neon red line-art with a minimal gold accent ---- */
+    .gate-icon {
+      position: absolute;
+      left: 50%;
+      top: calc(50% - 48px);
+      transform: translate(-50%, -50%) scale(1);
+      width: 60px;
+      height: 60px;
+      pointer-events: none;
+      z-index: 4;
+      opacity: 0;
+      color: #ff3b3b;
+    }
+    .gate-icon svg { width: 100%; height: 100%; display: block; overflow: visible; fill: none; }
+    .gate-icon .ir {                       /* red neon strokes */
+      stroke: currentColor;
+      stroke-width: 2.7;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      vector-effect: non-scaling-stroke;
+      filter: drop-shadow(0 0 2px #ff6a6a) drop-shadow(0 0 7px #ff1414)
+              drop-shadow(0 0 16px rgba(255,0,0,0.85));
+    }
+    .gate-icon .ir-limb {                  /* solid neon-red limb */
+      stroke: currentColor;
+      stroke-width: 11;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+      fill: none;
+      filter: drop-shadow(0 0 3px #ff6a6a) drop-shadow(0 0 9px #ff1414)
+              drop-shadow(0 0 18px rgba(255,0,0,0.8));
+    }
+    .gate-icon .ir-fill {                  /* filled neon-red silhouette */
+      fill: currentColor;
+      stroke: none;
+      filter: drop-shadow(0 0 2px #ff6a6a) drop-shadow(0 0 7px #ff1414)
+              drop-shadow(0 0 14px rgba(255,0,0,0.55));
+    }
+    .gate-icon .ir-finger {                /* fingers wrapping over the other hand */
+      stroke: currentColor;
+      stroke-width: 5.5;
+      stroke-linecap: round;
+      fill: none;
+      filter: drop-shadow(0 0 3px #ff6a6a) drop-shadow(0 0 8px #ff1414);
+    }
+    .gate-icon .ir-fist {                  /* the clasped fist */
+      stroke: currentColor;
+      stroke-width: 21;
+      stroke-linecap: round;
+      fill: none;
+      filter: drop-shadow(0 0 3px #ff6a6a) drop-shadow(0 0 10px #ff1414)
+              drop-shadow(0 0 20px rgba(255,0,0,0.85));
+    }
+    .gate-icon .carve {                    /* dark grooves = finger separations */
+      stroke: #150707;
+      stroke-width: 2.4;
+      stroke-linecap: round;
+      fill: none;
+    }
+    .gate-icon .ig {                       /* 24k gold accent */
+      stroke: var(--au-white);
+      fill: url(#gold24k);
+      stroke-width: 1.1;
+      vector-effect: non-scaling-stroke;
+      filter: drop-shadow(0 0 2px var(--au-light)) drop-shadow(0 0 6px var(--au-rich))
+              drop-shadow(0 0 15px rgba(var(--au-glow),0.95))
+              drop-shadow(0 0 26px rgba(138,95,6,0.6));
+    }
+    .gate-icon .ig-line { fill: none; stroke: url(#gold24kLine); stroke-width: 1.6; stroke-linecap: round;
+      vector-effect: non-scaling-stroke;
+      filter: drop-shadow(0 0 2px var(--au-light)) drop-shadow(0 0 7px var(--au-rich))
+              drop-shadow(0 0 16px rgba(var(--au-glow),0.85)); }
+    /* gold stud on each cuff (24k accent, minimal) */
+    .gate-icon .ig-dot {
+      fill: url(#gold24k);
+      stroke: var(--au-white);
+      stroke-width: 0.7;
+      vector-effect: non-scaling-stroke;
+      filter: drop-shadow(0 0 2px var(--au-light)) drop-shadow(0 0 6px var(--au-rich))
+              drop-shadow(0 0 13px rgba(var(--au-glow),0.9));
+    }
+    /* the upper hand is lighter + dark-edged so the two hands read as separate */
+    .gate-icon .ir-fill.hand-top {
+      fill: #ff8080;
+      stroke: #1a0303;
+      stroke-width: 2.2;
+      stroke-linejoin: round;
+      paint-order: stroke fill;
+      filter: drop-shadow(0 0 3px #ffa0a0) drop-shadow(0 0 9px #ff2d2d);
+    }
+
+    /* ---- burning diya flame ---- */
+    .flame-wrap { transform-origin: 50px 52px; animation: flameSway 2.3s ease-in-out infinite; }
+    .flame-outer { fill: url(#flameOuter); stroke: none;
+      filter: drop-shadow(0 0 6px #ffa321) drop-shadow(0 0 16px #ff7b00)
+              drop-shadow(0 0 32px rgba(255,110,0,0.9));
+      animation: flameFlicker 0.42s ease-in-out infinite alternate; transform-origin: 50px 52px; }
+    .flame-mid   { fill: url(#flameMid); stroke: none;
+      filter: drop-shadow(0 0 5px #ffdf6e) drop-shadow(0 0 14px #ffc21e);
+      animation: flameFlicker 0.33s ease-in-out infinite alternate-reverse; transform-origin: 50px 51px; }
+    .flame-core  { fill: #fffef7; stroke: none;
+      filter: drop-shadow(0 0 5px #fffbe4) drop-shadow(0 0 13px #fff0a8);
+      animation: flameCore 0.55s ease-in-out infinite alternate; transform-origin: 50px 50px; }
+    .flame-halo  { fill: url(#haloGold); stroke: none;
+      animation: flameHalo 1.5s ease-in-out infinite; transform-origin: 50px 46px; }
+    @keyframes flameFlicker {
+      0%   { transform: scaleY(1)    scaleX(1);    opacity: 0.92; }
+      100% { transform: scaleY(1.13) scaleX(0.93); opacity: 1; }
+    }
+    @keyframes flameCore {
+      0%   { transform: scaleY(0.9) translateY(1px); opacity: 0.85; }
+      100% { transform: scaleY(1.15) translateY(-1px); opacity: 1; }
+    }
+    @keyframes flameSway {
+      0%,100% { transform: rotate(-2.5deg); }
+      50%     { transform: rotate(2.5deg); }
+    }
+    @keyframes flameHalo {
+      0%,100% { transform: scale(1);    opacity: 0.35; }
+      50%     { transform: scale(1.22); opacity: 0.6; }
+    }
+    /* light thrown down into the lamp bowl */
+    .diya-pool { animation: diyaPool 0.9s ease-in-out infinite alternate; }
+    @keyframes diyaPool { 0% { opacity: 0.35; } 100% { opacity: 0.8; } }
+
+    /* ---- handshake ---- */
+    .shake-l { transform-origin: 20px 47px; animation: shakeL 1.6s ease-in-out infinite; }
+    .shake-r { transform-origin: 79px 45px; animation: shakeR 1.6s ease-in-out infinite; }
+    .shake-grip { animation: gripPulse 1.6s ease-in-out infinite; transform-origin: 50px 49px; }
+    @keyframes shakeL {
+      0%,100% { transform: translate(-2px, -1.5px); }
+      18%     { transform: translate(0, 0); }
+      34%     { transform: translate(0, 2.5px); }
+      50%     { transform: translate(0, -1.5px); }
+      66%     { transform: translate(0, 1.5px); }
+      82%     { transform: translate(0, 0); }
+    }
+    @keyframes shakeR {
+      0%,100% { transform: translate(2px, -1.5px); }
+      18%     { transform: translate(0, 0); }
+      34%     { transform: translate(0, 2.5px); }
+      50%     { transform: translate(0, -1.5px); }
+      66%     { transform: translate(0, 1.5px); }
+      82%     { transform: translate(0, 0); }
+    }
+    @keyframes gripPulse {
+      0%, 16%  { opacity: 0; transform: scale(0.4); }
+      26%      { opacity: 1; transform: scale(1.35); }
+      40%      { opacity: 0.8; transform: scale(1); }
+      86%      { opacity: 0.8; transform: scale(1); }
+      100%     { opacity: 0; transform: scale(0.5); }
+    }
+    #introRoot.stage-word-l .gate-left  .gate-icon,
+    #introRoot.stage-word-r .gate-right .gate-icon {
+      animation: gateIconIn 0.75s cubic-bezier(.2,.9,.25,1.2) forwards,
+                 gateIconHum 2.6s ease-in-out 0.8s infinite;
+    }
+    @keyframes gateIconIn {
+      0%   { opacity: 0; transform: translate(-50%, -50%) scale(0.62); }
+      45%  { opacity: 1; transform: translate(-50%, -50%) scale(1.1); }
+      70%  { opacity: 0.55; }
+      100% { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+    }
+    @keyframes gateIconHum {
+      0%, 100% { filter: brightness(1); }
+      50%      { filter: brightness(1.3); }
+    }
+    #introRoot.stage-open .gate-icon,
+    #introRoot.stage-open .gate-word,
+    #introRoot.stage-open .gate-word-glow,
+    #introRoot.stage-open .alpona {
+      opacity: 0;
+      transition: opacity 0.45s ease;
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .alpona .draw, .alpona .pip, .alpona .spin, .gate-word .ltr, .gate-icon,
+      .flame-wrap, .flame-outer, .flame-mid, .flame-core, .flame-halo, .diya-pool,
+      .shake-l, .shake-r, .shake-grip { animation: none !important; }
+      .shake-grip { opacity: 1; }
+      .gate-icon { opacity: 1; transform: translate(-50%,-50%) scale(1); }
+      .alpona .draw { stroke-dashoffset: 0; }
+      .alpona .pip  { opacity: 0.9; }
+      .gate-word .ltr { opacity: 1; color: #e63030; text-shadow: none; }
+    }
 
     /* ---- intro: designing-related icons, animate + glow (3s sequence) ---- */
     .intro-icons {
@@ -1476,8 +1983,8 @@
         <span class="ico" title="Execution"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4.5 16.5c-1.5 1.26-2 5-2 5s3.74-.5 5-2c.71-.84.7-2.13-.09-2.91a2.18 2.18 0 0 0-2.91-.09z"/><path d="M12 15l-3-3a22 22 0 0 1 2-3.95A12.88 12.88 0 0 1 22 2c0 2.72-.78 7.5-6 11a22.35 22.35 0 0 1-4 2z"/><path d="M9 12H4s.55-3.03 2-4c1.62-1.08 5 0 5 0"/><path d="M12 15v5s3.03-.55 4-2c1.08-1.62 0-5 0-5"/></svg></span>
       </div>
     </div>
-    <div class="gate-panel gate-left"><span class="gate-ornament" aria-hidden="true"></span></div>
-    <div class="gate-panel gate-right"><span class="gate-ornament" aria-hidden="true"></span></div>
+    <div class="gate-panel gate-left" aria-hidden="true"><span class="gate-ornament"></span><span class="gate-corner tl"></span><span class="gate-corner tr"></span><span class="gate-corner bl"></span><span class="gate-corner br"></span><div class="alpona"><svg viewBox="0 0 200 200" aria-hidden="true"><g class="spin"><circle class="draw" style="--len:565" cx="100" cy="100" r="90" stroke-width="0.9"/><circle class="pip" cx="191.2" cy="112.0" r="1.6"/><circle class="pip" cx="185.0" cy="135.2" r="1.6"/><circle class="pip" cx="173.0" cy="156.0" r="1.6"/><circle class="pip" cx="156.0" cy="173.0" r="1.6"/><circle class="pip" cx="135.2" cy="185.0" r="1.6"/><circle class="pip" cx="112.0" cy="191.2" r="1.6"/><circle class="pip" cx="88.0" cy="191.2" r="1.6"/><circle class="pip" cx="64.8" cy="185.0" r="1.6"/><circle class="pip" cx="44.0" cy="173.0" r="1.6"/><circle class="pip" cx="27.0" cy="156.0" r="1.6"/><circle class="pip" cx="15.0" cy="135.2" r="1.6"/><circle class="pip" cx="8.8" cy="112.0" r="1.6"/><circle class="pip" cx="8.8" cy="88.0" r="1.6"/><circle class="pip" cx="15.0" cy="64.8" r="1.6"/><circle class="pip" cx="27.0" cy="44.0" r="1.6"/><circle class="pip" cx="44.0" cy="27.0" r="1.6"/><circle class="pip" cx="64.8" cy="15.0" r="1.6"/><circle class="pip" cx="88.0" cy="8.8" r="1.6"/><circle class="pip" cx="112.0" cy="8.8" r="1.6"/><circle class="pip" cx="135.2" cy="15.0" r="1.6"/><circle class="pip" cx="156.0" cy="27.0" r="1.6"/><circle class="pip" cx="173.0" cy="44.0" r="1.6"/><circle class="pip" cx="185.0" cy="64.8" r="1.6"/><circle class="pip" cx="191.2" cy="88.0" r="1.6"/></g><circle class="draw d2" style="--len:509" cx="100" cy="100" r="81" stroke-width="0.6"/><path class="draw d2" style="--len:84" transform="rotate(160 100 100)" d="M100 44 C107 53, 107 60, 100 67 C93 60, 93 53, 100 44 Z" stroke-width="1.1"/><path class="draw d2" style="--len:84" transform="rotate(180 100 100)" d="M100 44 C107 53, 107 60, 100 67 C93 60, 93 53, 100 44 Z" stroke-width="1.1"/><path class="draw d2" style="--len:84" transform="rotate(200 100 100)" d="M100 44 C107 53, 107 60, 100 67 C93 60, 93 53, 100 44 Z" stroke-width="1.1"/><path class="draw d3" style="--len:34" transform="rotate(180 100 100)" d="M100 70 C104 74, 104 78, 100 82 C96 78, 96 74, 100 70 Z" stroke-width="0.9"/></svg></div><div class="gate-icon"><svg viewBox="0 0 100 100" aria-hidden="true"><defs><linearGradient id="gold24k" x1="0" y1="0" x2="0.35" y2="1"><stop offset="0%"   stop-color="#fffdf2"/><stop offset="16%"  stop-color="#ffeeb0"/><stop offset="32%"  stop-color="#ffd400"/><stop offset="46%"  stop-color="#fffbe6"/><stop offset="58%"  stop-color="#e0a91c"/><stop offset="74%"  stop-color="#b8800c"/><stop offset="88%"  stop-color="#ffe93a"/><stop offset="100%" stop-color="#8a5f06"/></linearGradient><linearGradient id="gold24kLine" x1="0" y1="0" x2="0.6" y2="1"><stop offset="0%" stop-color="#fffdf2"/><stop offset="28%" stop-color="#ffd964"/><stop offset="54%" stop-color="#fffbe6"/><stop offset="78%" stop-color="#e0a91c"/><stop offset="100%" stop-color="#ffeeb0"/></linearGradient><linearGradient id="flameOuter" x1="0.5" y1="0" x2="0.5" y2="1"><stop offset="0%"  stop-color="#ffdf7a"/><stop offset="35%" stop-color="#ffab1f"/><stop offset="72%" stop-color="#ff7a00"/><stop offset="100%" stop-color="#e04d00"/></linearGradient><linearGradient id="flameMid" x1="0.5" y1="0" x2="0.5" y2="1"><stop offset="0%"  stop-color="#fffbdc"/><stop offset="45%" stop-color="#ffdc5e"/><stop offset="100%" stop-color="#ffab14"/></linearGradient><radialGradient id="poolGold" cx="0.5" cy="0.5" r="0.5"><stop offset="0%"  stop-color="#ffd257" stop-opacity="0.95"/><stop offset="100%" stop-color="#ff8c1a" stop-opacity="0"/></radialGradient><radialGradient id="haloGold" cx="0.5" cy="0.55" r="0.5"><stop offset="0%"  stop-color="#ffb028" stop-opacity="0.34"/><stop offset="100%" stop-color="#ff7a00" stop-opacity="0"/></radialGradient></defs><ellipse class="flame-halo" cx="50" cy="36" rx="20" ry="26"/><g class="ir"><path d="M18 62 C18 76, 32 84, 50 84 C68 84, 82 76, 82 62 Z"/><path d="M18 62 C30 66, 70 66, 82 62"/><path d="M32 88 C38 91, 62 91, 68 88"/><path d="M50 84 L50 88"/><path d="M27 42 L20 36"/><path d="M73 42 L80 36"/><path d="M33 31 L30 23"/><path d="M67 31 L70 23"/></g><ellipse class="diya-pool" cx="50" cy="64" rx="24" ry="3.6" fill="url(#poolGold)" opacity="0.7"/><g class="flame-wrap"><path class="ir" d="M50 62 L50 54" /><path class="flame-outer" d="M50 12 C58 24, 63 32, 63 40 C63 49, 57 55, 50 55 C43 55, 37 49, 37 40 C37 32, 42 24, 50 12 Z"/><path class="flame-mid" d="M50 22 C55 30, 58 35, 58 41 C58 47, 54 52, 50 52 C46 52, 42 47, 42 41 C42 35, 45 30, 50 22 Z"/><path class="flame-core" d="M50 33 C53 38, 54 41, 54 44 C54 48, 52 51, 50 51 C48 51, 46 48, 46 44 C46 41, 47 38, 50 33 Z"/></g></svg></div><div class="gate-word-glow"></div><div class="gate-word"><span class="ltr">W</span><span class="ltr">E</span><span class="ltr">L</span><span class="ltr">C</span><span class="ltr">O</span><span class="ltr">M</span><span class="ltr">E</span></div></div>
+    <div class="gate-panel gate-right" aria-hidden="true"><span class="gate-ornament"></span><span class="gate-corner tl"></span><span class="gate-corner tr"></span><span class="gate-corner bl"></span><span class="gate-corner br"></span><div class="alpona"><svg viewBox="0 0 200 200" aria-hidden="true"><g class="spin"><circle class="draw" style="--len:565" cx="100" cy="100" r="90" stroke-width="0.9"/><circle class="pip" cx="191.2" cy="112.0" r="1.6"/><circle class="pip" cx="185.0" cy="135.2" r="1.6"/><circle class="pip" cx="173.0" cy="156.0" r="1.6"/><circle class="pip" cx="156.0" cy="173.0" r="1.6"/><circle class="pip" cx="135.2" cy="185.0" r="1.6"/><circle class="pip" cx="112.0" cy="191.2" r="1.6"/><circle class="pip" cx="88.0" cy="191.2" r="1.6"/><circle class="pip" cx="64.8" cy="185.0" r="1.6"/><circle class="pip" cx="44.0" cy="173.0" r="1.6"/><circle class="pip" cx="27.0" cy="156.0" r="1.6"/><circle class="pip" cx="15.0" cy="135.2" r="1.6"/><circle class="pip" cx="8.8" cy="112.0" r="1.6"/><circle class="pip" cx="8.8" cy="88.0" r="1.6"/><circle class="pip" cx="15.0" cy="64.8" r="1.6"/><circle class="pip" cx="27.0" cy="44.0" r="1.6"/><circle class="pip" cx="44.0" cy="27.0" r="1.6"/><circle class="pip" cx="64.8" cy="15.0" r="1.6"/><circle class="pip" cx="88.0" cy="8.8" r="1.6"/><circle class="pip" cx="112.0" cy="8.8" r="1.6"/><circle class="pip" cx="135.2" cy="15.0" r="1.6"/><circle class="pip" cx="156.0" cy="27.0" r="1.6"/><circle class="pip" cx="173.0" cy="44.0" r="1.6"/><circle class="pip" cx="185.0" cy="64.8" r="1.6"/><circle class="pip" cx="191.2" cy="88.0" r="1.6"/></g><circle class="draw d2" style="--len:509" cx="100" cy="100" r="81" stroke-width="0.6"/><path class="draw d2" style="--len:84" transform="rotate(160 100 100)" d="M100 44 C107 53, 107 60, 100 67 C93 60, 93 53, 100 44 Z" stroke-width="1.1"/><path class="draw d2" style="--len:84" transform="rotate(180 100 100)" d="M100 44 C107 53, 107 60, 100 67 C93 60, 93 53, 100 44 Z" stroke-width="1.1"/><path class="draw d2" style="--len:84" transform="rotate(200 100 100)" d="M100 44 C107 53, 107 60, 100 67 C93 60, 93 53, 100 44 Z" stroke-width="1.1"/><path class="draw d3" style="--len:34" transform="rotate(180 100 100)" d="M100 70 C104 74, 104 78, 100 82 C96 78, 96 74, 100 70 Z" stroke-width="0.9"/></svg></div><div class="gate-icon"><svg viewBox="0 0 100 100" aria-hidden="true"><defs><linearGradient id="gold24k" x1="0" y1="0" x2="0.35" y2="1"><stop offset="0%"   stop-color="#fffdf2"/><stop offset="16%"  stop-color="#ffeeb0"/><stop offset="32%"  stop-color="#ffd400"/><stop offset="46%"  stop-color="#fffbe6"/><stop offset="58%"  stop-color="#e0a91c"/><stop offset="74%"  stop-color="#b8800c"/><stop offset="88%"  stop-color="#ffe93a"/><stop offset="100%" stop-color="#8a5f06"/></linearGradient><linearGradient id="gold24kLine" x1="0" y1="0" x2="0.6" y2="1"><stop offset="0%"   stop-color="#fffbe8"/><stop offset="30%" stop-color="#ffd400"/><stop offset="55%"  stop-color="#fff6d0"/><stop offset="80%" stop-color="#e0a614"/><stop offset="100%" stop-color="#ffee55"/></linearGradient></defs><g class="shake-l"><path class="ir-fill" d="M 3.42,29.70 C 2.09,29.70 1.0,30.79 1.0,32.13 L 1.0,63.66 C 1.0,66.34 3.16,68.51 5.85,68.51 L 10.70,68.51 C 13.38,68.51 15.55,66.34 15.55,63.66 L 15.55,29.70 L 3.42,29.70"/><path class="ig-dot" d="M 8.27,58.81 A 2.42,2.42 0.0 1,1 8.27,63.66 Z"/><path class="ir-fill" d="M 53.48,42.07 L 45.64,48.16 C 40.87,51.89 33.94,50.92 30.36,46.01 C 26.99,41.39 27.84,34.93 32.29,31.34 L 44.90,21.13 C 43.14,20.39 41.24,20.01 39.32,20.01 C 36.47,20.00 33.70,20.85 31.32,22.42 L 20.40,29.70 L 20.40,63.66 L 24.67,63.66 L 38.53,76.30 C 41.50,79.02 46.10,78.80 48.81,75.83 C 49.64,74.91 50.20,73.83 50.49,72.71 L 53.07,75.07 C 56.03,77.79 60.63,77.59 63.35,74.63 C 64.03,73.89 64.53,73.03 64.85,72.13 C 67.79,74.10 71.79,73.69 74.26,71.00 C 76.98,68.04 76.78,63.43 73.82,60.72 Z"/></g><g class="shake-r"><path class="ir-fill" d="M 83.47,29.70 L 83.47,63.66 C 83.47,66.34 85.63,68.51 88.32,68.51 L 93.17,68.51 C 95.85,68.51 98.02,66.34 98.02,63.66 L 98.02,32.13 C 98.02,30.79 96.93,29.70 95.59,29.70 Z"/><path class="ig-dot" d="M 88.32,61.23 A 2.42,2.42 0.0 1,1 93.17,61.23 Z"/><path class="ir-fill hand-top" d="M 50.02,23.21 L 35.35,35.10 C 32.91,37.07 32.44,40.62 34.29,43.15 C 36.24,45.85 40.05,46.38 42.67,44.33 L 57.72,32.63 C 58.78,31.81 60.30,31.99 61.13,33.05 C 61.97,34.11 61.77,35.63 60.71,36.46 L 57.54,38.92 L 78.61,58.32 L 78.61,29.70 L 78.51,29.70 L 77.92,29.32 L 66.91,22.27 C 64.59,20.79 61.88,20.00 59.12,20.00 C 55.81,20.00 52.60,21.13 50.02,23.21"/></g><g class="shake-grip"><circle class="ig" cx="50" cy="49" r="2.4"/><path class="ig-line" d="M40 26 L36 17"/><path class="ig-line" d="M51 22 L51 13"/><path class="ig-line" d="M62 26 L67 17"/><path class="ig-line" d="M40 84 L36 92"/><path class="ig-line" d="M51 87 L51 95"/><path class="ig-line" d="M62 84 L67 92"/></g></svg></div><div class="gate-word-glow"></div><div class="gate-word"><span class="ltr">C</span><span class="ltr">O</span><span class="ltr">N</span><span class="ltr">N</span><span class="ltr">E</span><span class="ltr">C</span><span class="ltr">T</span><span class="ltr">I</span><span class="ltr">O</span><span class="ltr">N</span></div></div>
     <div class="glass-sweep"></div>
     <div class="glass-flash"></div>
     <button class="intro-skip" id="introSkip" type="button">Skip</button>
@@ -1508,6 +2015,13 @@
 
   <main class="container" tabindex="-1">
     <div class="card-container">
+            <div class="coming-soon" id="comingSoon" role="status" aria-live="polite" aria-hidden="true">
+              <div class="cs-mark" aria-hidden="true"></div>
+              <div class="cs-title">Coming Soon</div>
+              <div class="cs-sub">Gallery under construction</div>
+              <div class="cs-bar" aria-hidden="true"><i></i></div>
+            </div>
+
       <div class="card-flip-container">
         <div class="card-flip" id="card-flip" role="button" tabindex="0" aria-label="Flip business card">
           <section class="business-card card-face front" id="card" aria-label="RJ Sarkar - Brand & Production Designer" tabindex="0">
@@ -1535,7 +2049,7 @@
                 <i class="fab fa-whatsapp" aria-hidden="true"></i>
                 <span>WhatsApp</span>
               </a>
-              <a href="/cdn-cgi/l/email-protection#c7a6b5b3b1aeb4aea8a9a4a9a487a0aaa6aeabe9a4a8aa" class="contact-btn" aria-label="Email">
+              <a href="/cdn-cgi/l/email-protection#f9988b8d8f908a9096979a979ab99e94989095d79a9694" class="contact-btn" aria-label="Email">
                 <i class="fas fa-envelope" aria-hidden="true"></i>
                 <span>Gmail</span>
               </a>
@@ -1564,6 +2078,7 @@
                 <span>Special Offer</span>
               </a>
             </nav>
+            
           </section>
         
           <section class="business-card card-face back">
@@ -1592,6 +2107,10 @@
               <div class="marquee-row row-services"><div class="marquee-track" id="mqServices"></div></div>
               <div class="marquee-row row-disciplines"><div class="marquee-track" id="mqDisciplines"></div></div>
             </div>
+            <button class="contact-btn gallery-btn" id="galleryBtn" type="button" aria-label="Open gallery">
+              <i class="fas fa-images" aria-hidden="true"></i>
+              <span>Gallery</span>
+            </button>
             <nav class="social-grid" aria-label="Social media">
               <a href="https://www.facebook.com/ArtvisionDesign" class="contact-btn" target="_blank" rel="noopener" aria-label="Facebook">
                 <i class="fab fa-facebook-f" aria-hidden="true"></i>
@@ -1618,6 +2137,7 @@
                 <span>Calculator</span>
               </a>
             </nav>
+            
           </section>
         </div>
       </div>
@@ -1656,9 +2176,16 @@
       let frameCount = 0;
       const canvas = document.getElementById("matrix-canvas");
       const ctx = canvas.getContext("2d");
-      function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+      let rzT = null;
+      function resizeCanvas() {
+        if (canvas.width === window.innerWidth && canvas.height === window.innerHeight) return;
+        canvas.width = window.innerWidth; canvas.height = window.innerHeight;
+      }
       resizeCanvas();
-      window.addEventListener("resize", resizeCanvas);
+      window.addEventListener("resize", () => {
+        clearTimeout(rzT);
+        rzT = setTimeout(resizeCanvas, 180);   // debounced - no thrash while scrolling
+      }, { passive: true });
       const chars = "रंजन सरकार DESIGN विज़ुअल ART ABC abc 123";
       const fontSize = 18;
       let columns = Math.floor(window.innerWidth / fontSize);
@@ -1675,41 +2202,57 @@
           s.y -= s.speed * 0.6;
           s.twinkle += 0.05;
           if (s.y < -20) stars.splice(i, 1);
-          const glow = ctx.createRadialGradient(s.x, s.y, 0, s.x, s.y, s.size * 3);
-          glow.addColorStop(0, "#fff");
-          glow.addColorStop(0.3, "#fcc");
-          glow.addColorStop(1, "rgba(255,0,0,0)");
-          ctx.globalAlpha = s.opacity * (Math.sin(s.twinkle * 2) * 0.4 + 0.6);
-          ctx.fillStyle = glow;
+          const a = s.opacity * (Math.sin(s.twinkle * 2) * 0.4 + 0.6);
+          ctx.globalAlpha = a * 0.35;
+          ctx.fillStyle = "#ffcccc";
           ctx.beginPath();
-          ctx.arc(s.x, s.y, s.size * 3, 0, Math.PI * 2);
+          ctx.arc(s.x, s.y, s.size * 2.4, 0, Math.PI * 2);
           ctx.fill();
+          ctx.globalAlpha = a;
           ctx.fillStyle = "#fff";
           ctx.beginPath();
           ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
           ctx.fill();
+          ctx.globalAlpha = 1;
         }
       }
-      function draw() {
-        frameCount++;
-        if (frameCount % 3 !== 0) { requestAnimationFrame(draw); return; }
+      // Fixed ~24fps step for the rain (it is a background texture, it does not
+      // need 60fps) - but the rAF loop itself never blocks, so nothing judders.
+      const FRAME_MS = 1000 / 24;
+      let lastDraw = 0;
+      let paused = false;
+      document.addEventListener('visibilitychange', () => {
+        paused = document.hidden;
+        lastDraw = 0;
+      });
+      function draw(now) {
+        requestAnimationFrame(draw);
+        if (paused) return;
+        if (now - lastDraw < FRAME_MS) return;
+        lastDraw = now;
+
+        ctx.globalAlpha = 1;
+        ctx.shadowBlur = 0;
         ctx.fillStyle = "rgba(0, 0, 0, 0.15)";
         ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        // one shadow setup for the whole glyph pass instead of per character
         ctx.font = fontSize + "px monospace";
+        ctx.shadowColor = "#ff0000";
+        ctx.shadowBlur = 3;
+        ctx.fillStyle = "#ff4444";
         for (let i = 0; i < drops.length; i++) {
-          const text = chars.charAt(Math.floor(Math.random() * chars.length));
-          ctx.fillStyle = Math.random() > 0.975 ? "#fb0" : "#ff4444";
-          ctx.shadowColor = "#ff0000";
-          ctx.shadowBlur = 3;
+          const text = chars.charAt((Math.random() * chars.length) | 0);
           ctx.fillText(text, i * fontSize, drops[i] * fontSize);
           if (drops[i] * fontSize > canvas.height && Math.random() > 0.965) drops[i] = 0;
-          drops[i] += 0.35;
+          drops[i] += 0.9;
         }
+        ctx.shadowBlur = 0;
+
         createStar();
         drawStars();
-        requestAnimationFrame(draw);
       }
-      draw();
+      requestAnimationFrame(draw);
     }
 
     (function(){
@@ -1717,18 +2260,28 @@
       const scrollContainer = document.querySelector('.screen-scroll-text .scrolling-text-inner');
       scrollContainer.textContent = headline + "   " + headline;
       let pos = 0;
-      let speed = 1.3;
-      function step() {
-        pos -= speed;
-        const textWidth = scrollContainer.offsetWidth / 2;
-        if (-pos >= textWidth) pos = 0;
-        scrollContainer.style.transform = 'translateX(' + pos + 'px)';
+      const SPEED = 78;              // px per SECOND (frame-rate independent)
+      let textWidth = 0;             // measured once, not every frame
+      let lastT = 0;
+      function measure() { textWidth = scrollContainer.offsetWidth / 2; }
+      window.addEventListener('resize', measure, { passive: true });
+      function step(now) {
+        if (!lastT) lastT = now;
+        let dt = (now - lastT) / 1000;
+        lastT = now;
+        if (dt > 0.05) dt = 0.05;    // tab-switch / hiccup guard: never jump
+        if (!textWidth) measure();
+        pos -= SPEED * dt;
+        if (-pos >= textWidth) pos += textWidth;
+        scrollContainer.style.transform = 'translate3d(' + pos.toFixed(2) + 'px,0,0)';
         requestAnimationFrame(step);
       }
       window.addEventListener('load', () => {
-        pos = 0;
+        pos = 0; lastT = 0;
         scrollContainer.style.willChange = "transform";
-        step();
+        scrollContainer.style.backfaceVisibility = "hidden";
+        measure();
+        requestAnimationFrame(step);
       });
     })();
 
@@ -1772,11 +2325,419 @@
     })();
     /* ---------------------------------------------------- */
 
+    /* ---------------------------------------------------- */
+    /* SHANKH (conch) - plays softly on ANY click, layered   */
+    /* under the water music. Synthesized live via WebAudio, */
+    /* so there is no extra file to download and it works    */
+    /* completely offline.                                   */
+    /* ---------------------------------------------------- */
+    const Shankh = (function () {
+      let ctx = null;
+      let master = null;
+      let last = 0;
+      const VOLUME = 0.10;          // reduced a touch more so the conch stays subtle
+      const MIN_GAP_MS = 420;       // no machine-gun retrigger on fast clicks
+
+      function ensure() {
+        if (ctx) return ctx;
+        const AC = window.AudioContext || window.webkitAudioContext;
+        if (!AC) return null;
+        ctx = new AC();
+        master = ctx.createGain();
+        master.gain.value = VOLUME;
+
+        // shell resonance: hollow, horn-like body
+        const shell = ctx.createBiquadFilter();
+        shell.type = 'peaking';
+        shell.frequency.value = 720;
+        shell.Q.value = 1.1;
+        shell.gain.value = 5;
+
+        // roll off the harsh top so it sounds like a temple conch, not a buzzer
+        const tame = ctx.createBiquadFilter();
+        tame.type = 'lowpass';
+        tame.frequency.value = 2600;
+        tame.Q.value = 0.7;
+
+        shell.connect(tame);
+        tame.connect(master);
+        master.connect(ctx.destination);
+        master._in = shell;
+        return ctx;
+      }
+
+      // short reverb tail so it rings like it is in a big room
+      function makeTail(c) {
+        const len = Math.floor(c.sampleRate * 1.5);
+        const buf = c.createBuffer(2, len, c.sampleRate);
+        for (let ch = 0; ch < 2; ch++) {
+          const d = buf.getChannelData(ch);
+          for (let i = 0; i < len; i++) {
+            d[i] = (Math.random() * 2 - 1) * Math.pow(1 - i / len, 2.6);
+          }
+        }
+        return buf;
+      }
+
+      function blow() {
+        const c = ensure();
+        if (!c) return;
+        if (c.state === 'suspended') c.resume();
+
+        const now = c.currentTime;
+        const t0 = now + 0.005;
+        const dur = 2.4;
+        const f0 = 233;                       // ~Bb3, classic shankh pitch
+
+        const bus = c.createGain();
+        bus.gain.value = 1;
+        bus.connect(master._in);
+
+        // reverb send
+        if (!master._verb) {
+          const cv = c.createConvolver();
+          cv.buffer = makeTail(c);
+          const sendGain = c.createGain();
+          sendGain.gain.value = 0.5;
+          cv.connect(sendGain);
+          sendGain.connect(master);
+          master._verb = cv;
+        }
+        bus.connect(master._verb);
+
+        // --- harmonic stack: odd partials strong = hollow conch timbre ---
+        const partials = [[1, 1.0], [2, 0.5], [3, 0.42], [4, 0.17], [5, 0.13], [6, 0.06], [7, 0.045]];
+        partials.forEach(function (p) {
+          const k = p[0], amp = p[1];
+          const osc = c.createOscillator();
+          osc.type = 'sine';
+          // pitch scoops UP into the note, exactly like a real blow
+          osc.frequency.setValueAtTime(f0 * k * 0.87, t0);
+          osc.frequency.exponentialRampToValueAtTime(f0 * k, t0 + 0.17);
+          // soft vibrato once the note settles
+          const lfo = c.createOscillator();
+          lfo.frequency.value = 4.8;
+          const lfoAmt = c.createGain();
+          lfoAmt.gain.setValueAtTime(0, t0);
+          lfoAmt.gain.linearRampToValueAtTime(f0 * k * 0.006, t0 + 0.5);
+          lfo.connect(lfoAmt);
+          lfoAmt.connect(osc.frequency);
+
+          const g = c.createGain();
+          g.gain.setValueAtTime(0.0001, t0);
+          // higher partials fade in later -> the horn "opens up"
+          g.gain.exponentialRampToValueAtTime(amp, t0 + 0.07 + k * 0.012);
+          g.gain.setValueAtTime(amp, t0 + 0.7);
+          g.gain.exponentialRampToValueAtTime(0.0001, t0 + dur);
+
+          osc.connect(g);
+          g.connect(bus);
+          osc.start(t0); osc.stop(t0 + dur + 0.05);
+          lfo.start(t0);  lfo.stop(t0 + dur + 0.05);
+        });
+
+        // --- breath / air rushing through the shell ---
+        const nLen = Math.floor(c.sampleRate * 0.6);
+        const nBuf = c.createBuffer(1, nLen, c.sampleRate);
+        const nd = nBuf.getChannelData(0);
+        for (let i = 0; i < nLen; i++) nd[i] = Math.random() * 2 - 1;
+        const noise = c.createBufferSource();
+        noise.buffer = nBuf;
+        const nf = c.createBiquadFilter();
+        nf.type = 'bandpass';
+        nf.frequency.value = 950;
+        nf.Q.value = 0.8;
+        const ng = c.createGain();
+        ng.gain.setValueAtTime(0.0001, t0);
+        ng.gain.exponentialRampToValueAtTime(0.35, t0 + 0.05);
+        ng.gain.exponentialRampToValueAtTime(0.0001, t0 + 0.45);
+        noise.connect(nf); nf.connect(ng); ng.connect(bus);
+        noise.start(t0); noise.stop(t0 + 0.62);
+      }
+
+      let muted = false;
+      function setMuted(m) {
+        muted = !!m;
+        if (master) master.gain.value = muted ? 0 : VOLUME;
+      }
+
+      function play() {
+        if (muted) return;
+        const now = Date.now();
+        if (now - last < MIN_GAP_MS) return;   // throttle
+        last = now;
+        try { blow(); } catch (e) { /* audio unavailable - stay silent */ }
+      }
+
+      return { play: play, ensure: ensure, setMuted: setMuted };
+    })();
+
+    /* ------------------------------------------------------------ */
+    /* FOREST AMBIENCE - soft nature bed for the intro animation.   */
+    /* Synthesized live (breeze + brook + birds) so it works fully  */
+    /* offline and plays at a LOW, refreshing level only until the  */
+    /* intro finishes, building curiosity before the music starts.  */
+    /* ------------------------------------------------------------ */
+    const Forest = (function () {
+      let ctx = null;
+      let master = null;
+      let windGain = null, streamGain = null, birdGain = null;
+      let running = false;
+      let birdTimer = null;
+      let muted = false;
+      const MASTER = 0.5;   // overall gentle level
+
+      function ensure() {
+        if (ctx) return ctx;
+        const AC = window.AudioContext || window.webkitAudioContext;
+        if (!AC) return null;
+        ctx = new AC();
+        master = ctx.createGain();
+        master.gain.value = muted ? 0 : MASTER;
+        master.connect(ctx.destination);
+
+        // ---- breeze: lowpassed noise with a slow swell ----
+        const windBuf = makeNoise(3);
+        const wind = ctx.createBufferSource();
+        wind.buffer = windBuf; wind.loop = true;
+        const windLP = ctx.createBiquadFilter();
+        windLP.type = 'lowpass'; windLP.frequency.value = 520; windLP.Q.value = 0.7;
+        const windMod = ctx.createGain();
+        windMod.gain.value = 0.20;
+        windGain = ctx.createGain();
+        windGain.gain.value = 0;
+        wind.connect(windLP); windLP.connect(windMod); windMod.connect(windGain); windGain.connect(master);
+        wind.start();
+        const windLfo = ctx.createOscillator();
+        windLfo.frequency.value = 0.13;
+        const windLfoAmt = ctx.createGain();
+        windLfoAmt.gain.value = 0.13;
+        windLfo.connect(windLfoAmt); windLfoAmt.connect(windMod.gain);
+        windLfo.start();
+
+        // ---- brook / stream: bandpassed noise with a water ripple ----
+        const streamBuf = makeNoise(2);
+        const stream = ctx.createBufferSource();
+        stream.buffer = streamBuf; stream.loop = true;
+        const streamBP = ctx.createBiquadFilter();
+        streamBP.type = 'bandpass'; streamBP.frequency.value = 1300; streamBP.Q.value = 1.4;
+        const streamMod = ctx.createGain();
+        streamMod.gain.value = 0.12;
+        streamGain = ctx.createGain();
+        streamGain.gain.value = 0;
+        stream.connect(streamBP); streamBP.connect(streamMod); streamMod.connect(streamGain); streamGain.connect(master);
+        stream.start();
+        const rip = ctx.createOscillator();
+        rip.frequency.value = 1.7;
+        const ripAmt = ctx.createGain();
+        ripAmt.gain.value = 0.06;
+        rip.connect(ripAmt); ripAmt.connect(streamMod.gain);
+        rip.start();
+
+        // ---- birds ----
+        birdGain = ctx.createGain();
+        birdGain.gain.value = 0;
+        birdGain.connect(master);
+
+        return ctx;
+      }
+
+      function makeNoise(seconds) {
+        const len = Math.floor(ctx.sampleRate * seconds);
+        const buf = ctx.createBuffer(1, len, ctx.sampleRate);
+        const d = buf.getChannelData(0);
+        for (let i = 0; i < len; i++) d[i] = Math.random() * 2 - 1;
+        return buf;
+      }
+
+      function chirp(when) {
+        const base = 2200 + Math.random() * 1900;
+        const reps = 2 + Math.floor(Math.random() * 3);
+        for (let r = 0; r < reps; r++) {
+          const t = when + r * 0.17;
+          const osc = ctx.createOscillator();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(base, t);
+          osc.frequency.exponentialRampToValueAtTime(base * 1.45, t + 0.05);
+          osc.frequency.exponentialRampToValueAtTime(base * 0.92, t + 0.09);
+          const g = ctx.createGain();
+          g.gain.setValueAtTime(0.0001, t);
+          g.gain.exponentialRampToValueAtTime(0.32, t + 0.015);
+          g.gain.exponentialRampToValueAtTime(0.0001, t + 0.1);
+          osc.connect(g); g.connect(birdGain);
+          osc.start(t); osc.stop(t + 0.12);
+        }
+      }
+
+      function scheduleBirds() {
+        const now = ctx.currentTime;
+        let t = now + 0.8 + Math.random() * 1.4;
+        const n = 3 + Math.floor(Math.random() * 3);
+        for (let i = 0; i < n; i++) {
+          chirp(t);
+          t += 1.0 + Math.random() * 2.4;
+        }
+        birdTimer = setTimeout(scheduleBirds, 5600);
+      }
+
+      function start() {
+        ensure();
+        if (!ctx) return;
+        if (ctx.state === 'suspended') ctx.resume();
+        if (running) return;
+        running = true;
+        const now = ctx.currentTime;
+        windGain.gain.cancelScheduledValues(now);
+        windGain.gain.setValueAtTime(0.0001, now);
+        windGain.gain.linearRampToValueAtTime(0.9, now + 1.6);
+        streamGain.gain.cancelScheduledValues(now);
+        streamGain.gain.setValueAtTime(0.0001, now);
+        streamGain.gain.linearRampToValueAtTime(0.8, now + 1.8);
+        birdGain.gain.cancelScheduledValues(now);
+        birdGain.gain.setValueAtTime(0.0001, now);
+        birdGain.gain.linearRampToValueAtTime(0.8, now + 1.2);
+        scheduleBirds();
+      }
+
+      function stop() {
+        if (!running || !ctx) return;
+        running = false;
+        if (birdTimer) { clearTimeout(birdTimer); birdTimer = null; }
+        const now = ctx.currentTime;
+        windGain.gain.cancelScheduledValues(now);
+        windGain.gain.setValueAtTime(windGain.gain.value, now);
+        windGain.gain.linearRampToValueAtTime(0.0001, now + 0.7);
+        streamGain.gain.cancelScheduledValues(now);
+        streamGain.gain.setValueAtTime(streamGain.gain.value, now);
+        streamGain.gain.linearRampToValueAtTime(0.0001, now + 0.7);
+        birdGain.gain.cancelScheduledValues(now);
+        birdGain.gain.setValueAtTime(birdGain.gain.value, now);
+        birdGain.gain.linearRampToValueAtTime(0.0001, now + 0.5);
+      }
+
+      function setMuted(m) {
+        muted = !!m;
+        if (master) master.gain.value = muted ? 0 : MASTER;
+      }
+
+      return { start: start, stop: stop, setMuted: setMuted, ensure: ensure };
+    })();
+
+    /* ------------------------------------------------------------ */
+    /* WATER DROP - a soft "plip" layered under the click, so every */
+    /* tap feels like a droplet on water (synthesized, offline).    */
+    /* ------------------------------------------------------------ */
+    const WaterDrop = (function () {
+      let ctx = null;
+      let master = null;
+      let last = 0;
+      const VOLUME = 0.22;
+      const MIN_GAP_MS = 90;
+
+      function ensure() {
+        if (ctx) return ctx;
+        const AC = window.AudioContext || window.webkitAudioContext;
+        if (!AC) return null;
+        ctx = new AC();
+        master = ctx.createGain();
+        master.gain.value = VOLUME;
+        master.connect(ctx.destination);
+        return ctx;
+      }
+
+      function drop() {
+        const c = ensure();
+        if (!c) return;
+        if (c.state === 'suspended') c.resume();
+        const t0 = c.currentTime + 0.001;
+
+        // main droplet: pitch falls fast like a drop hitting water
+        const osc = c.createOscillator();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(1350, t0);
+        osc.frequency.exponentialRampToValueAtTime(320, t0 + 0.12);
+        const og = c.createGain();
+        og.gain.setValueAtTime(0.0001, t0);
+        og.gain.exponentialRampToValueAtTime(0.9, t0 + 0.012);
+        og.gain.exponentialRampToValueAtTime(0.0001, t0 + 0.28);
+        osc.connect(og); og.connect(master);
+        osc.start(t0); osc.stop(t0 + 0.32);
+
+        // tiny splash hiss
+        const nLen = Math.floor(c.sampleRate * 0.08);
+        const nBuf = c.createBuffer(1, nLen, c.sampleRate);
+        const nd = nBuf.getChannelData(0);
+        for (let i = 0; i < nLen; i++) nd[i] = (Math.random() * 2 - 1) * (1 - i / nLen);
+        const noise = c.createBufferSource();
+        noise.buffer = nBuf;
+        const nf = c.createBiquadFilter();
+        nf.type = 'bandpass';
+        nf.frequency.value = 2400;
+        nf.Q.value = 1.2;
+        const ng = c.createGain();
+        ng.gain.setValueAtTime(0.0001, t0 + 0.01);
+        ng.gain.exponentialRampToValueAtTime(0.16, t0 + 0.03);
+        ng.gain.exponentialRampToValueAtTime(0.0001, t0 + 0.12);
+        noise.connect(nf); nf.connect(ng); ng.connect(master);
+        noise.start(t0); noise.stop(t0 + 0.14);
+      }
+
+      let muted = false;
+      function setMuted(m) {
+        muted = !!m;
+        if (master) master.gain.value = muted ? 0 : VOLUME;
+      }
+      function play() {
+        if (muted) return;
+        const now = Date.now();
+        if (now - last < MIN_GAP_MS) return;
+        last = now;
+        try { drop(); } catch (e) { /* audio unavailable - stay silent */ }
+      }
+
+      return { play: play, ensure: ensure, setMuted: setMuted };
+    })();
+
+    // ANY click anywhere on the page: soft conch + water drop layered together
+    // (capture phase, so it fires even for handlers that stop propagation).
+    document.addEventListener('pointerdown', function () {
+      Shankh.play();
+      WaterDrop.play();
+    }, { capture: true, passive: true });
+
+    // Unlock WebAudio on the first real user gesture (autoplay policies) so the
+    // intro forest ambience can begin as soon as the visitor interacts.
+    function unlockAudio() {
+      try {
+        const c = Forest.ensure();
+        if (c && c.state === 'suspended') c.resume();
+      } catch (e) {}
+    }
+    document.addEventListener('pointerdown', unlockAudio, { capture: true });
+    document.addEventListener('keydown', unlockAudio, { capture: true });
+
     let isMuted = true;
+    let bgStarted = false;
     const toggle = document.getElementById("audio-toggle");
     const iframe = document.getElementById("soundcloud-iframe");
+
+    // Background music starts only AFTER the intro forest ambience has played,
+    // so the intro stays calm and curious before the track drops in.
+    function startBackgroundMusic() {
+      if (bgStarted) return;
+      bgStarted = true;
+      isMuted = false;
+      Shankh.setMuted(false);
+      WaterDrop.setMuted(false);
+      iframe.style.display = 'block';
+      iframe.src = "https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/rj-sarkar/navras-drum-and-bass-remix&color=%23ff5500&auto_play=true&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false&visual=false&loop=true";
+      toggle.innerHTML = "🔊";
+    }
+
     toggle.addEventListener("click", () => {
       isMuted = !isMuted;
+      Shankh.setMuted(isMuted);
+      WaterDrop.setMuted(isMuted);
       if (isMuted) {
         iframe.style.display = 'none';
         iframe.src = "about:blank";
@@ -1787,14 +2748,6 @@
         toggle.innerHTML = "🔊";
       }
     });
-    setTimeout(() => {
-      if (isMuted) {
-        isMuted = false;
-        iframe.style.display = 'block';
-        iframe.src = "https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/rj-sarkar/navras-drum-and-bass-remix&color=%23ff5500&auto_play=true&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false&visual=false&loop=true";
-        toggle.innerHTML = "🔊";
-      }
-    }, 3000);
 
     document.getElementById('shareFab').addEventListener('click', async () => {
       try {
@@ -1848,12 +2801,41 @@
     /* ---- back-face marquees: three right-to-left scrolling lines ---- */
     (function(){
       const eye = '\u{1F9FF}';
+      (function () {
+        const btn = document.getElementById('galleryBtn');
+        const cs  = document.getElementById('comingSoon');
+        if (!btn || !cs) return;
+        let timer = null;
+        const hide = () => {
+          cs.classList.remove('show');
+          cs.setAttribute('aria-hidden', 'true');
+          btn.classList.remove('is-busy');
+          const bar = cs.querySelector('.cs-bar > i');
+          if (bar) { bar.style.animation = 'none'; void bar.offsetWidth; bar.style.animation = ''; }
+        };
+        btn.addEventListener('click', (ev) => {
+          ev.preventDefault();
+          ev.stopPropagation();
+          if (timer) clearTimeout(timer);
+          btn.classList.add('is-busy');
+          cs.classList.add('show');
+          cs.setAttribute('aria-hidden', 'false');
+          timer = setTimeout(hide, 5000);
+        });
+        cs.addEventListener('click', (ev) => {
+          ev.preventDefault();
+          ev.stopPropagation();
+          if (timer) clearTimeout(timer);
+          hide();
+        });
+      })();
+
       const wrapEyes = (t) => t.split(eye).join('<span class="blink-eye">' + eye + '</span>');
 
       const rows = [
         { id: 'mqVision',      html: wrapEyes('" Your ViSi' + eye + 'N,   ' + eye + 'ur Creation"...') },
-        { id: 'mqServices',    html: '\u27A4 \u2022 ADVERTiSiNG - BRANDiNG - CREATiVE - DESiGNiNG - EXECUTiON \u2022 \u27A4' },
-        { id: 'mqDisciplines', html: '➤ ARTWORK ➤ ARTWORKiNG ➤ ART DIRECTION ➤ ADAPTATION ➤ ARTWORK ADAPTATION ➤ ARCHITECTURAL BRANDING ➤ ARCHITECTURAL DESIGN ➤ ACP CLADDING ➤ ACP SIGNAGE ➤ ACRYLIC DESIGN ➤ ACRYLIC LETTER ➤ ANIMATION ➤ ANNUAL REPORT DESIGN ➤ APPLICATION DESIGN ➤ ADVERTISING DESIGN ➤ ADVERTISING CAMPAIGN ➤ AI-ASSISTED CREATIVE ➤ AI VISUALIZATION ➤ ASSET DESIGN RECCE, LOGO, BRANDiNG, ARTWORK, ADVERTiSiNG, DESiGNiNG, VISUALiZATiON, PRINTiNG, CNC, LASER, FABRiCATiON, SiGNAGE, CLADDiNG, DISPLAY, PACKAGiNG, INSTALLATiON, EXECUTiON,' }
+        { id: 'mqServices',    html: '\u27A4 \u2022 ADVERTiSiNG - BRANDiNG - CREATiVE - DESiGN - EXECUTiON \u2022 \u27A4' },
+        { id: 'mqDisciplines', html: 'ADVERTiSiNG, ArtWORKing, ADAPTATiON, ARCHiTECTURE, ASSET, ART (VECTOR iLLUSTRATiON)' }
       ];
 
       rows.forEach(function (row) {
@@ -2025,7 +3007,7 @@
 
       function runIntro() {
         clearTimers();
-        root.classList.remove('stage-open', 'stage-logo', 'stage-icons', 'stage-blink', 'stage-glass', 'stage-fadeout', 'intro-done');
+        root.classList.remove('stage-alpona', 'stage-word-l', 'stage-word-r', 'stage-open', 'stage-logo', 'stage-icons', 'stage-blink', 'stage-glass', 'stage-fadeout', 'intro-done');
         document.documentElement.classList.add('intro-lock');
         document.body.classList.add('intro-active');
         document.body.classList.remove('intro-glass');
@@ -2039,20 +3021,27 @@
           return;
         }
 
-        stageTimers.push(setTimeout(() => root.classList.add('stage-open'), 950));   // golden gate opens
-        stageTimers.push(setTimeout(() => root.classList.add('stage-logo'), 1650));  // logo settles in
-        stageTimers.push(setTimeout(() => root.classList.add('stage-icons'), 1650)); // design icons pop + glow (3s run)
-        stageTimers.push(setTimeout(() => root.classList.add('stage-blink'), 2450)); // right eye blinks twice
+        Forest.start();   // soft nature ambience plays through the intro only
+
+        stageTimers.push(setTimeout(() => root.classList.add('stage-alpona'), 250));  // bengali alpona draws on both leaves
+        stageTimers.push(setTimeout(() => root.classList.add('stage-word-l'), 1500)); // LEFT gate: WELCOME strikes on (red)
+        stageTimers.push(setTimeout(() => root.classList.add('stage-word-r'), 3100)); // RIGHT gate: CONNECTION strikes on (red)
+        stageTimers.push(setTimeout(() => root.classList.add('stage-open'), 5100));   // only now the doors part
+        stageTimers.push(setTimeout(() => root.classList.add('stage-logo'), 5900));  // logo settles in
+        stageTimers.push(setTimeout(() => root.classList.add('stage-icons'), 5900)); // design icons pop + glow (3s run)
+        stageTimers.push(setTimeout(() => root.classList.add('stage-blink'), 6700)); // right eye blinks twice
         stageTimers.push(setTimeout(() => {                                          // glass-effect transition begins
           root.classList.add('stage-glass');
           document.body.classList.add('intro-glass');                               // card sharpens into focus
-        }, 3650));
-        stageTimers.push(setTimeout(() => root.classList.add('stage-fadeout'), 4650)); // intro fully fades
-        stageTimers.push(setTimeout(finishIntro, 5550));                              // card fully revealed
+        }, 7900));
+        stageTimers.push(setTimeout(() => root.classList.add('stage-fadeout'), 8900)); // intro fully fades
+        stageTimers.push(setTimeout(finishIntro, 9800));                              // card fully revealed
       }
 
       function finishIntro() {
         clearTimers();
+        Forest.stop();          // fade the forest out...
+        startBackgroundMusic(); // ...and bring the background track in
         root.classList.add('intro-done');
         root.style.display = 'none';
         root.setAttribute('aria-hidden', 'true');
@@ -2075,5 +3064,5 @@
       lastTouchEnd = now;
     }, false);
   </script>
-<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a2a7a4bbb9497fa5',t:'MTc4NjYyMzMwOA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a2ae82a9bed9a6ad',t:'MTc4NjY5NTMxMg=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
