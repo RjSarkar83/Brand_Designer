@@ -146,8 +146,8 @@
     }
     .calculator-screen {
       width: 92%;
-      min-height: 186px;
-      max-height: 214px;
+      min-height: 205px;
+      max-height: 248px;
       flex: 0 0 auto;
       margin: 0 auto;
       margin-top: 16px;
@@ -254,7 +254,7 @@
     .neon-text {
       font-family: 'Playfair Display', serif;
       font-weight: 700;
-      font-size: clamp(1.6rem, 6.5vw, 2.15rem);
+      font-size: clamp(2rem, 7.2vw, 2.6rem);
       color: #fff;
       letter-spacing: 1.5px;
       margin-top: 0;
@@ -271,7 +271,7 @@
     }
     .subtitle {
       font-family: 'Montserrat', Arial, sans-serif;
-      font-size: clamp(0.65rem, 1vw, 0.78rem);
+      font-size: clamp(0.85rem, 1.5vw, 1.15rem);
       color: var(--accent-red);
       opacity: 0.92;
       text-transform: uppercase;
@@ -294,7 +294,7 @@
     .year-digit {
       font-family: 'Montserrat', Arial, sans-serif;
       font-weight: 400;
-      font-size: clamp(0.95rem, 3.4vw, 1.08rem);
+      font-size: clamp(1.05rem, 3.8vw, 1.25rem);
       color: #fff;
       animation: funny-bounce 4s infinite alternate cubic-bezier(.44,1.36,.89,.62);
       text-shadow: none;
@@ -743,8 +743,8 @@
     }
     .signature-screen {
       position: relative;
-      width: 88%;
-      max-width: 280px;
+      width: 92%;
+      max-width: none;
       margin-top: 0;
       padding: 0.7rem 1rem;
       border-radius: 10px;
@@ -1484,10 +1484,10 @@
     .gate-icon {
       position: absolute;
       left: 50%;
-      top: calc(50% - 48px);
+      top: calc(50% - 40px);
       transform: translate(-50%, -50%) scale(1);
-      width: 44px;
-      height: 44px;
+      width: 32px;
+      height: 32px;
       pointer-events: none;
       z-index: 4;
       opacity: 0;
@@ -2039,7 +2039,7 @@
                 <i class="fab fa-whatsapp" aria-hidden="true"></i>
                 <span>WhatsApp</span>
               </a>
-              <a href="/cdn-cgi/l/email-protection#f9988b8d8f908a9096979a979ab99e94989095d79a9694" class="contact-btn" aria-label="Email">
+              <a href="/cdn-cgi/l/email-protection#3d5c4f494b544e5452535e535e7d5a505c5451135e5250" class="contact-btn" aria-label="Email">
                 <i class="fas fa-envelope" aria-hidden="true"></i>
                 <span>Gmail</span>
               </a>
@@ -2144,15 +2144,17 @@
 
   <iframe
     id="soundcloud-iframe"
-    width="0"
-    height="0"
+    title="Background music player"
+    width="300"
+    height="54"
     scrolling="no"
     frameborder="no"
-    allow="autoplay"
-    src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/rj-sarkar/navras-drum-and-bass-remix&color=%23ff5500&auto_play=false&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false&visual=false&loop=true">
+    allow="autoplay; encrypted-media"
+    style="position:fixed;left:-9999px;top:0;width:300px;height:54px;opacity:0.01;pointer-events:none;border:0;"
+    src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/rj-sarkar/navras-drum-and-bass-remix&color=%23ff5500&auto_play=true&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false&visual=false&loop=true">
   </iframe>
 
-  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
     const cursorEl = document.createElement('div');
     cursorEl.className = 'quantum-cursor';
     cursorEl.id = 'cursor';
@@ -2345,9 +2347,9 @@
         const wind = ctx.createBufferSource();
         wind.buffer = windBuf; wind.loop = true;
         const windLP = ctx.createBiquadFilter();
-        windLP.type = 'lowpass'; windLP.frequency.value = 520; windLP.Q.value = 0.7;
+        windLP.type = 'lowpass'; windLP.frequency.value = 680; windLP.Q.value = 0.7;
         const windMod = ctx.createGain();
-        windMod.gain.value = 0.20;
+        windMod.gain.value = 0.30;
         windGain = ctx.createGain();
         windGain.gain.value = 0;
         wind.connect(windLP); windLP.connect(windMod); windMod.connect(windGain); windGain.connect(master);
@@ -2364,17 +2366,17 @@
         const stream = ctx.createBufferSource();
         stream.buffer = streamBuf; stream.loop = true;
         const streamBP = ctx.createBiquadFilter();
-        streamBP.type = 'bandpass'; streamBP.frequency.value = 1300; streamBP.Q.value = 1.4;
+        streamBP.type = 'bandpass'; streamBP.frequency.value = 1400; streamBP.Q.value = 1.5;
         const streamMod = ctx.createGain();
-        streamMod.gain.value = 0.12;
+        streamMod.gain.value = 0.20;
         streamGain = ctx.createGain();
         streamGain.gain.value = 0;
         stream.connect(streamBP); streamBP.connect(streamMod); streamMod.connect(streamGain); streamGain.connect(master);
         stream.start();
         const rip = ctx.createOscillator();
-        rip.frequency.value = 1.7;
+        rip.frequency.value = 1.6;
         const ripAmt = ctx.createGain();
-        ripAmt.gain.value = 0.06;
+        ripAmt.gain.value = 0.11;
         rip.connect(ripAmt); ripAmt.connect(streamMod.gain);
         rip.start();
 
@@ -2406,7 +2408,7 @@
           osc.frequency.exponentialRampToValueAtTime(base * 0.92, t + 0.09);
           const g = ctx.createGain();
           g.gain.setValueAtTime(0.0001, t);
-          g.gain.exponentialRampToValueAtTime(0.32, t + 0.015);
+          g.gain.exponentialRampToValueAtTime(0.5, t + 0.015);
           g.gain.exponentialRampToValueAtTime(0.0001, t + 0.1);
           osc.connect(g); g.connect(birdGain);
           osc.start(t); osc.stop(t + 0.12);
@@ -2421,7 +2423,7 @@
           chirp(t);
           t += 1.0 + Math.random() * 2.4;
         }
-        birdTimer = setTimeout(scheduleBirds, 5600);
+        birdTimer = setTimeout(scheduleBirds, 4300);
       }
 
       function start() {
@@ -2433,13 +2435,13 @@
         const now = ctx.currentTime;
         windGain.gain.cancelScheduledValues(now);
         windGain.gain.setValueAtTime(0.0001, now);
-        windGain.gain.linearRampToValueAtTime(0.9, now + 1.6);
+        windGain.gain.linearRampToValueAtTime(1.2, now + 1.6);
         streamGain.gain.cancelScheduledValues(now);
         streamGain.gain.setValueAtTime(0.0001, now);
-        streamGain.gain.linearRampToValueAtTime(0.8, now + 1.8);
+        streamGain.gain.linearRampToValueAtTime(1.1, now + 1.8);
         birdGain.gain.cancelScheduledValues(now);
         birdGain.gain.setValueAtTime(0.0001, now);
-        birdGain.gain.linearRampToValueAtTime(0.8, now + 1.2);
+        birdGain.gain.linearRampToValueAtTime(1.15, now + 1.2);
         scheduleBirds();
       }
 
@@ -2468,15 +2470,33 @@
     })();
 
     /* ------------------------------------------------------------ */
-    /* WATER DROP - a soft "plip" layered under the click, so every */
-    /* tap feels like a droplet on water (synthesized, offline).    */
+    /* COIN RING - every click/tap now rings like a struck coin,    */
+    /* with a bright metallic "ting" and a "gunj" (echo/resonance)  */
+    /* tail. Synthesized, fully offline: a strike transient +       */
+    /* inharmonic metal partials fed through a short feedback echo. */
     /* ------------------------------------------------------------ */
-    const WaterDrop = (function () {
+    const Coin = (function () {
       let ctx = null;
       let master = null;
       let last = 0;
-      const VOLUME = 0.30;   // slightly fuller now that it is the only click sound
-      const MIN_GAP_MS = 90;
+      const VOLUME = 0.24;
+      const MIN_GAP_MS = 75;
+
+      // ---- SA RE GA MA PA DHA NI SA ----
+      // Every tap rings the NEXT note of the sargam (Sa = C5, a bright bell
+      // register so it still sounds like a coin), ascending and looping:
+      // tap 1 = Sa, tap 2 = Re, tap 3 = Ga ... tap 8 = Sa (high), then again.
+      const SARGAM = [
+        523.25, // Sa
+        587.33, // Re
+        659.25, // Ga
+        698.46, // Ma
+        783.99, // Pa
+        880.00, // Dha
+        987.77, // Ni
+        1046.50 // Sa (upper)
+      ];
+      let sargamIdx = 0;
 
       function ensure() {
         if (ctx) return ctx;
@@ -2484,46 +2504,66 @@
         if (!AC) return null;
         ctx = new AC();
         master = ctx.createGain();
-        master.gain.value = VOLUME;
+        master.gain.value = muted ? 0 : VOLUME;
         master.connect(ctx.destination);
+
+        // "gunj" bus: short feedback echo so every coin resonances a few times
+        const echo = ctx.createDelay(0.6);
+        echo.delayTime.value = 0.15;
+        const echoFb = ctx.createGain();
+        echoFb.gain.value = 0.30;
+        const echoWet = ctx.createGain();
+        echoWet.gain.value = 0.5;
+        master.connect(echo);
+        echo.connect(echoFb); echoFb.connect(echo);
+        echo.connect(echoWet); echoWet.connect(ctx.destination);
         return ctx;
       }
 
-      function drop() {
+      function ring() {
         const c = ensure();
         if (!c) return;
         if (c.state === 'suspended') c.resume();
         const t0 = c.currentTime + 0.001;
 
-        // main droplet: pitch falls fast like a drop hitting water
-        const osc = c.createOscillator();
-        osc.type = 'sine';
-        osc.frequency.setValueAtTime(1350, t0);
-        osc.frequency.exponentialRampToValueAtTime(320, t0 + 0.12);
-        const og = c.createGain();
-        og.gain.setValueAtTime(0.0001, t0);
-        og.gain.exponentialRampToValueAtTime(0.9, t0 + 0.012);
-        og.gain.exponentialRampToValueAtTime(0.0001, t0 + 0.28);
-        osc.connect(og); og.connect(master);
-        osc.start(t0); osc.stop(t0 + 0.32);
-
-        // tiny splash hiss
-        const nLen = Math.floor(c.sampleRate * 0.08);
+        // ---- 1) strike transient: the metallic "tick" of the hit ----
+        const nLen = Math.floor(c.sampleRate * 0.045);
         const nBuf = c.createBuffer(1, nLen, c.sampleRate);
         const nd = nBuf.getChannelData(0);
         for (let i = 0; i < nLen; i++) nd[i] = (Math.random() * 2 - 1) * (1 - i / nLen);
         const noise = c.createBufferSource();
         noise.buffer = nBuf;
-        const nf = c.createBiquadFilter();
-        nf.type = 'bandpass';
-        nf.frequency.value = 2400;
-        nf.Q.value = 1.2;
+        const hp = c.createBiquadFilter();
+        hp.type = 'highpass'; hp.frequency.value = 3600; hp.Q.value = 0.7;
         const ng = c.createGain();
-        ng.gain.setValueAtTime(0.0001, t0 + 0.01);
-        ng.gain.exponentialRampToValueAtTime(0.16, t0 + 0.03);
-        ng.gain.exponentialRampToValueAtTime(0.0001, t0 + 0.12);
-        noise.connect(nf); nf.connect(ng); ng.connect(master);
-        noise.start(t0); noise.stop(t0 + 0.14);
+        ng.gain.setValueAtTime(0.0001, t0);
+        ng.gain.exponentialRampToValueAtTime(0.6, t0 + 0.005);
+        ng.gain.exponentialRampToValueAtTime(0.0001, t0 + 0.05);
+        noise.connect(hp); hp.connect(ng); ng.connect(master);
+        noise.start(t0); noise.stop(t0 + 0.07);
+
+        // ---- 2) the ring: inharmonic metal partials, fast attack ----
+        // pitch = current sargam note, then advance to the next one (sa->re->ga...)
+        const f0 = SARGAM[sargamIdx];
+        sargamIdx = (sargamIdx + 1) % SARGAM.length;
+        const partials = [
+          { ratio: 1.000, amp: 0.50, decay: 0.65 },
+          { ratio: 2.756, amp: 0.28, decay: 0.45 },
+          { ratio: 5.404, amp: 0.12, decay: 0.30 },
+          { ratio: 8.933, amp: 0.05, decay: 0.22 }
+        ];
+        for (let i = 0; i < partials.length; i++) {
+          const p = partials[i];
+          const osc = c.createOscillator();
+          osc.type = 'sine';
+          osc.frequency.setValueAtTime(f0 * p.ratio, t0);
+          const og = c.createGain();
+          og.gain.setValueAtTime(0.0001, t0);
+          og.gain.exponentialRampToValueAtTime(p.amp, t0 + 0.004);
+          og.gain.exponentialRampToValueAtTime(0.0001, t0 + p.decay);
+          osc.connect(og); og.connect(master);
+          osc.start(t0); osc.stop(t0 + p.decay + 0.06);
+        }
       }
 
       let muted = false;
@@ -2536,16 +2576,389 @@
         const now = Date.now();
         if (now - last < MIN_GAP_MS) return;
         last = now;
-        try { drop(); } catch (e) { /* audio unavailable - stay silent */ }
+        try { ring(); } catch (e) { /* audio unavailable - stay silent */ }
       }
 
       return { play: play, ensure: ensure, setMuted: setMuted };
     })();
 
-    // ANY click anywhere on the page: a soft water drop (the only click sound).
+    /* ------------------------------------------------------------ */
+    /* RAIN AMBIENCE - soft "barish" pattering that matches the     */
+    /* matrix-rain backdrop. Synthesized live (filtered-noise hiss  */
+    /* + random droplet plips) so it works fully offline.           */
+    /* ------------------------------------------------------------ */
+    const Rain = (function () {
+      let ctx = null;
+      let master = null;
+      let running = false;
+      let dropTimer = null;
+      let muted = false;
+      const MASTER = 0.45;   // sits UNDER the forest bed, not on top of it
+
+      function ensure() {
+        if (ctx) return ctx;
+        const AC = window.AudioContext || window.webkitAudioContext;
+        if (!AC) return null;
+        ctx = new AC();
+        master = ctx.createGain();
+        master.gain.value = muted ? 0 : MASTER;
+        master.connect(ctx.destination);
+
+        // ---- the steady hiss of falling rain: noise shaped with filters ----
+        const len = Math.floor(ctx.sampleRate * 4);
+        const buf = ctx.createBuffer(1, len, ctx.sampleRate);
+        const d = buf.getChannelData(0);
+        for (let i = 0; i < len; i++) d[i] = Math.random() * 2 - 1;
+        const rainSrc = ctx.createBufferSource();
+        rainSrc.buffer = buf; rainSrc.loop = true;
+
+        const hp = ctx.createBiquadFilter();
+        hp.type = 'highpass'; hp.frequency.value = 480; hp.Q.value = 0.55;
+        const lp = ctx.createBiquadFilter();
+        lp.type = 'lowpass'; lp.frequency.value = 5600; lp.Q.value = 0.45;
+        const hiss = ctx.createGain();
+        hiss.gain.value = 0.42;
+
+        rainSrc.connect(hp); hp.connect(lp); lp.connect(hiss); hiss.connect(master);
+        rainSrc.start();
+
+        // gentle surge so the rain "breathes" like gusts, not a static hiss
+        const lfo = ctx.createOscillator();
+        lfo.frequency.value = 0.21;
+        const lfoAmt = ctx.createGain();
+        lfoAmt.gain.value = 0.16;
+        lfo.connect(lfoAmt); lfoAmt.connect(hiss.gain);
+        lfo.start();
+
+        return ctx;
+      }
+
+      // one droplet: falling-pitch "plip" + a tiny splash of filtered noise
+      function plip(when) {
+        const t0 = when;
+        const f0 = 1500 + Math.random() * 1700;
+        const osc = ctx.createOscillator();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(f0, t0);
+        osc.frequency.exponentialRampToValueAtTime(420 + Math.random() * 380, t0 + 0.085);
+        const og = ctx.createGain();
+        const amp = 0.05 + Math.random() * 0.09;
+        og.gain.setValueAtTime(0.0001, t0);
+        og.gain.exponentialRampToValueAtTime(amp, t0 + 0.012);
+        og.gain.exponentialRampToValueAtTime(0.0001, t0 + 0.16);
+        osc.connect(og); og.connect(master);
+        osc.start(t0); osc.stop(t0 + 0.2);
+
+        const nLen = Math.floor(ctx.sampleRate * 0.05);
+        const nBuf = ctx.createBuffer(1, nLen, ctx.sampleRate);
+        const nd = nBuf.getChannelData(0);
+        for (let i = 0; i < nLen; i++) nd[i] = (Math.random() * 2 - 1) * (1 - i / nLen);
+        const noise = ctx.createBufferSource();
+        noise.buffer = nBuf;
+        const nf = ctx.createBiquadFilter();
+        nf.type = 'bandpass';
+        nf.frequency.value = 2800 + Math.random() * 2600;
+        nf.Q.value = 1.5;
+        const ng = ctx.createGain();
+        ng.gain.setValueAtTime(0.0001, t0 + 0.004);
+        ng.gain.exponentialRampToValueAtTime(amp * 0.5, t0 + 0.014);
+        ng.gain.exponentialRampToValueAtTime(0.0001, t0 + 0.075);
+        noise.connect(nf); nf.connect(ng); ng.connect(master);
+        noise.start(t0); noise.stop(t0 + 0.09);
+      }
+
+      function scheduleDrops() {
+        if (!running || !ctx) return;
+        const now = ctx.currentTime;
+        let t = now + 0.06 + Math.random() * 0.22;
+        const n = 1 + Math.floor(Math.random() * 4);
+        for (let i = 0; i < n; i++) {
+          plip(t);
+          t += 0.16 + Math.random() * 0.38;
+        }
+        dropTimer = setTimeout(scheduleDrops, 420 + Math.random() * 700);
+      }
+
+      function start() {
+        ensure();
+        if (!ctx) return;
+        if (ctx.state === 'suspended') ctx.resume();
+        if (running) return;
+        running = true;
+        const now = ctx.currentTime;
+        if (master) {
+          master.gain.cancelScheduledValues(now);
+          master.gain.setValueAtTime(muted ? 0 : 0.0001, now);
+          master.gain.linearRampToValueAtTime(muted ? 0 : MASTER, now + 1.1);
+        }
+        scheduleDrops();
+      }
+
+      // smooth fade-out (~0.8s) so the rain leaves gently when the intro ends
+      function stop() {
+        if (!ctx) return;
+        running = false;
+        if (dropTimer) { clearTimeout(dropTimer); dropTimer = null; }
+        const now = ctx.currentTime;
+        master.gain.cancelScheduledValues(now);
+        master.gain.setValueAtTime(master.gain.value, now);
+        master.gain.linearRampToValueAtTime(0.0001, now + 0.8);
+      }
+
+      // the mute toggle only matters while the intro is playing; once stopped,
+      // the rain stays silent no matter what the toggle does later.
+      function setMuted(m) {
+        muted = !!m;
+        if (!running || !ctx || !master) return;
+        master.gain.cancelScheduledValues(ctx.currentTime);
+        master.gain.value = muted ? 0 : MASTER;
+      }
+
+      return { start: start, stop: stop, setMuted: setMuted, ensure: ensure };
+    })();
+
+    /* ------------------------------------------------------------ */
+    /* WATER DRIP ("tapak") - a short droplet plip that drips in    */
+    /* sync with the intro design-icons popping in under the logo.  */
+    /* Synthesized, offline: falling-pitch plip + tiny splash.      */
+    /* ------------------------------------------------------------ */
+    const WaterDrip = (function () {
+      let ctx = null;
+      let master = null;
+      let muted = false;
+      const VOLUME = 0.30;
+
+      function ensure() {
+        if (ctx) return ctx;
+        const AC = window.AudioContext || window.webkitAudioContext;
+        if (!AC) return null;
+        ctx = new AC();
+        master = ctx.createGain();
+        master.gain.value = muted ? 0 : VOLUME;
+        master.connect(ctx.destination);
+        return ctx;
+      }
+
+      function drip() {
+        const c = ensure();
+        if (!c) return;
+        if (c.state === 'suspended') c.resume();
+        const t0 = c.currentTime + 0.001;
+        const f0 = 1250 + Math.random() * 450;   // each drip has its own pitch
+
+        // the "plip": fast falling pitch like a droplet hitting water
+        const osc = c.createOscillator();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(f0, t0);
+        osc.frequency.exponentialRampToValueAtTime(360, t0 + 0.09);
+        const og = c.createGain();
+        og.gain.setValueAtTime(0.0001, t0);
+        og.gain.exponentialRampToValueAtTime(0.75, t0 + 0.012);
+        og.gain.exponentialRampToValueAtTime(0.0001, t0 + 0.22);
+        osc.connect(og); og.connect(master);
+        osc.start(t0); osc.stop(t0 + 0.26);
+
+        // tiny splash hiss on impact
+        const nLen = Math.floor(c.sampleRate * 0.05);
+        const nBuf = c.createBuffer(1, nLen, c.sampleRate);
+        const nd = nBuf.getChannelData(0);
+        for (let i = 0; i < nLen; i++) nd[i] = (Math.random() * 2 - 1) * (1 - i / nLen);
+        const noise = c.createBufferSource();
+        noise.buffer = nBuf;
+        const nf = c.createBiquadFilter();
+        nf.type = 'bandpass';
+        nf.frequency.value = 2500;
+        nf.Q.value = 1.3;
+        const ng = c.createGain();
+        ng.gain.setValueAtTime(0.0001, t0 + 0.008);
+        ng.gain.exponentialRampToValueAtTime(0.13, t0 + 0.02);
+        ng.gain.exponentialRampToValueAtTime(0.0001, t0 + 0.09);
+        noise.connect(nf); nf.connect(ng); ng.connect(master);
+        noise.start(t0); noise.stop(t0 + 0.11);
+      }
+
+      function setMuted(m) {
+        muted = !!m;
+        if (master) master.gain.value = muted ? 0 : VOLUME;
+      }
+
+      function play() {
+        if (muted) return;
+        try { drip(); } catch (e) { /* audio unavailable - stay silent */ }
+      }
+
+      return { play: play, ensure: ensure, setMuted: setMuted };
+    })();
+
+    /* ------------------------------------------------------------ */
+    /* MUSIC BED FALLBACK - a synthesized drum & bass flavoured     */
+    /* ambient loop that GUARANTEES background music always plays,  */
+    /* even if SoundCloud is blocked / offline / slow. WebAudio,    */
+    /* fully offline. Kick + snare + hats + bass + pad chords.      */
+    /* ------------------------------------------------------------ */
+    const MusicBed = (function () {
+      let ctx = null;
+      let master = null;
+      let running = false;
+      let muted = false;
+      let timer = null;
+      let nextTime = 0;
+      let step = 0;
+      const BPM = 140;
+      const SPB = 60 / BPM;        // seconds per beat
+      const STEP = SPB / 4;        // 16th-note steps
+      const VOLUME = 0.26;
+
+      // moody progression: A minor -> F -> C -> G (roots in Hz)
+      const CHORDS = [
+        { root: 110.00, minor: true  }, // A
+        { root: 87.31,  minor: false }, // F
+        { root: 130.81, minor: false }, // C
+        { root: 98.00,  minor: false }  // G
+      ];
+      const BASS = [110.00, 110.00, 87.31, 98.00]; // one root per beat
+
+      function ensure() {
+        if (ctx) return ctx;
+        const AC = window.AudioContext || window.webkitAudioContext;
+        if (!AC) return null;
+        ctx = new AC();
+        master = ctx.createGain();
+        master.gain.value = muted ? 0 : VOLUME;
+        master.connect(ctx.destination);
+        return ctx;
+      }
+
+      function kick(t) {
+        const osc = ctx.createOscillator();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(150, t);
+        osc.frequency.exponentialRampToValueAtTime(46, t + 0.12);
+        const g = ctx.createGain();
+        g.gain.setValueAtTime(0.0001, t);
+        g.gain.exponentialRampToValueAtTime(0.9, t + 0.005);
+        g.gain.exponentialRampToValueAtTime(0.0001, t + 0.38);
+        osc.connect(g); g.connect(master);
+        osc.start(t); osc.stop(t + 0.42);
+      }
+
+      function hat(t, open) {
+        const len = Math.floor(ctx.sampleRate * (open ? 0.12 : 0.035));
+        const buf = ctx.createBuffer(1, len, ctx.sampleRate);
+        const d = buf.getChannelData(0);
+        for (let i = 0; i < len; i++) d[i] = (Math.random() * 2 - 1) * (1 - i / len);
+        const src = ctx.createBufferSource();
+        src.buffer = buf;
+        const hp = ctx.createBiquadFilter();
+        hp.type = 'highpass'; hp.frequency.value = 7500;
+        const g = ctx.createGain();
+        g.gain.setValueAtTime(0.0001, t);
+        g.gain.exponentialRampToValueAtTime(open ? 0.16 : 0.11, t + 0.004);
+        g.gain.exponentialRampToValueAtTime(0.0001, t + (open ? 0.12 : 0.04));
+        src.connect(hp); hp.connect(g); g.connect(master);
+        src.start(t); src.stop(t + (open ? 0.14 : 0.05));
+      }
+
+      function snare(t) {
+        const len = Math.floor(ctx.sampleRate * 0.14);
+        const buf = ctx.createBuffer(1, len, ctx.sampleRate);
+        const d = buf.getChannelData(0);
+        for (let i = 0; i < len; i++) d[i] = (Math.random() * 2 - 1) * (1 - i / len);
+        const src = ctx.createBufferSource();
+        src.buffer = buf;
+        const bp = ctx.createBiquadFilter();
+        bp.type = 'bandpass'; bp.frequency.value = 1900; bp.Q.value = 0.8;
+        const g = ctx.createGain();
+        g.gain.setValueAtTime(0.0001, t);
+        g.gain.exponentialRampToValueAtTime(0.22, t + 0.004);
+        g.gain.exponentialRampToValueAtTime(0.0001, t + 0.16);
+        src.connect(bp); bp.connect(g); g.connect(master);
+        src.start(t); src.stop(t + 0.18);
+      }
+
+      function bassNote(t, f) {
+        const osc = ctx.createOscillator();
+        osc.type = 'sawtooth';
+        osc.frequency.setValueAtTime(f, t);
+        const lp = ctx.createBiquadFilter();
+        lp.type = 'lowpass'; lp.frequency.value = 320; lp.Q.value = 6;
+        const g = ctx.createGain();
+        g.gain.setValueAtTime(0.0001, t);
+        g.gain.exponentialRampToValueAtTime(0.30, t + 0.01);
+        g.gain.exponentialRampToValueAtTime(0.0001, t + SPB * 0.92);
+        osc.connect(lp); lp.connect(g); g.connect(master);
+        osc.start(t); osc.stop(t + SPB * 0.95);
+      }
+
+      function padChord(t, chord) {
+        const freqs = chord.minor
+          ? [chord.root, chord.root * 1.1892, chord.root * 1.4983]   // min triad
+          : [chord.root, chord.root * 1.2599, chord.root * 1.4983];  // maj triad
+        for (let i = 0; i < freqs.length; i++) {
+          const osc = ctx.createOscillator();
+          osc.type = 'sawtooth';
+          osc.frequency.setValueAtTime(freqs[i], t);
+          osc.detune.value = (i - 1) * 6;
+          const lp = ctx.createBiquadFilter();
+          lp.type = 'lowpass'; lp.frequency.value = 900; lp.Q.value = 0.6;
+          const g = ctx.createGain();
+          g.gain.setValueAtTime(0.0001, t);
+          g.gain.linearRampToValueAtTime(0.055, t + 0.5);
+          g.gain.setValueAtTime(0.055, t + SPB * 4 - 0.4);
+          g.gain.linearRampToValueAtTime(0.0001, t + SPB * 4);
+          osc.connect(lp); lp.connect(g); g.connect(master);
+          osc.start(t); osc.stop(t + SPB * 4 + 0.1);
+        }
+      }
+
+      function schedule() {
+        if (!ctx || !running) return;
+        while (nextTime < ctx.currentTime + 0.15) {
+          const s = step % 16;
+          const bar = Math.floor(step / 16) % 4;   // which chord of the progression
+          const beat = Math.floor(s / 4);          // 0..3 within the bar
+          const t = nextTime;
+
+          if (s % 4 === 0) kick(t);        // four-on-floor kick
+          if (s === 4 || s === 12) snare(t);  // snare on 2 & 4
+          if (s % 2 === 1) hat(t, false);  // off-beat eighths
+          if (s === 14) hat(t, true);      // open hat pickup
+          bassNote(t, BASS[beat]);         // bass root each beat
+          if (s === 0) padChord(t, CHORDS[bar]); // pad each bar
+
+          nextTime += STEP;
+          step++;
+        }
+      }
+
+      function start() {
+        ensure();
+        if (!ctx) return;
+        if (ctx.state === 'suspended') ctx.resume();
+        if (running) return;
+        running = true;
+        nextTime = ctx.currentTime + 0.06;
+        step = 0;
+        timer = setInterval(schedule, 45);
+      }
+
+      function stop() {
+        running = false;
+        if (timer) { clearInterval(timer); timer = null; }
+      }
+
+      function setMuted(m) {
+        muted = !!m;
+        if (master) master.gain.value = muted ? 0 : VOLUME;
+      }
+
+      return { start: start, stop: stop, setMuted: setMuted, ensure: ensure };
+    })();
+
+    // ANY click anywhere on the page: a bright coin ring (the only click sound).
     // (capture phase, so it fires even for handlers that stop propagation).
     document.addEventListener('pointerdown', function () {
-      WaterDrop.play();
+      Coin.play();
     }, { capture: true, passive: true });
 
     // Unlock WebAudio on the first real user gesture (autoplay policies) so the
@@ -2555,58 +2968,92 @@
         const c = Forest.ensure();
         if (c && c.state === 'suspended') c.resume();
       } catch (e) {}
+      try {
+        const r = Rain.ensure();
+        if (r && r.state === 'suspended') r.resume();
+      } catch (e) {}
+      try {
+        const d = WaterDrip.ensure();
+        if (d && d.state === 'suspended') d.resume();
+      } catch (e) {}
+      try {
+        const m = MusicBed.ensure();
+        if (m && m.state === 'suspended') m.resume();
+      } catch (e) {}
     }
     document.addEventListener('pointerdown', unlockAudio, { capture: true });
     document.addEventListener('keydown', unlockAudio, { capture: true });
 
     let isMuted = true;
     let bgStarted = false;
+    let scHeard = false;       // true once the SoundCloud widget reports playback
+    let musicFallbackOn = false;
     const toggle = document.getElementById("audio-toggle");
     const iframe = document.getElementById("soundcloud-iframe");
 
     // Background music starts only AFTER the intro forest ambience has played,
     // so the intro stays calm and curious before the track drops in.
-    // Background music volume is set to 75% (25% lower than full) via the
-    // SoundCloud Widget API, so the track sits comfortably in the background.
     const SC_URL = "https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/rj-sarkar/navras-drum-and-bass-remix&color=%23ff5500&auto_play=true&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false&visual=false&loop=true";
     const SC_VOLUME = 75;   // percent (0-100)
 
-    function setSCVolume() {
+    // The SoundCloud widget posts progress events while it is actually playing.
+    window.addEventListener('message', function (ev) {
+      try {
+        const d = typeof ev.data === 'string' ? JSON.parse(ev.data) : ev.data;
+        if (d && (d.type === 'playProgressUpdate' || d.type === 'playProgress')) {
+          scHeard = true;
+        }
+      } catch (e) { /* not JSON - ignore */ }
+    });
+
+    function scCmd(method, value) {
       try {
         const w = iframe.contentWindow;
-        if (w) {
-          w.postMessage(JSON.stringify({ method: 'setVolume', value: SC_VOLUME }), '*');
-        }
+        if (w) w.postMessage(JSON.stringify({ method: method, value: value }), '*');
       } catch (e) { /* widget not ready yet - ignore */ }
     }
-    // The widget loads asynchronously, so re-apply the volume a few times.
-    function scheduleSCVolume() {
-      [700, 1500, 2800, 4500].forEach(function (ms) { setTimeout(setSCVolume, ms); });
+    // Explicitly ask the widget to PLAY + set volume, several times, because the
+    // widget loads asynchronously and autoplay is not always honoured on reload.
+    function scheduleSC() {
+      [900, 1800, 3200, 5200].forEach(function (ms) {
+        setTimeout(function () { scCmd('play', ''); scCmd('setVolume', SC_VOLUME); }, ms);
+      });
     }
 
     function startBackgroundMusic() {
       if (bgStarted) return;
       bgStarted = true;
       isMuted = false;
-      WaterDrop.setMuted(false);
-      iframe.style.display = 'block';
+      Coin.setMuted(false);
+      // note: Rain is NOT unmuted here - it already faded out with the intro
       iframe.src = SC_URL;
       toggle.innerHTML = "🔊";
-      scheduleSCVolume();
+      scheduleSC();
+      // Safety net: if the SoundCloud widget never reports playing (blocked,
+      // offline, or slow), start the synthesized music bed after ~6s so the
+      // background music is NEVER silent.
+      setTimeout(function () {
+        if (!scHeard && !musicFallbackOn) {
+          musicFallbackOn = true;
+          MusicBed.start();
+        }
+      }, 6000);
     }
 
     toggle.addEventListener("click", () => {
       isMuted = !isMuted;
-      WaterDrop.setMuted(isMuted);
+      Coin.setMuted(isMuted);
+      Rain.setMuted(isMuted);
+      WaterDrip.setMuted(isMuted);
+      MusicBed.setMuted(isMuted);
       if (isMuted) {
-        iframe.style.display = 'none';
         iframe.src = "about:blank";
         toggle.innerHTML = "🔇";
       } else {
-        iframe.style.display = 'block';
         iframe.src = SC_URL;
         toggle.innerHTML = "🔊";
-        scheduleSCVolume();
+        scheduleSC();
+        if (musicFallbackOn) MusicBed.start();
       }
     });
 
@@ -2731,10 +3178,15 @@
       // the glowing body actually renders well below/right of that anchor. Measure the real
       // offset once so the GLOW (not the invisible anchor) is what tracks the cursor.
       let glowOffX = 0, glowOffY = 0;
-      function paint(x, y, rotateDeg) {
+      let curScale = FIXED_SCALE;   // smoothed current scale (breathing depth)
+      function paint(x, y, rotateDeg, scale) {
+        const s = scale || FIXED_SCALE;
         const r = rotateDeg ? ` rotate(${rotateDeg}deg)` : '';
+        // the glow offset scales linearly with the firefly, so rescale it too -
+        // otherwise the glow drifts off the cursor as the firefly grows/shrinks.
+        const k = s / FIXED_SCALE;
         fireflyEl.style.transform =
-          `translate(${x - glowOffX}px, ${y - glowOffY}px) translate(-50%, -50%)${r} scale(${FIXED_SCALE})`;
+          `translate(${x - glowOffX * k}px, ${y - glowOffY * k}px) translate(-50%, -50%)${r} scale(${s})`;
       }
       // Calibrate against the REAL rendered geometry: paint once with no correction,
       // see where the glow actually landed, and keep that delta. Measuring the children
@@ -2766,6 +3218,7 @@
         fireflyEl.classList.add('roaming');
         fireflyEl.style.transition = 'none';
         measureGlowOffset(curX, curY);
+        curScale = FIXED_SCALE;
         paint(curX, curY, 0);
         state = 'free';
         rafId = requestAnimationFrame(loop);
@@ -2775,8 +3228,10 @@
         if (state !== 'free') return;
         angle += 0.05;
 
-        // hover in a small, lively circle right around the cursor
-        const orbitRadius = 26 + Math.sin(now / 700) * 10;
+        // the firefly slowly swings OUT from the cursor (far) and back IN (near),
+        // like a real insect hovering - this drives the "door jaa raha / paas aa
+        // raha" feel together with the scale below.
+        const orbitRadius = 18 + 92 * (0.5 + 0.5 * Math.sin(now / 1500));
         const baseX = hasPointer ? mouseX : window.innerWidth / 2;
         const baseY = hasPointer ? mouseY : window.innerHeight / 2;
         const targetX = baseX + Math.cos(angle) * orbitRadius;
@@ -2790,9 +3245,16 @@
         curX += dx * ease;
         curY += dy * ease;
 
+        // ---- depth (bada / chhota): the closer to the cursor, the BIGGER;
+        // the farther it swings away, the SMALLER it gets - perspective feel.
+        const distToMouse = Math.hypot(curX - baseX, curY - baseY);
+        const depth = Math.min(1, distToMouse / 120);            // 0 = near, 1 = far
+        const targetScale = FIXED_SCALE * (1.65 - 0.75 * depth); // ~1.65x near, ~0.9x far
+        curScale += (targetScale - curScale) * 0.10;             // smooth breathing, no jitter
+
         // bank into the direction of travel, like a real insect
         const tilt = Math.max(-22, Math.min(22, dx * 0.6)) + Math.sin(now / 500) * 5;
-        paint(curX, curY, tilt);
+        paint(curX, curY, tilt, curScale);
         rafId = requestAnimationFrame(loop);
       }
 
@@ -2883,13 +3345,22 @@
         }
 
         Forest.start();   // soft nature ambience plays through the intro only
+        Rain.start();     // soft barish patters along with the matrix-rain backdrop
 
         stageTimers.push(setTimeout(() => root.classList.add('stage-alpona'), 250));  // bengali alpona draws on both leaves
         stageTimers.push(setTimeout(() => root.classList.add('stage-word-l'), 1500)); // LEFT gate: WELCOME strikes on (red)
         stageTimers.push(setTimeout(() => root.classList.add('stage-word-r'), 3100)); // RIGHT gate: CONNECTION strikes on (red)
         stageTimers.push(setTimeout(() => root.classList.add('stage-open'), 5100));   // only now the doors part
         stageTimers.push(setTimeout(() => root.classList.add('stage-logo'), 5900));  // logo settles in
-        stageTimers.push(setTimeout(() => root.classList.add('stage-icons'), 5900)); // design icons pop + glow (3s run)
+        stageTimers.push(setTimeout(() => {
+          root.classList.add('stage-icons'); // design icons pop + glow (3s run)
+          // pani ke tapakne ki awaaz: har icon ke pop ke saath ek droplet
+          // (CSS nth-child delays: 0s, .12s, .24s, .36s, .48s, .60s)
+          const iconDripOffsets = [350, 470, 590, 710, 830, 950]; // ms, matches pops
+          iconDripOffsets.forEach(offset => {
+            stageTimers.push(setTimeout(() => WaterDrip.play(), offset));
+          });
+        }, 5900));
         stageTimers.push(setTimeout(() => root.classList.add('stage-blink'), 6700)); // right eye blinks twice
         stageTimers.push(setTimeout(() => {                                          // glass-effect transition begins
           root.classList.add('stage-glass');
@@ -2902,7 +3373,8 @@
       function finishIntro() {
         clearTimers();
         Forest.stop();          // fade the forest out...
-        startBackgroundMusic(); // ...and bring the background track in
+        Rain.stop();            // ...and the barish fades out with it
+        startBackgroundMusic(); // ...then the background track drops in
         root.classList.add('intro-done');
         root.style.display = 'none';
         root.setAttribute('aria-hidden', 'true');
@@ -2925,5 +3397,5 @@
       lastTouchEnd = now;
     }, false);
   </script>
-<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a2ae82a9bed9a6ad',t:'MTc4NjY5NTMxMg=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a2aef20bdcb083bc',t:'MTc4NjY5OTg3NQ=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a2ae82a9bed9a6ad',t:'MTc4NjY5NTMxMg=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a2aef20bdcb083bc',t:'MTc4NjY5OTg3NQ=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a2b21fd79b4eafda',t:'MTc4NjczMzIwOA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
