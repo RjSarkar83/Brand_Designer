@@ -2077,6 +2077,11 @@
     @media (prefers-reduced-motion: reduce) {
       .gear-spin { animation: none !important; }
     }
+
+    /* Lag fix only: touch devices don't need the custom mouse cursor. */
+    @media (pointer: coarse) {
+      .quantum-cursor { display: none !important; }
+    }
   </style>
 </head>
 <body>
@@ -2161,7 +2166,7 @@
                 <i class="fab fa-whatsapp" aria-hidden="true"></i>
                 <span>WhatsApp</span>
               </a>
-              <a href="/cdn-cgi/l/email-protection#582a322b392a33392a18313b34372d3c763b3735" class="contact-btn" aria-label="Email">
+              <a href="/cdn-cgi/l/email-protection#bfcdd5ccdecdd4decdffd6dcd3d0cadb91dcd0d2" class="contact-btn" aria-label="Email">
                 <i class="fas fa-envelope" aria-hidden="true"></i>
                 <span>Gmail</span>
               </a>
@@ -2290,15 +2295,26 @@
     src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/rj-sarkar/navras-drum-and-bass-remix&color=%23ff5500&auto_play=true&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false&visual=false&loop=true">
   </iframe>
 
-  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-    const cursorEl = document.createElement('div');
-    cursorEl.className = 'quantum-cursor';
-    cursorEl.id = 'cursor';
-    document.body.appendChild(cursorEl);
-    document.addEventListener('mousemove', (e) => {
-      cursorEl.style.left = e.clientX + 'px';
-      cursorEl.style.top = e.clientY + 'px';
-    });
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+    /* Lag fix: same cursor effect on desktop, but updated only once per animation frame. */
+    (function(){
+      const finePointer = window.matchMedia && window.matchMedia('(pointer: fine)').matches;
+      if (!finePointer) return;
+      const cursorEl = document.createElement('div');
+      cursorEl.className = 'quantum-cursor';
+      cursorEl.id = 'cursor';
+      document.body.appendChild(cursorEl);
+      let cx = 0, cy = 0, raf = 0;
+      document.addEventListener('mousemove', (e) => {
+        cx = e.clientX; cy = e.clientY;
+        if (raf) return;
+        raf = requestAnimationFrame(() => {
+          raf = 0;
+          cursorEl.style.left = cx + 'px';
+          cursorEl.style.top = cy + 'px';
+        });
+      }, { passive: true });
+    })();
 
     function matrixRain() {
       let frameCount = 0;
@@ -2318,35 +2334,10 @@
       const fontSize = 18;
       let columns = Math.floor(window.innerWidth / fontSize);
       let drops = Array(columns).fill(1);
-      let stars = [];
-      function createStar() {
-        if (Math.random() > 0.985) {
-          stars.push({ x: Math.random() * canvas.width, y: canvas.height + 10, size: Math.random() * 2 + 1, speed: Math.random() * 1.5 + 0.5, opacity: Math.random() * 0.8 + 0.2, twinkle: Math.random() * Math.PI * 2 });
-        }
-      }
-      function drawStars() {
-        for (let i = stars.length - 1; i >= 0; i--) {
-          const s = stars[i];
-          s.y -= s.speed * 0.6;
-          s.twinkle += 0.05;
-          if (s.y < -20) stars.splice(i, 1);
-          const a = s.opacity * (Math.sin(s.twinkle * 2) * 0.4 + 0.6);
-          ctx.globalAlpha = a * 0.35;
-          ctx.fillStyle = "#ffcccc";
-          ctx.beginPath();
-          ctx.arc(s.x, s.y, s.size * 2.4, 0, Math.PI * 2);
-          ctx.fill();
-          ctx.globalAlpha = a;
-          ctx.fillStyle = "#fff";
-          ctx.beginPath();
-          ctx.arc(s.x, s.y, s.size, 0, Math.PI * 2);
-          ctx.fill();
-          ctx.globalAlpha = 1;
-        }
-      }
-      // Fixed ~24fps step for the rain (it is a background texture, it does not
+      // Upward floating light/star particles removed from matrix canvas.
+      // Fixed ~18fps step for the rain (it is a background texture, it does not
       // need 60fps) - but the rAF loop itself never blocks, so nothing judders.
-      const FRAME_MS = 1000 / 24;
+      const FRAME_MS = 1000 / 18;
       let lastDraw = 0;
       let paused = false;
       document.addEventListener('visibilitychange', () => {
@@ -2377,8 +2368,6 @@
         }
         ctx.shadowBlur = 0;
 
-        createStar();
-        drawStars();
       }
       requestAnimationFrame(draw);
     }
@@ -3068,7 +3057,7 @@
           if (s === 4 || s === 12) snare(t);  // snare on 2 & 4
           if (s % 2 === 1) hat(t, false);  // off-beat eighths
           if (s === 14) hat(t, true);      // open hat pickup
-          bassNote(t, BASS[beat]);         // bass root each beat
+          if (s % 4 === 0) bassNote(t, BASS[beat]); // bass root each beat (lighter CPU)
           if (s === 0) padChord(t, CHORDS[bar]); // pad each bar
 
           nextTime += STEP;
@@ -3285,7 +3274,7 @@
           else if (tab === 3) tablaNa(t);
 
           // trance bass: A root, with a rise to E on the last beat of the bar
-          bassNote(t, beat === 3 ? 164.81 : 110.00);
+          if (s % 4 === 0) bassNote(t, beat === 3 ? 164.81 : 110.00);
 
           // tanpura drone - one sustained chord per bar
           if (s === 0) {
@@ -3584,7 +3573,7 @@
       const rows = [
         { id: 'mqVision',      html: wrapEyes('Your ViSi' + eye + 'N,   ' + eye + 'ur Creation') },
         { id: 'mqServices',    html: '\u27A4 \u2022 ADVERTiSiNG - BRANDiNG - CREATiVE - DESiGN - EXECUTiON \u2022 \u27A4' },
-        { id: 'mqDisciplines', html: 'Rj_Designer Creative Lead ➤ Design to Execution ➤ “360° End-to-End Production Design & A-to-Z Branding Solutions” ' }
+        { id: 'mqDisciplines', html: 'Rj_Designer Creative Lead ➤ Design to Execution ➤ 12+ Years of Retail Production Design Solutions, Advertising & Brandind Direction ➤ “360° End-to-End Production Design & A-to-Z Branding Solutions” ➤ ' }
       ];
 
       rows.forEach(function (row) {
@@ -3835,6 +3824,7 @@
         root.setAttribute('aria-hidden', 'true');
         document.documentElement.classList.remove('intro-lock');
         document.body.classList.remove('intro-active', 'intro-glass');
+        document.dispatchEvent(new Event('introDone'));
       }
 
       function isIntroPlaying() {
@@ -3857,7 +3847,14 @@
       window.addEventListener('load', runIntro);
     })();
 
-    setTimeout(matrixRain, 50);
+    let matrixStarted = false;
+    function startMatrixOnce() {
+      if (matrixStarted) return;
+      matrixStarted = true;
+      matrixRain();
+    }
+    document.addEventListener('introDone', startMatrixOnce);
+    setTimeout(startMatrixOnce, 11000); // fallback if intro event is missed
 
     let lastTouchEnd = 0;
     document.addEventListener('touchend', function(event) {
@@ -3866,5 +3863,5 @@
       lastTouchEnd = now;
     }, false);
   </script>
-<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a2ae82a9bed9a6ad',t:'MTc4NjY5NTMxMg=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a2aef20bdcb083bc',t:'MTc4NjY5OTg3NQ=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a2b23504ee1f4838',t:'MTc4NjczNDA3NQ=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a2c1869429212b4a',t:'MTc4Njg5NDcwMg=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a3855836ad90d1d2',t:'MTc4ODk0ODAxMg=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a385b2997b7232c1',t:'MTc4ODk1MTcxNA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
