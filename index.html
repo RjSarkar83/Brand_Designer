@@ -111,6 +111,68 @@
       border: 0px solid var(--main-red);
       box-sizing: border-box;
     }
+    .turn-card-control {
+      margin: 12px auto 0 auto;
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      z-index: 20;
+    }
+    .turn-card-btn {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 28px;
+      height: 28px;
+      padding: 0;
+      border-radius: 50%;
+      border: 1px solid rgba(255,255,255,0.28);
+      background: linear-gradient(160deg, rgba(255,110,110,0.95) 0%, rgba(255,0,0,0.92) 45%, rgba(150,0,0,0.95) 100%);
+      color: #fff;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      z-index: 20;
+      box-shadow:
+        var(--btn-shadow),
+        0 4px 9px rgba(0,0,0,0.35),
+        inset 0 2px 2px rgba(255,255,255,0.65),
+        inset 0 -4px 6px rgba(80,0,0,0.55),
+        inset 0 0 0 1px rgba(255,255,255,0.18);
+      transition: background 0.17s, color 0.17s, box-shadow 0.18s, transform 0.15s;
+    }
+    .turn-card-btn i {
+      font-size: 0.72rem;
+      transition: transform 0.55s ease;
+    }
+    .turn-card-label {
+      font-family: 'Montserrat', Arial, sans-serif;
+      font-size: 0.58rem;
+      font-weight: 600;
+      line-height: 1;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.86);
+      text-shadow: 0 0 6px rgba(255,0,0,0.55), 0 1px 1px rgba(0,0,0,0.45);
+      user-select: none;
+      -webkit-user-select: none;
+    }
+    .turn-card-btn:hover, .turn-card-btn:focus-visible {
+      background: linear-gradient(160deg, #ffffff 0%, #ffe9e9 45%, #ffd0d0 100%);
+      color: var(--calculator-btn-hover-text);
+      outline: none;
+      transform: translateY(-1px);
+      box-shadow:
+        0 3px 14px 0px var(--accent-red), var(--btn-shadow),
+        inset 0 2px 3px rgba(255,255,255,0.9),
+        inset 0 -3px 5px rgba(200,0,0,0.25),
+        inset 0 0 0 1px rgba(255,255,255,0.6);
+    }
+    .turn-card-btn:hover i, .turn-card-btn:focus-visible i { transform: rotate(180deg); }
+    .turn-card-btn:active { transform: translateY(1px) scale(0.96); }
+
     .card-container {
       width: var(--card-w);
       aspect-ratio: var(--card-ratio);
@@ -999,6 +1061,66 @@
     #audio-toggle:hover, #audio-toggle:focus-visible {
       transform: scale(1.07) rotate(360deg);
       box-shadow: 0 4px 12px rgba(255,0,0,0.28);
+    }
+
+    /* ---- extra floating quick-link icons above music/share buttons ---- */
+    .side-link-fab {
+      -webkit-appearance: none;
+      appearance: none;
+      position: fixed;
+      right: 8px;
+      width: 24px;
+      height: 24px;
+      background: linear-gradient(45deg, var(--main-red), var(--accent-red));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      cursor: pointer;
+      z-index: 100;
+      box-shadow: 0 2px 6px rgba(255,0,0,0.23);
+      transition: all 0.15s ease;
+      border: none;
+      font-size: 0.85rem;
+      outline: none;
+      text-decoration: none;
+    }
+    .side-link-fab.portfolio-link { bottom: 88px; }
+    .side-link-fab.museum-link { bottom: 116px; }
+    .side-link-fab:focus { outline: var(--focus-outline); box-shadow: var(--focus-shadow); }
+    .side-link-fab:hover, .side-link-fab:focus-visible {
+      transform: scale(1.07) rotate(360deg);
+      box-shadow: 0 4px 12px rgba(255,0,0,0.28);
+    }
+    .side-link-fab::after {
+      content: attr(data-info);
+      position: absolute;
+      right: 32px;
+      top: 50%;
+      transform: translateY(-50%) translateX(6px);
+      background: linear-gradient(45deg, var(--main-red), var(--accent-red));
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.28);
+      border-radius: 14px;
+      padding: 4px 9px;
+      font-family: 'Montserrat', Arial, sans-serif;
+      font-size: 0.62rem;
+      font-weight: 600;
+      line-height: 1;
+      white-space: nowrap;
+      box-shadow: 0 2px 8px rgba(255,0,0,0.20);
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+      transition: opacity 0.15s ease, transform 0.15s ease, visibility 0s linear 0.15s;
+    }
+    .side-link-fab:hover::after,
+    .side-link-fab:focus-visible::after {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(-50%) translateX(0);
+      transition: opacity 0.15s ease, transform 0.15s ease, visibility 0s linear 0s;
     }
     .firefly-mini-container {
       /* Layout box is the ACTUAL painted size of the jar, so flex gap is honoured
@@ -2039,7 +2161,7 @@
                 <i class="fab fa-whatsapp" aria-hidden="true"></i>
                 <span>WhatsApp</span>
               </a>
-              <a href="mailto:rjsarkar@icloud.com" class="contact-btn" aria-label="Email">
+              <a href="/cdn-cgi/l/email-protection#582a322b392a33392a18313b34372d3c763b3735" class="contact-btn" aria-label="Email">
                 <i class="fas fa-envelope" aria-hidden="true"></i>
                 <span>Gmail</span>
               </a>
@@ -2132,6 +2254,12 @@
         </div>
       </div>
     </div>
+    <div class="turn-card-control" aria-label="Digital card turn control">
+      <button class="turn-card-btn" id="turnCardBtn" type="button" aria-label="Turn digital card to see back side" aria-pressed="false">
+        <i class="fas fa-rotate" aria-hidden="true"></i>
+      </button>
+      <span class="turn-card-label" id="turnCardLabel">Turn Card</span>
+    </div>
   </main>
   
   <a href="https://rjsarkar83.github.io/ArtVision_DesiMuseum/" class="side-link-fab museum-link" target="_blank" rel="noopener" aria-label="Open Desi Museum" title="Desi Museum" data-info="Desi Museum">
@@ -2162,7 +2290,7 @@
     src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/rj-sarkar/navras-drum-and-bass-remix&color=%23ff5500&auto_play=true&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false&visual=false&loop=true">
   </iframe>
 
-  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
     const cursorEl = document.createElement('div');
     cursorEl.className = 'quantum-cursor';
     cursorEl.id = 'cursor';
@@ -2339,7 +2467,7 @@
       let running = false;
       let birdTimer = null;
       let muted = false;
-      const MASTER = 0.5;   // overall gentle level
+      const MASTER = 0.375; // 25% quieter intro ambience
 
       function ensure() {
         if (ctx) return ctx;
@@ -2601,7 +2729,7 @@
       let running = false;
       let dropTimer = null;
       let muted = false;
-      const MASTER = 0.45;   // sits UNDER the forest bed, not on top of it
+      const MASTER = 0.3375; // 25% quieter intro rain bed
 
       function ensure() {
         if (ctx) return ctx;
@@ -2734,7 +2862,7 @@
       let ctx = null;
       let master = null;
       let muted = false;
-      const VOLUME = 0.30;
+      const VOLUME = 0.225; // 25% quieter intro water drips
 
       function ensure() {
         if (ctx) return ctx;
@@ -3469,6 +3597,8 @@
 
     (function(){
       const cardFlip = document.getElementById('card-flip');
+      const turnBtn = document.getElementById('turnCardBtn');
+      const turnLabel = document.getElementById('turnCardLabel');
       const fireflyEl = document.querySelector('.firefly');
       if (!cardFlip || !fireflyEl) return;
 
@@ -3602,6 +3732,11 @@
       function toggleFlip() {
         cardFlip.classList.toggle('flipped');
         const isFlipped = cardFlip.classList.contains('flipped');
+        if (turnBtn) {
+          turnBtn.setAttribute('aria-pressed', isFlipped ? 'true' : 'false');
+          turnBtn.setAttribute('aria-label', isFlipped ? 'Turn digital card to see front side' : 'Turn digital card to see back side');
+        }
+        if (turnLabel) turnLabel.textContent = isFlipped ? 'Front Card' : 'Turn Card';
         if (isFlipped) {
           if (releaseTimer) clearTimeout(releaseTimer);
           releaseTimer = setTimeout(releaseFirefly, 2800);
@@ -3611,6 +3746,13 @@
         }
       }
       cardFlip.addEventListener('click', toggleFlip);
+      if (turnBtn) {
+        turnBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          toggleFlip();
+        });
+      }
       cardFlip.addEventListener('keydown', (e) => {
         if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') {
           e.preventDefault();
@@ -3695,8 +3837,22 @@
         document.body.classList.remove('intro-active', 'intro-glass');
       }
 
-      if (skipBtn) skipBtn.addEventListener('click', (e) => { e.stopPropagation(); finishIntro(); });
+      function isIntroPlaying() {
+        return root && !root.classList.contains('intro-done') && root.style.display !== 'none';
+      }
+
+      function skipIntroByInteraction(e) {
+        if (!isIntroPlaying()) return;
+        // User asked: intro play hote hi kahin bhi click/touch karne par skip ho.
+        // Capture phase listener makes the whole intro screen tappable/clickable.
+        if (e) e.stopPropagation();
+        finishIntro();
+      }
+
+      if (skipBtn) skipBtn.addEventListener('click', skipIntroByInteraction);
       if (replayBtn) replayBtn.addEventListener('click', (e) => { e.stopPropagation(); runIntro(); });
+      document.addEventListener('pointerdown', skipIntroByInteraction, { capture: true });
+      document.addEventListener('touchstart', skipIntroByInteraction, { capture: true, passive: true });
 
       window.addEventListener('load', runIntro);
     })();
@@ -3710,5 +3866,5 @@
       lastTouchEnd = now;
     }, false);
   </script>
-<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a2ae82a9bed9a6ad',t:'MTc4NjY5NTMxMg=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a2aef20bdcb083bc',t:'MTc4NjY5OTg3NQ=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a2b23504ee1f4838',t:'MTc4NjczNDA3NQ=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a2c1869429212b4a',t:'MTc4Njg5NDcwMg=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a2ae82a9bed9a6ad',t:'MTc4NjY5NTMxMg=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a2aef20bdcb083bc',t:'MTc4NjY5OTg3NQ=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a2b23504ee1f4838',t:'MTc4NjczNDA3NQ=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a2c1869429212b4a',t:'MTc4Njg5NDcwMg=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a3855836ad90d1d2',t:'MTc4ODk0ODAxMg=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
