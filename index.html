@@ -2264,7 +2264,7 @@
       <button class="turn-card-btn" id="turnCardBtn" type="button" aria-label="Turn digital card to see back side" aria-pressed="false">
         <i class="fas fa-rotate" aria-hidden="true"></i>
       </button>
-      <span class="turn-card-label" id="turnCardLabel">Turn Card</span>
+      <span class="turn-card-label" id="turnCardLabel">Turn</span>
     </div>
   </main>
   
@@ -2286,7 +2286,7 @@
 
   <button id="audio-toggle">&#x1F507;</button>
 
-  <button class="replay-intro-btn" id="replayIntroBtn" type="button"><i class="fas fa-rotate-left"></i>Replay Intro</button>
+  <button class="replay-intro-btn" id="replayIntroBtn" type="button"><i class="fas fa-rotate-left"></i>ReIntro</button>
 
   <iframe
     id="soundcloud-iframe"
@@ -3730,7 +3730,7 @@
           turnBtn.setAttribute('aria-pressed', isFlipped ? 'true' : 'false');
           turnBtn.setAttribute('aria-label', isFlipped ? 'Turn digital card to see front side' : 'Turn digital card to see back side');
         }
-        if (turnLabel) turnLabel.textContent = isFlipped ? 'Front Card' : 'Turn Card';
+        if (turnLabel) turnLabel.textContent = isFlipped ? 'Front' : 'Turn';
         if (isFlipped) {
           if (releaseTimer) clearTimeout(releaseTimer);
           releaseTimer = setTimeout(releaseFirefly, 2800);
