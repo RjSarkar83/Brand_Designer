@@ -1340,7 +1340,7 @@
         radial-gradient(120% 80% at 50% 0%, rgba(120,0,0,0.16) 0%, transparent 62%),
         linear-gradient(135deg, #080505 0%, #150d0d 46%, #0a0606 100%);
       box-shadow: inset 0 0 90px rgba(0,0,0,0.85);
-      transition: transform 1s cubic-bezier(.77,0,.18,1);
+      transition: transform 0.65s cubic-bezier(.77,0,.18,1);
       z-index: 3;
       overflow: hidden;
     }
@@ -1523,11 +1523,11 @@
       filter: drop-shadow(0 0 4px rgba(255,30,30,0.85));
     }
     #introRoot.stage-alpona .alpona .draw {
-      animation: alponaDraw 1.5s cubic-bezier(.55,.1,.35,1) forwards;
+      animation: alponaDraw 0.9s cubic-bezier(.55,.1,.35,1) forwards;
     }
-    #introRoot.stage-alpona .alpona .d2 { animation-delay: 0.18s; }
-    #introRoot.stage-alpona .alpona .d3 { animation-delay: 0.34s; }
-    #introRoot.stage-alpona .alpona .d4 { animation-delay: 0.5s; }
+    #introRoot.stage-alpona .alpona .d2 { animation-delay: 0.1s; }
+    #introRoot.stage-alpona .alpona .d3 { animation-delay: 0.2s; }
+    #introRoot.stage-alpona .alpona .d4 { animation-delay: 0.3s; }
     @keyframes alponaDraw { to { stroke-dashoffset: 0; } }
 
     /* dotted rice-flour pips that pop in after the lines */
@@ -1540,10 +1540,10 @@
       filter: drop-shadow(0 0 3px rgba(255,40,40,0.9));
     }
     #introRoot.stage-alpona .alpona .pip {
-      animation: alponaPip 0.5s ease-out forwards, alponaTwinkle 2.4s ease-in-out 1.4s infinite;
+      animation: alponaPip 0.35s ease-out forwards, alponaTwinkle 2.4s ease-in-out 0.85s infinite;
     }
-    #introRoot.stage-alpona .alpona .pip:nth-of-type(even) { animation-delay: 1.05s, 1.7s; }
-    #introRoot.stage-alpona .alpona .pip:nth-of-type(odd)  { animation-delay: 0.92s, 1.55s; }
+    #introRoot.stage-alpona .alpona .pip:nth-of-type(even) { animation-delay: 0.62s, 1s; }
+    #introRoot.stage-alpona .alpona .pip:nth-of-type(odd)  { animation-delay: 0.55s, 0.92s; }
     @keyframes alponaPip {
       0%   { opacity: 0; transform: scale(0.2); }
       70%  { opacity: 1; transform: scale(1.35); }
@@ -1590,7 +1590,7 @@
     /* strike each letter on, RED only */
     #introRoot.stage-word-l .gate-left  .gate-word .ltr,
     #introRoot.stage-word-r .gate-right .gate-word .ltr {
-      animation: redStrike 0.45s ease-out forwards;
+      animation: redStrike 0.28s ease-out forwards;
     }
     .gate-word .ltr:nth-child(1)  { animation-delay: 0.00s, 0.62s; }
     .gate-word .ltr:nth-child(2)  { animation-delay: 0.07s, 0.69s; }
@@ -1760,7 +1760,7 @@
     }
     #introRoot.stage-word-l .gate-left  .gate-icon,
     #introRoot.stage-word-r .gate-right .gate-icon {
-      animation: gateIconIn 0.75s cubic-bezier(.2,.9,.25,1.2) forwards,
+      animation: gateIconIn 0.45s cubic-bezier(.2,.9,.25,1.2) forwards,
                  gateIconHum 2.6s ease-in-out 0.8s infinite;
     }
     @keyframes gateIconIn {
@@ -1778,7 +1778,7 @@
     #introRoot.stage-open .gate-word-glow,
     #introRoot.stage-open .alpona {
       opacity: 0;
-      transition: opacity 0.45s ease;
+      transition: opacity 0.3s ease;
     }
     @media (prefers-reduced-motion: reduce) {
       .alpona .draw, .alpona .pip, .alpona .spin, .gate-word .ltr, .gate-icon,
@@ -1812,14 +1812,14 @@
     .intro-icons .ico svg * { vector-effect: non-scaling-stroke; }
     /* each icon pops in, glows, then settles — whole run = 3s */
     #introRoot.stage-icons .intro-icons .ico {
-      animation: introIcoIn 2.4s cubic-bezier(.2,.8,.25,1) forwards;
+      animation: introIcoIn 1.4s cubic-bezier(.2,.8,.25,1) forwards;
     }
     #introRoot.stage-icons .intro-icons .ico:nth-child(1) { animation-delay: 0s; }
-    #introRoot.stage-icons .intro-icons .ico:nth-child(2) { animation-delay: 0.12s; }
-    #introRoot.stage-icons .intro-icons .ico:nth-child(3) { animation-delay: 0.24s; }
-    #introRoot.stage-icons .intro-icons .ico:nth-child(4) { animation-delay: 0.36s; }
-    #introRoot.stage-icons .intro-icons .ico:nth-child(5) { animation-delay: 0.48s; }
-    #introRoot.stage-icons .intro-icons .ico:nth-child(6) { animation-delay: 0.60s; }
+    #introRoot.stage-icons .intro-icons .ico:nth-child(2) { animation-delay: 0.07s; }
+    #introRoot.stage-icons .intro-icons .ico:nth-child(3) { animation-delay: 0.14s; }
+    #introRoot.stage-icons .intro-icons .ico:nth-child(4) { animation-delay: 0.21s; }
+    #introRoot.stage-icons .intro-icons .ico:nth-child(5) { animation-delay: 0.28s; }
+    #introRoot.stage-icons .intro-icons .ico:nth-child(6) { animation-delay: 0.35s; }
     @keyframes introIcoIn {
       0%   { opacity: 0; transform: translateY(14px) scale(0.55) rotate(-25deg);
              color: #ff2a2a; filter: drop-shadow(0 0 0 rgba(255,60,60,0)); }
@@ -1848,7 +1848,7 @@
       opacity: 0;
       transform: scale(0.72);
       filter: drop-shadow(0 0 0 rgba(255,180,60,0));
-      transition: opacity 0.7s cubic-bezier(.2,.7,.2,1), transform 0.8s cubic-bezier(.2,.7,.2,1), filter 1s ease;
+      transition: opacity 0.45s cubic-bezier(.2,.7,.2,1), transform 0.5s cubic-bezier(.2,.7,.2,1), filter 0.6s ease;
     }
     .intro-logo-wrap img { width: 100%; height: 100%; object-fit: contain; display: block; }
     #introRoot.stage-logo .intro-logo-wrap {
@@ -1869,7 +1869,7 @@
       transform-origin: center;
     }
     #introRoot.stage-blink .intro-eye-right {
-      animation: eyelidBlink 0.5s ease-in-out 2;
+      animation: eyelidBlink 0.32s ease-in-out 2;
     }
     @keyframes eyelidBlink {
       0%   { transform: scaleY(0); }
@@ -1912,7 +1912,7 @@
     }
     #introRoot.stage-glass .glass-sweep {
       opacity: 1;
-      animation: glassSweepMove 1.05s cubic-bezier(.3,.6,.2,1) forwards;
+      animation: glassSweepMove 0.7s cubic-bezier(.3,.6,.2,1) forwards;
     }
     @keyframes glassSweepMove {
       0%   { transform: translateX(-50%); backdrop-filter: blur(0px) saturate(100%); -webkit-backdrop-filter: blur(0px) saturate(100%); opacity: 0; }
@@ -1931,7 +1931,7 @@
       background: radial-gradient(circle at 50% 48%, rgba(255,255,255,0.85) 0%, rgba(255,210,150,0.25) 30%, transparent 62%);
     }
     #introRoot.stage-glass .glass-flash {
-      animation: glassFlashPulse 1.05s ease-out forwards;
+      animation: glassFlashPulse 0.7s ease-out forwards;
     }
     @keyframes glassFlashPulse {
       0%, 40% { opacity: 0; }
@@ -1943,7 +1943,7 @@
     #introRoot.stage-glass .intro-stage,
     #introRoot.stage-glass .gate-panel {
       opacity: 0;
-      transition: opacity 0.9s ease;
+      transition: opacity 0.55s ease;
     }
     #introRoot.stage-fadeout { opacity: 0; pointer-events: none; transition: opacity 0.5s ease; }
 
@@ -2328,10 +2328,10 @@
     frameborder="no"
     allow="autoplay; encrypted-media"
     style="position:fixed;left:-9999px;top:0;width:300px;height:54px;opacity:0.01;pointer-events:none;border:0;"
-    src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/rj-sarkar/navras-drum-and-bass-remix&color=%23ff5500&auto_play=true&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false&visual=false&loop=false">
+    src="about:blank">
   </iframe>
 
-  <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+  <script>
     /* Lag fix: same cursor effect on desktop, but updated only once per animation frame. */
     (function(){
       const finePointer = window.matchMedia && window.matchMedia('(pointer: fine)').matches;
@@ -3907,27 +3907,27 @@
         // (browser gesture milte hi awaaz aayegi; khatam hote hi synth bed le lega)
         startBackgroundMusic();
 
-        stageTimers.push(setTimeout(() => root.classList.add('stage-alpona'), 250));  // bengali alpona draws on both leaves
-        stageTimers.push(setTimeout(() => root.classList.add('stage-word-l'), 1500)); // LEFT gate: WELCOME strikes on (red)
-        stageTimers.push(setTimeout(() => root.classList.add('stage-word-r'), 3100)); // RIGHT gate: CONNECTION strikes on (red)
-        stageTimers.push(setTimeout(() => root.classList.add('stage-open'), 5100));   // only now the doors part
-        stageTimers.push(setTimeout(() => root.classList.add('stage-logo'), 5900));  // logo settles in
+        stageTimers.push(setTimeout(() => root.classList.add('stage-alpona'), 200));  // bengali alpona draws on both leaves
+        stageTimers.push(setTimeout(() => root.classList.add('stage-word-l'), 900)); // LEFT gate: WELCOME strikes on (red)
+        stageTimers.push(setTimeout(() => root.classList.add('stage-word-r'), 1850)); // RIGHT gate: CONNECTION strikes on (red)
+        stageTimers.push(setTimeout(() => root.classList.add('stage-open'), 2950));   // only now the doors part
+        stageTimers.push(setTimeout(() => root.classList.add('stage-logo'), 3450));  // logo settles in
         stageTimers.push(setTimeout(() => {
           root.classList.add('stage-icons'); // design icons pop + glow (3s run)
           // pani ke tapakne ki awaaz: har icon ke pop ke saath ek droplet
           // (CSS nth-child delays: 0s, .12s, .24s, .36s, .48s, .60s)
-          const iconDripOffsets = [350, 470, 590, 710, 830, 950]; // ms, matches pops
+          const iconDripOffsets = [200, 270, 340, 410, 480, 550]; // ms, matches pops
           iconDripOffsets.forEach(offset => {
             stageTimers.push(setTimeout(() => WaterDrip.play(), offset));
           });
-        }, 5900));
-        stageTimers.push(setTimeout(() => root.classList.add('stage-blink'), 6700)); // right eye blinks twice
+        }, 3450));
+        stageTimers.push(setTimeout(() => root.classList.add('stage-blink'), 3900)); // right eye blinks twice
         stageTimers.push(setTimeout(() => {                                          // glass-effect transition begins
           root.classList.add('stage-glass');
           document.body.classList.add('intro-glass');                               // card sharpens into focus
-        }, 7900));
-        stageTimers.push(setTimeout(() => root.classList.add('stage-fadeout'), 8900)); // intro fully fades
-        stageTimers.push(setTimeout(finishIntro, 9800));                              // card fully revealed
+        }, 4600));
+        stageTimers.push(setTimeout(() => root.classList.add('stage-fadeout'), 5100)); // intro fully fades
+        stageTimers.push(setTimeout(finishIntro, 5600));                              // card fully revealed
       }
 
       function finishIntro() {
@@ -4847,5 +4847,5 @@ button:focus-visible,select:focus-visible,input:focus-visible{outline-color:#ffc
       });
     })();
     </script>
-<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a3f16e0768e179fc',t:'MTc5MDA4MTM2OA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a3f17fa3dfe185bd',t:'MTc5MDA4MjA4OQ=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
