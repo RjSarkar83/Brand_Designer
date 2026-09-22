@@ -5,8 +5,13 @@
   <title>RJ Sarkar: Creative Lead — Design & Execution 2026</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="description" content="🏁 🚀 ♾️ ArtViSiON: PRODUCTiōn̄ DESiGN ✨ &quot;Your Vision, Our Creation&quot; ✨ 📢 ADVERTiSiNG | 🏷️ BRANDiNG | 🧠 CREATiVE | 🎨 DESiGNiNG | ✂️ EDiTiNG | 🔥 FUSiON | 🖼️ GRAPHiCS">
-  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet">
+  <!-- fonts: non-blocking load (first paint par hichki nahi) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@300;400;500;600&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet"><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet"></noscript>
   <style>
     :root {
       /* ---- 24 karat gold palette (single source of truth) ---- */
@@ -2297,7 +2302,7 @@
     frameborder="no"
     allow="autoplay; encrypted-media"
     style="position:fixed;left:-9999px;top:0;width:300px;height:54px;opacity:0.01;pointer-events:none;border:0;"
-    src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/rj-sarkar/navras-drum-and-bass-remix&color=%23ff5500&auto_play=true&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false&visual=false&loop=true">
+    src="https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/rj-sarkar/navras-drum-and-bass-remix&color=%23ff5500&auto_play=true&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false&visual=false&loop=false">
   </iframe>
 
   <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
@@ -2461,7 +2466,7 @@
       let running = false;
       let birdTimer = null;
       let muted = false;
-      const MASTER = 0.375; // 25% quieter intro ambience
+      const MASTER = 0.20; // pro-mix: calm intro ambience
 
       function ensure() {
         if (ctx) return ctx;
@@ -2609,7 +2614,7 @@
       let ctx = null;
       let master = null;
       let last = 0;
-      const VOLUME = 0.24;
+      const VOLUME = 0.20;  // pro-mix: crisp UI click, tamed
       const MIN_GAP_MS = 75;
 
       // ---- SA RE GA MA PA DHA NI SA ----
@@ -2723,7 +2728,7 @@
       let running = false;
       let dropTimer = null;
       let muted = false;
-      const MASTER = 0.3375; // 25% quieter intro rain bed
+      const MASTER = 0.16; // pro-mix: intro rain bed, just under forest
 
       function ensure() {
         if (ctx) return ctx;
@@ -2856,7 +2861,7 @@
       let ctx = null;
       let master = null;
       let muted = false;
-      const VOLUME = 0.225; // 25% quieter intro water drips
+      const VOLUME = 0.14; // pro-mix: clear intro drip accents
 
       function ensure() {
         if (ctx) return ctx;
@@ -2937,7 +2942,7 @@
       const BPM = 132;             // MATCHES IndianTrance so the two synth layers lock together
       const SPB = 60 / BPM;        // seconds per beat
       const STEP = SPB / 4;        // 16th-note steps
-      const VOLUME = 0.19;         // softer: it is a backing bed, not the lead
+      const VOLUME = 0.13;        // pro-mix: fallback lead bed — sits under Navras (50%)
 
       // moody progression: A minor -> F -> C -> G (roots in Hz)
       const CHORDS = [
@@ -3076,6 +3081,12 @@
         if (ctx.state === 'suspended') ctx.resume();
         if (running) return;
         running = true;
+        // pro-mix fade-in: music swells in over ~2.5s, never blasts in
+        if (master) {
+          master.gain.cancelScheduledValues(ctx.currentTime);
+          master.gain.setValueAtTime(muted ? 0 : 0.0001, ctx.currentTime);
+          master.gain.exponentialRampToValueAtTime(muted ? 0.0001 : VOLUME, ctx.currentTime + 2.5);
+        }
         nextTime = ctx.currentTime + 0.06;
         step = 0;
         timer = setInterval(schedule, 45);
@@ -3112,7 +3123,7 @@
       const BPM = 132;
       const SPB = 60 / BPM;      // seconds per beat
       const STEP = SPB / 4;      // 16th-note steps
-      const VOLUME = 0.18;       // layered, sits with (not over) the main track
+      const VOLUME = 0.10;      // pro-mix: support layer tucked under the lead track
 
       // tanpura drone strings: Sa - Pa - Sa  (A2 E3 A3)
       const DRONE = [110.00, 164.81, 220.00];
@@ -3306,6 +3317,12 @@
         if (ctx.state === 'suspended') ctx.resume();
         if (running) return;
         running = true;
+        // pro-mix fade-in: layer swells in under the lead over ~2.5s
+        if (master) {
+          master.gain.cancelScheduledValues(ctx.currentTime);
+          master.gain.setValueAtTime(muted ? 0 : 0.0001, ctx.currentTime);
+          master.gain.exponentialRampToValueAtTime(muted ? 0.0001 : VOLUME, ctx.currentTime + 2.5);
+        }
         nextTime = ctx.currentTime + 0.08;
         step = 0;
         timer = setInterval(schedule, 45);
@@ -3333,6 +3350,7 @@
     // Unlock WebAudio on the first real user gesture (autoplay policies) so the
     // intro forest ambience can begin as soon as the visitor interacts.
     function unlockAudio() {
+      userGestured = true;
       try {
         const c = Forest.ensure();
         if (c && c.state === 'suspended') c.resume();
@@ -3353,6 +3371,21 @@
         const it = IndianTrance.ensure();
         if (it && it.state === 'suspended') it.resume();
       } catch (e) {}
+      // FIX: Navras ko har gesture par nudge karo — autoplay sirf user
+      // interaction ke baad chalta hai (yahi open-time silence ka bug tha)
+      try {
+        if (bgStarted && !navrasDone && !isMuted) {
+          scCmd('play', ''); scCmd('setVolume', SC_VOLUME);
+        }
+      } catch (e) {}
+      // gesture ke baad bhi SC ne awaaz nahi di? ~4s baad synth bed chalao
+      try {
+        if (bgStarted && !scHeard && !synthStarted) {
+          setTimeout(function () {
+            if (!scHeard && !synthStarted) startSynthBed();
+          }, 4000);
+        }
+      } catch (e) {}
     }
     document.addEventListener('pointerdown', unlockAudio, { capture: true });
     document.addEventListener('keydown', unlockAudio, { capture: true });
@@ -3361,21 +3394,49 @@
     let bgStarted = false;
     let scHeard = false;       // true once the SoundCloud widget reports playback
     let musicFallbackOn = false;
+    let userGestured = false;  // true after first tap/click/key — browsers tabhi sound allow karte hain
     const toggle = document.getElementById("audio-toggle");
     const iframe = document.getElementById("soundcloud-iframe");
 
     // Background music starts only AFTER the intro forest ambience has played,
     // so the intro stays calm and curious before the track drops in.
-    const SC_URL = "https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/rj-sarkar/navras-drum-and-bass-remix&color=%23ff5500&auto_play=true&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false&visual=false&loop=true";
-    const SC_VOLUME = 75;   // percent (0-100)
+    const SC_URL = "https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/rj-sarkar/navras-drum-and-bass-remix&color=%23ff5500&auto_play=true&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false&visual=false&loop=false";
+    const SC_VOLUME = 50;   // percent (0-100) — Navras matrix music at 50% volume
+    let synthStarted = false;   // true jab synth background music chal raha ho
+    let navrasDone = false;     // true jab Navras poora baj chuka ho (ya skip hua ho)
+
+    // Navras poora bajne ke BAAD hi ye chalta hai: synthesized background music
+    // (drum-n-bass bed + Indian trance layer — dono saath, pro fade-in ke saath)
+    // afterNavras === true  -> Navras FINISH hua (synth phase permanent)
+    // afterNavras undefined -> fallback (Navras abhi bhi aa sakta hai — chances khule rakho!)
+    function startSynthBed(afterNavras) {
+      if (synthStarted || isMuted) return;
+      synthStarted = true;
+      if (afterNavras) navrasDone = true; // FIX: fallback mein navrasDone FALSE hi rahe
+      musicFallbackOn = true;
+      MusicBed.start();
+      IndianTrance.start();
+    }
 
     // The SoundCloud widget posts progress events while it is actually playing.
     window.addEventListener('message', function (ev) {
       try {
         const d = typeof ev.data === 'string' ? JSON.parse(ev.data) : ev.data;
-        if (d && (d.type === 'playProgressUpdate' || d.type === 'playProgress')) {
+        const m = (((d && (d.method || d.type)) || '') + '').toLowerCase();
+        if (d && (d.type === 'playProgressUpdate' || d.type === 'playProgress' || m === 'play' || m === 'playprogress')) {
           scHeard = true;
+          // FIX: Navras der se shuru hua (synth fallback pehle chal pada)?
+          // synth rok do — Navras AKELE bajega, sequence mein kabhi overlap nahi
+          if (synthStarted) {
+            synthStarted = false;
+            navrasDone = false;
+            musicFallbackOn = false;
+            MusicBed.stop();
+            IndianTrance.stop();
+          }
         }
+        // Navras ka 'finish' event aaya — ab background synth music shuru
+        if (m.indexOf('finish') !== -1) { scHeard = true; startSynthBed(true); }
       } catch (e) { /* not JSON - ignore */ }
     });
 
@@ -3389,8 +3450,21 @@
     // widget loads asynchronously and autoplay is not always honoured on reload.
     function scheduleSC() {
       [900, 1800, 3200, 5200].forEach(function (ms) {
-        setTimeout(function () { scCmd('play', ''); scCmd('setVolume', SC_VOLUME); }, ms);
+        setTimeout(function () {
+          scCmd('play', ''); scCmd('setVolume', SC_VOLUME);
+          // widget se events maango taaki Navras khatam hote hi pata chal jaye
+          scCmd('addEventListener', 'finish');
+          scCmd('addEventListener', 'playProgress');
+        }, ms);
       });
+      // FIX: autoplay gesture maangta hai — isliye tab tak nudge karte raho
+      // (har 2.5s, max ~60s) jab tak Navras sach mein bajna shuru na ho jaye
+      let nudges = 0;
+      const nudge = setInterval(function () {
+        if (scHeard || navrasDone || isMuted || ++nudges > 24) { clearInterval(nudge); return; }
+        scCmd('play', ''); scCmd('setVolume', SC_VOLUME);
+        scCmd('addEventListener', 'finish');
+      }, 2500);
     }
 
     function startBackgroundMusic() {
@@ -3402,18 +3476,17 @@
       iframe.src = SC_URL;
       toggle.innerHTML = "🔊";
       scheduleSC();
-      // ADD Indian trance layer on top of the existing background music
-      // (the existing SoundCloud track / MusicBed is NOT changed)
-      IndianTrance.start();
-      // Safety net: if the SoundCloud widget never reports playing (blocked,
-      // offline, or slow), start the synthesized music bed after ~6s so the
-      // background music is NEVER silent.
+      // Navras AKELE bajta hai — trance layer / music bed TABHI start honge
+      // jab Navras poora khatam ho jayega (finish event -> startSynthBed).
+      // Safety net: SoundCloud blocked/offline ho toh ~6s baad synth music
+      // start kar do, taaki background music kabhi silent na rahe.
       setTimeout(function () {
-        if (!scHeard && !musicFallbackOn) {
-          musicFallbackOn = true;
-          MusicBed.start();
+        // sirf tab fail-over karo jab user ne interact kiya ho — warna gesture
+        // ke first touch par unlockAudio hi Navras/synth ko sahi se chalayega
+        if (!scHeard && !synthStarted && userGestured) {
+          startSynthBed(); // fallback: navrasDone FALSE rahega — Navras wapas aa sakta hai
         }
-      }, 6000);
+      }, 9000);
     }
 
     toggle.addEventListener("click", () => {
@@ -3427,11 +3500,16 @@
         iframe.src = "about:blank";
         toggle.innerHTML = "🔇";
       } else {
-        iframe.src = SC_URL;
         toggle.innerHTML = "🔊";
-        scheduleSC();
-        if (musicFallbackOn) MusicBed.start();
-        IndianTrance.start();
+        if (navrasDone) {
+          // Navras ka phase khatam — synth background music wapas chalao
+          MusicBed.start();
+          IndianTrance.start();
+        } else {
+          iframe.src = SC_URL;
+          scheduleSC();
+          if (musicFallbackOn) MusicBed.start();
+        }
       }
     });
 
@@ -3795,6 +3873,9 @@
 
         Forest.start();   // soft nature ambience plays through the intro only
         Rain.start();     // soft barish patters along with the matrix-rain backdrop
+        // Navras ab STARTING se hi bajta hai — intro ke saath hi load/play shuru
+        // (browser gesture milte hi awaaz aayegi; khatam hote hi synth bed le lega)
+        startBackgroundMusic();
 
         stageTimers.push(setTimeout(() => root.classList.add('stage-alpona'), 250));  // bengali alpona draws on both leaves
         stageTimers.push(setTimeout(() => root.classList.add('stage-word-l'), 1500)); // LEFT gate: WELCOME strikes on (red)
@@ -4571,5 +4652,76 @@ button:focus-visible,select:focus-visible,input:focus-visible{outline-color:#ffc
 
 </script>
 <!-- ARTVISION RED CHATBOT ADDITION END -->
-<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a3de508fbb19b79c',t:'MTc4OTg4MDkzMQ=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a3df22d7a85a3be0',t:'MTc4OTg4OTU0NA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a3df504f1f65ff6f',t:'MTc4OTg5MTQwNw=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a3de508fbb19b79c',t:'MTc4OTg4MDkzMQ=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a3df22d7a85a3be0',t:'MTc4OTg4OTU0NA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a3df504f1f65ff6f',t:'MTc4OTg5MTQwNw=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
+    <!-- ==================== AV CARD ANALYTICS (custom, lightweight) ====================
+      Batata hai: KON aa raha hai (anonymous visitor id + device + approx city/country),
+      KYA kar raha hai (kaunse button/link click), KITNA TIME spend kar raha hai.
+      Data seedha aapke Google Sheet mein jata hai — setup: ANALYTICS-SETUP.md.
+      Endpoint set nahi hai toh tracker poori tarah silent rahega (koi error nahi). -->
+    <script>
+    (function () {
+      'use strict';
+      var ANALYTICS_ENDPOINT = ''; // <-- YAHAN apna Google Apps Script Web App URL paste karein
+      if (!ANALYTICS_ENDPOINT) return;
+
+      var queue = [], vid = null, sid = null;
+      var activeMs = 0, lastTick = Date.now();
+
+      function uid(k) {
+        try { var v = localStorage.getItem(k); if (v) return v;
+          v = 'v_' + Date.now().toString(36) + Math.random().toString(36).slice(2, 8);
+          localStorage.setItem(k, v); return v; } catch (e) { return 'v_anon'; }
+      }
+      vid = uid('av_vid');
+      try { sid = sessionStorage.getItem('av_sid'); } catch (e) {}
+      if (!sid) { sid = 's_' + Date.now().toString(36) + Math.random().toString(36).slice(2, 6);
+        try { sessionStorage.setItem('av_sid', sid); } catch (e) {} }
+
+      function visSec() {
+        var now = Date.now();
+        if (!document.hidden) activeMs += now - lastTick;
+        lastTick = now;
+        return Math.round(activeMs / 1000);
+      }
+      document.addEventListener('visibilitychange', function () { visSec(); if (document.hidden) flush(); });
+
+      function send(type, data, immediate) {
+        var ev = { type: type, vid: vid, sid: sid, t: new Date().toISOString(), active_s: visSec() };
+        if (data) for (var k in data) ev[k] = data[k];
+        queue.push(ev);
+        if (immediate) flush();
+      }
+      function flush() {
+        if (!queue.length) return;
+        try { navigator.sendBeacon(ANALYTICS_ENDPOINT, JSON.stringify({ events: queue.splice(0) })); } catch (e) {}
+      }
+      setInterval(flush, 8000);
+      window.addEventListener('pagehide', function () { send('session_end', { total_s: visSec() }); flush(); });
+
+      // KON: page view + device info
+      send('page_view', { lang: navigator.language, scr: screen.width + 'x' + screen.height, ref: document.referrer || 'direct', url: location.pathname, ua: navigator.userAgent });
+
+      // approx location (best-effort; fail ho toh chupchaap skip)
+      try {
+        var ac = new AbortController();
+        var to = setTimeout(function () { ac.abort(); }, 4000);
+        fetch('https://ipapi.co/json/', { signal: ac.signal }).then(function (r) { return r.json(); }).then(function (j) {
+          clearTimeout(to);
+          send('geo', { ip: j.ip, city: j.city, region: j.region, country: j.country_name, org: j.org }, true);
+        }).catch(function () { clearTimeout(to); });
+      } catch (e) {}
+
+      // KITNA TIME: heartbeat har 30s (visible seconds ke saath)
+      setInterval(function () { send('heartbeat', { total_s: visSec() }); }, 30000);
+
+      // KYA: har button/link click
+      document.addEventListener('click', function (e) {
+        var el = e.target && e.target.closest ? e.target.closest('a,button,[role=button]') : null;
+        if (!el) return;
+        var label = (el.getAttribute('aria-label') || el.innerText || el.id || el.className || '').toString().trim().slice(0, 60);
+        send('click', { el: el.tagName.toLowerCase(), label: label, href: el.href ? String(el.href).slice(0, 120) : '' });
+      }, { capture: true, passive: true });
+    })();
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a3ef1899baf5cdcf',t:'MTc5MDA1Njg5Nw=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
