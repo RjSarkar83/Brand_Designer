@@ -2108,33 +2108,20 @@
     }
 </style>
 
-<style id="final-spec">
-.container{display:flex!important;flex-direction:column!important;justify-content:center!important;align-items:center!important;min-height:100vh!important;width:100vw!important}
-.card-container{display:flex!important;justify-content:center!important;align-items:center!important;margin:0 auto!important;width:var(--card-w)!important}
-.card-flip-container{width:var(--card-w)!important;aspect-ratio:var(--card-ratio)!important;margin:0 auto!important;perspective:1200px!important;display:flex!important;justify-content:center!important;align-items:center!important}
-.card-flip{width:100%!important;height:100%!important;transform-style:preserve-3d!important;transition:transform 0.8s ease!important}
-.card-flip.flipped{transform:rotateY(180deg)!important}
-.card-face{backface-visibility:hidden!important;-webkit-backface-visibility:hidden!important}
-.card-face.front{transform:rotateY(0deg) translateZ(1px)!important}
-.card-face.back{transform:rotateY(180deg) translateZ(1px)!important}
-.side-link-fab{width:24px!important;height:24px!important;background:linear-gradient(145deg,#1a1a1a 0%,#000 45%,#0a0a0a 100%)!important;color:#fff!important;border:1px solid rgba(255,255,255,0.18)!important;box-shadow:0 2px 6px rgba(0,0,0,0.5)!important;pointer-events:auto!important;cursor:pointer!important;z-index:9999!important}
-.side-link-fab:hover{background:linear-gradient(145deg,#2a2a2a 0%,#111 100%)!important;transform:scale(1.08)!important}
+<style id="final-minimal">
+.container{display:flex!important;flex-direction:column!important;justify-content:center!important;align-items:center!important;min-height:100vh!important}
+.card-container{display:flex!important;justify-content:center!important;align-items:center!important;margin:0 auto!important}
+.card-flip-container{margin:0 auto!important;perspective:1200px!important;display:flex!important;justify-content:center!important;align-items:center!important}
+.side-link-fab{width:24px!important;height:24px!important;background:#000!important;background-color:#000!important;background-image:none!important;color:#fff!important;border:1px solid rgba(255,255,255,0.2)!important;pointer-events:auto!important;cursor:pointer!important;z-index:99999!important;display:flex!important;align-items:center!important;justify-content:center!important}
 .side-link-fab i{color:#fff!important;font-size:11px!important}
 .side-link-fab.converter-link{bottom:172px!important}
 .side-link-fab.game-link{bottom:144px!important}
 .side-link-fab.museum-link{bottom:116px!important}
 .side-link-fab.portfolio-link{bottom:88px!important}
-#avFullscreenBtn{position:fixed!important;top:14px!important;right:14px!important;width:auto!important;height:auto!important;background:transparent!important;border:none!important;box-shadow:none!important;color:rgba(255,255,255,0.92)!important;display:flex!important;align-items:center!important;justify-content:center!important;cursor:pointer!important;z-index:2147483647!important;font-size:24px!important;padding:6px!important;transition:all 0.2s ease!important;text-shadow:0 2px 8px rgba(0,0,0,0.8), 0 0 10px rgba(255,0,0,0.35)!important}
-#avFullscreenBtn:hover{background:transparent!important;color:#ff2222!important;transform:scale(1.25)!important;box-shadow:none!important}
-#avFullscreenBtn i{font-size:24px!important;pointer-events:none!important}
-.turn-card-btn{width:24px!important;height:24px!important;min-width:24px!important;min-height:24px!important;border-radius:50%!important;border:1px solid rgba(255,255,255,0.18)!important;background:linear-gradient(145deg,#1a1a1a 0%,#000 45%,#0a0a0a 100%)!important;color:#fff!important;display:inline-flex!important;align-items:center!important;justify-content:center!important}
+#avFullscreenBtn{position:fixed!important;top:14px!important;right:14px!important;width:auto!important;height:auto!important;background:transparent!important;border:none!important;box-shadow:none!important;color:#fff!important;font-size:24px!important;z-index:2147483647!important;cursor:pointer!important;padding:6px!important;text-shadow:0 2px 8px rgba(0,0,0,0.8)!important}
+#avFullscreenBtn i{font-size:24px!important}
+.turn-card-btn{width:24px!important;height:24px!important;background:#000!important;color:#fff!important;border:1px solid rgba(255,255,255,0.2)!important}
 .turn-card-btn i{font-size:10px!important;color:#fff!important}
-.turn-card-btn:hover{background:linear-gradient(145deg,#2a2a2a 0%,#111 100%)!important;transform:scale(1.08)!important}
-.calculator-screen{position:relative!important;overflow:hidden!important}
-.calculator-screen::before{content:'';position:absolute;inset:-50%;width:200%;height:200%;background:radial-gradient(ellipse 380px 260px at 22% 28%, rgba(255,255,255,0.14) 0%, transparent 52%), radial-gradient(ellipse 420px 320px at 78% 72%, rgba(255,40,40,0.10) 0%, transparent 58%);filter:blur(14px);animation:frontChromeFlow 11s ease-in-out infinite;pointer-events:none;z-index:1;mix-blend-mode:screen}
-@keyframes frontChromeFlow{0%,100%{transform:translate(0,0)}33%{transform:translate(2.5%,-1.8%)}66%{transform:translate(-1.5%,2.2%)}}
-.calculator-screen::after{content:'';position:absolute;inset:0;background:linear-gradient(108deg, transparent 12%, rgba(255,0,128,0.14) 26%, rgba(0,255,255,0.16) 40%, transparent 78%);background-size:280% 100%;mix-blend-mode:color-dodge;pointer-events:none;z-index:3;border-radius:10px;animation:frontHoloSweep 3.8s ease-in-out infinite}
-@keyframes frontHoloSweep{0%{background-position:180% 0;opacity:0}12%{opacity:0.95}48%{background-position:-20% 0;opacity:0.9}88%{opacity:0}100%{background-position:-20% 0;opacity:0}}
 </style>
 
 </head>
@@ -2331,16 +2318,16 @@
     </div>
   </main>
   
-  <a onclick="try{var el=document.documentElement; if(el.requestFullscreen) el.requestFullscreen(); else if(el.webkitRequestFullscreen) el.webkitRequestFullscreen();}catch(e){}" href="https://rjsarkar83.github.io/Converter/" class="side-link-fab converter-link" target="_blank" rel="noopener" aria-label="Open Converter" title="Converter" data-info="Converter"><i class="fa-solid fa-right-left"></i></a>
-  <a onclick="try{var el=document.documentElement; if(el.requestFullscreen) el.requestFullscreen(); else if(el.webkitRequestFullscreen) el.webkitRequestFullscreen();}catch(e){}" href="https://rjsarkar83.github.io/Run-Indore/Run-Indore.html" class="side-link-fab game-link" target="_blank" rel="noopener" aria-label="Open Relax-Indore" title="Relax-Indore" data-info="Relax-Indore">
+  <a href="https://rjsarkar83.github.io/Converter/" class="side-link-fab converter-link" target="_blank" rel="noopener" aria-label="Open Converter" title="Converter"><i class="fa-solid fa-right-left"></i></a>
+  <a href="https://rjsarkar83.github.io/Run-Indore/Run-Indore.html" class="side-link-fab game-link" target="_blank" rel="noopener" aria-label="Open Relax-Indore" title="Relax-Indore" data-info="Relax-Indore">
     <i class="fas fa-gamepad" aria-hidden="true"></i>
   </a>
 
-  <a onclick="try{var el=document.documentElement; if(el.requestFullscreen) el.requestFullscreen(); else if(el.webkitRequestFullscreen) el.webkitRequestFullscreen();}catch(e){}" href="https://rjsarkar83.github.io/ArtVision_DesiMuseum/" class="side-link-fab museum-link" target="_blank" rel="noopener" aria-label="Open Desi Museum" title="Desi Museum" data-info="Desi Museum">
+  <a href="https://rjsarkar83.github.io/ArtVision_DesiMuseum/" class="side-link-fab museum-link" target="_blank" rel="noopener" aria-label="Open Desi Museum" title="Desi Museum" data-info="Desi Museum">
     <i class="fas fa-landmark" aria-hidden="true"></i>
   </a>
 
-  <a onclick="try{var el=document.documentElement; if(el.requestFullscreen) el.requestFullscreen(); else if(el.webkitRequestFullscreen) el.webkitRequestFullscreen();}catch(e){}" href="https://rjsarkar83.github.io/portfolio/" class="side-link-fab portfolio-link" target="_blank" rel="noopener" aria-label="Open Portfolio" title="Portfolio" data-info="Portfolio">
+  <a href="https://rjsarkar83.github.io/portfolio/" class="side-link-fab portfolio-link" target="_blank" rel="noopener" aria-label="Open Portfolio" title="Portfolio" data-info="Portfolio">
     <i class="fas fa-address-card" aria-hidden="true"></i>
   </a>
 
@@ -4881,51 +4868,30 @@ button:focus-visible,select:focus-visible,input:focus-visible{outline-color:#ffc
     })();
     </script>
 <script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a3f17fa3dfe185bd',t:'MTc5MDA4MjA4OQ=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
-
 <script>
 (function(){
-  var fsBtn = document.getElementById('avFullscreenBtn');
-  var fsIcon = document.getElementById('avFullscreenIcon');
-  function isFs(){ return !!(document.fullscreenElement||document.webkitFullscreenElement); }
-  function upd(){ if(fsIcon) fsIcon.className = isFs() ? 'fa-solid fa-compress' : 'fa-solid fa-expand'; }
-  function reqFs(){
-    var el=document.documentElement;
-    try{
-      if(el.requestFullscreen) el.requestFullscreen().catch(function(){});
-      else if(el.webkitRequestFullscreen) el.webkitRequestFullscreen();
-    }catch(e){}
-  }
-  function exitFs(){
-    try{
-      if(document.exitFullscreen) document.exitFullscreen().catch(function(){});
-      else if(document.webkitExitFullscreen) document.webkitExitFullscreen();
-    }catch(e){}
-  }
-  if(fsBtn){
-    fsBtn.addEventListener('click', function(e){
-      e.preventDefault();
-      if(!isFs()) reqFs(); else exitFs();
-      setTimeout(upd, 300);
-    });
-  }
-  document.addEventListener('fullscreenchange', upd);
-  document.addEventListener('webkitfullscreenchange', upd);
-  
-  // Ensure side links are on top and clickable
-  var style = document.createElement('style');
-  style.textContent = '#introRoot.intro-done{display:none!important;pointer-events:none!important} .side-link-fab{pointer-events:auto!important;z-index:99999!important}';
-  document.head.appendChild(style);
-  
-  // Force intro to finish after 6s if stuck (so it doesn't block)
+  var fsBtn=document.getElementById('avFullscreenBtn');
+  var fsIcon=document.getElementById('avFullscreenIcon');
+  function isFs(){return !!(document.fullscreenElement||document.webkitFullscreenElement);}
+  function upd(){if(fsIcon) fsIcon.className=isFs()?'fa-solid fa-compress':'fa-solid fa-expand';}
+  function reqFs(){var el=document.documentElement; try{if(el.requestFullscreen) el.requestFullscreen(); else if(el.webkitRequestFullscreen) el.webkitRequestFullscreen();}catch(e){}}
+  function exitFs(){try{if(document.exitFullscreen) document.exitFullscreen(); else if(document.webkitExitFullscreen) document.webkitExitFullscreen();}catch(e){}}
+  if(fsBtn){fsBtn.addEventListener('click',function(e){e.preventDefault(); if(!isFs()) reqFs(); else exitFs(); setTimeout(upd,300);});}
+  document.addEventListener('fullscreenchange',upd);
+  document.addEventListener('webkitfullscreenchange',upd);
+  // Make side links work and also go fullscreen on touch/click without blocking
+  document.querySelectorAll('.side-link-fab').forEach(function(a){
+    if(a.tagName.toLowerCase()!=='a') return;
+    a.addEventListener('mousedown', function(){ reqFs(); }, {passive:true});
+    a.addEventListener('touchstart', function(){ reqFs(); }, {passive:true});
+  });
+  // Ensure intro doesn't block
   setTimeout(function(){
-    var ir = document.getElementById('introRoot');
-    if(ir && !ir.classList.contains('intro-done')){
-      ir.classList.add('intro-done');
-      document.documentElement.classList.remove('intro-lock');
-    }
-  }, 6000);
+    var ir=document.getElementById('introRoot');
+    if(ir){ ir.style.pointerEvents='none'; ir.style.display='none'; document.documentElement.classList.remove('intro-lock'); }
+  }, 5000);
 })();
 </script>
 
-<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a4044f9f2eebff99',t:'MTc5MDI3OTM1Mg=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a4045d670e7aff99',t:'MTc5MDI3OTkxNg=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
