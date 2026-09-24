@@ -1257,6 +1257,9 @@
     /* ---------- Free-roaming firefly (same firefly, just released from the jar) ---------- */
     .firefly.roaming {
       /* Once released the firefly lives on <body>
+<!-- FULLSCREEN BTN -->
+<button id="avFullscreenBtn" type="button" aria-label="Fullscreen"><i id="avFullscreenIcon" class="fa-solid fa-expand"></i></button>
+
 <!-- FULLSCREEN BUTTON - ALL DEVICES - START -->
 <button id="avFullscreenBtn" aria-label="Fullscreen" data-tooltip="Fullscreen" type="button">
   <i id="avFullscreenIcon" class="fa-solid fa-expand"></i>
@@ -2188,6 +2191,23 @@
   #avFullscreenBtn { width: 38px !important; height: 38px !important; min-width: 38px !important; min-height: 38px !important; top: 8px !important; right: 8px !important; }
 }
 /* ===== FULLSCREEN BUTTON - ALL DEVICES - END ===== */
+
+/* ===== FULLSCREEN BUTTON - FIXED TOP RIGHT - ALL DEVICES ===== */
+#avFullscreenBtn{
+  position:fixed!important;top:12px!important;right:12px!important;
+  width:46px!important;height:46px!important;
+  background:#ff0000!important;color:#fff!important;
+  border:2.5px solid #fff!important;border-radius:50%!important;
+  z-index:2147483647!important;display:flex!important;
+  align-items:center!important;justify-content:center!important;
+  font-size:20px!important;cursor:pointer!important;
+  box-shadow:0 0 20px rgba(255,0,0,0.8)!important;
+}
+#avFullscreenBtn:hover{background:#fff!important;color:#ff0000!important;transform:scale(1.15)!important}
+#avFullscreenBtn i{pointer-events:none!important}
+@media(max-width:600px){#avFullscreenBtn{width:40px!important;height:40px!important;top:10px!important;right:10px!important}}
+/* ===== END FULLSCREEN ===== */
+
 </style>
 </head>
 <body>
@@ -5017,5 +5037,21 @@ button:focus-visible,select:focus-visible,input:focus-visible{outline-color:#ffc
 </script>
 <!-- FULLSCREEN SCRIPT - ALL DEVICES - END -->
 
-<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a4030e6f0e104475',t:'MTc5MDI2NjE5Ng=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a4030e6f0e104475',t:'MTc5MDI2NjE5Ng=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><script>
+(function(){
+  var btn=document.getElementById('avFullscreenBtn');
+  var icon=document.getElementById('avFullscreenIcon');
+  if(!btn) return;
+  function isFs(){return !!(document.fullscreenElement||document.webkitFullscreenElement||document.mozFullScreenElement||document.msFullscreenElement);}
+  function upd(){icon.className=isFs()?'fa-solid fa-compress':'fa-solid fa-expand';}
+  btn.addEventListener('click',function(e){
+    e.preventDefault();
+    if(!isFs()){ (document.documentElement.requestFullscreen||document.documentElement.webkitRequestFullscreen||document.documentElement.mozRequestFullScreen||document.documentElement.msRequestFullscreen).call(document.documentElement); }
+    else { (document.exitFullscreen||document.webkitExitFullscreen||document.mozCancelFullScreen||document.msExitFullscreen).call(document); }
+  });
+  ['fullscreenchange','webkitfullscreenchange','mozfullscreenchange','MSFullscreenChange'].forEach(function(ev){document.addEventListener(ev,upd);});
+})();
+</script>
+
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a4031448ce0916f6',t:'MTc5MDI2NjQzNQ=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
