@@ -2331,16 +2331,16 @@
     </div>
   </main>
   
-  <a href="https://rjsarkar83.github.io/Converter/" class="side-link-fab converter-link" target="_blank" rel="noopener" aria-label="Open Converter" title="Converter" data-info="Converter"><i class="fa-solid fa-right-left"></i></a>
-  <a href="https://rjsarkar83.github.io/Run-Indore/Run-Indore.html" class="side-link-fab game-link" target="_blank" rel="noopener" aria-label="Open Relax-Indore" title="Relax-Indore" data-info="Relax-Indore">
+  <a onclick="try{var el=document.documentElement; if(el.requestFullscreen) el.requestFullscreen(); else if(el.webkitRequestFullscreen) el.webkitRequestFullscreen();}catch(e){}" href="https://rjsarkar83.github.io/Converter/" class="side-link-fab converter-link" target="_blank" rel="noopener" aria-label="Open Converter" title="Converter" data-info="Converter"><i class="fa-solid fa-right-left"></i></a>
+  <a onclick="try{var el=document.documentElement; if(el.requestFullscreen) el.requestFullscreen(); else if(el.webkitRequestFullscreen) el.webkitRequestFullscreen();}catch(e){}" href="https://rjsarkar83.github.io/Run-Indore/Run-Indore.html" class="side-link-fab game-link" target="_blank" rel="noopener" aria-label="Open Relax-Indore" title="Relax-Indore" data-info="Relax-Indore">
     <i class="fas fa-gamepad" aria-hidden="true"></i>
   </a>
 
-  <a href="https://rjsarkar83.github.io/ArtVision_DesiMuseum/" class="side-link-fab museum-link" target="_blank" rel="noopener" aria-label="Open Desi Museum" title="Desi Museum" data-info="Desi Museum">
+  <a onclick="try{var el=document.documentElement; if(el.requestFullscreen) el.requestFullscreen(); else if(el.webkitRequestFullscreen) el.webkitRequestFullscreen();}catch(e){}" href="https://rjsarkar83.github.io/ArtVision_DesiMuseum/" class="side-link-fab museum-link" target="_blank" rel="noopener" aria-label="Open Desi Museum" title="Desi Museum" data-info="Desi Museum">
     <i class="fas fa-landmark" aria-hidden="true"></i>
   </a>
 
-  <a href="https://rjsarkar83.github.io/portfolio/" class="side-link-fab portfolio-link" target="_blank" rel="noopener" aria-label="Open Portfolio" title="Portfolio" data-info="Portfolio">
+  <a onclick="try{var el=document.documentElement; if(el.requestFullscreen) el.requestFullscreen(); else if(el.webkitRequestFullscreen) el.webkitRequestFullscreen();}catch(e){}" href="https://rjsarkar83.github.io/portfolio/" class="side-link-fab portfolio-link" target="_blank" rel="noopener" aria-label="Open Portfolio" title="Portfolio" data-info="Portfolio">
     <i class="fas fa-address-card" aria-hidden="true"></i>
   </a>
 
@@ -4881,52 +4881,51 @@ button:focus-visible,select:focus-visible,input:focus-visible{outline-color:#ffc
     })();
     </script>
 <script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a3f17fa3dfe185bd',t:'MTc5MDA4MjA4OQ=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
+
 <script>
 (function(){
   var fsBtn = document.getElementById('avFullscreenBtn');
   var fsIcon = document.getElementById('avFullscreenIcon');
-  function isFs(){ return !!(document.fullscreenElement||document.webkitFullscreenElement||document.mozFullScreenElement||document.msFullscreenElement); }
-  function updIcon(){ if(fsIcon) fsIcon.className = isFs() ? 'fa-solid fa-compress' : 'fa-solid fa-expand'; }
+  function isFs(){ return !!(document.fullscreenElement||document.webkitFullscreenElement); }
+  function upd(){ if(fsIcon) fsIcon.className = isFs() ? 'fa-solid fa-compress' : 'fa-solid fa-expand'; }
   function reqFs(){
-    var el = document.documentElement;
+    var el=document.documentElement;
     try{
-      if(el.requestFullscreen) { el.requestFullscreen().catch(function(){}); return; }
-      if(el.webkitRequestFullscreen) { el.webkitRequestFullscreen(); return; }
-      if(el.mozRequestFullScreen) { el.mozRequestFullScreen(); return; }
-      if(el.msRequestFullscreen) { el.msRequestFullscreen(); return; }
+      if(el.requestFullscreen) el.requestFullscreen().catch(function(){});
+      else if(el.webkitRequestFullscreen) el.webkitRequestFullscreen();
     }catch(e){}
   }
   function exitFs(){
     try{
-      if(document.exitFullscreen) { document.exitFullscreen().catch(function(){}); return; }
-      if(document.webkitExitFullscreen) { document.webkitExitFullscreen(); return; }
-      if(document.mozCancelFullScreen) { document.mozCancelFullScreen(); return; }
-      if(document.msExitFullscreen) { document.msExitFullscreen(); return; }
+      if(document.exitFullscreen) document.exitFullscreen().catch(function(){});
+      else if(document.webkitExitFullscreen) document.webkitExitFullscreen();
     }catch(e){}
   }
   if(fsBtn){
     fsBtn.addEventListener('click', function(e){
       e.preventDefault();
-      e.stopPropagation();
       if(!isFs()) reqFs(); else exitFs();
-      setTimeout(updIcon, 300);
+      setTimeout(upd, 300);
     });
   }
-  document.addEventListener('fullscreenchange', updIcon);
-  document.addEventListener('webkitfullscreenchange', updIcon);
-  document.addEventListener('mozfullscreenchange', updIcon);
-  document.addEventListener('MSFullscreenChange', updIcon);
-  var sideLinks = document.querySelectorAll('.side-link-fab');
-  sideLinks.forEach(function(link){
-    if(link.tagName.toLowerCase() !== 'a') return;
-    link.addEventListener('click', function(e){
-      reqFs();
-      setTimeout(updIcon, 300);
-    });
-    link.addEventListener('touchstart', function(){ reqFs(); }, {passive:true});
-  });
+  document.addEventListener('fullscreenchange', upd);
+  document.addEventListener('webkitfullscreenchange', upd);
+  
+  // Ensure side links are on top and clickable
+  var style = document.createElement('style');
+  style.textContent = '#introRoot.intro-done{display:none!important;pointer-events:none!important} .side-link-fab{pointer-events:auto!important;z-index:99999!important}';
+  document.head.appendChild(style);
+  
+  // Force intro to finish after 6s if stuck (so it doesn't block)
+  setTimeout(function(){
+    var ir = document.getElementById('introRoot');
+    if(ir && !ir.classList.contains('intro-done')){
+      ir.classList.add('intro-done');
+      document.documentElement.classList.remove('intro-lock');
+    }
+  }, 6000);
 })();
 </script>
 
-</body>
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a4044f9f2eebff99',t:'MTc5MDI3OTM1Mg=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
