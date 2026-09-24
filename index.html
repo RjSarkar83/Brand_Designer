@@ -1256,17 +1256,7 @@
 
     /* ---------- Free-roaming firefly (same firefly, just released from the jar) ---------- */
     .firefly.roaming {
-      /* Once released the firefly lives on <body>
-<!-- FULLSCREEN BTN -->
-<button id="avFullscreenBtn" type="button" aria-label="Fullscreen"><i id="avFullscreenIcon" class="fa-solid fa-expand"></i></button>
-
-<!-- FULLSCREEN BUTTON - ALL DEVICES - START -->
-<button id="avFullscreenBtn" aria-label="Fullscreen" data-tooltip="Fullscreen" type="button">
-  <i id="avFullscreenIcon" class="fa-solid fa-expand"></i>
-</button>
-<!-- FULLSCREEN BUTTON - ALL DEVICES - END -->
-
-  , not inside the card, so it
+      /* Once released the firefly lives on <body>, not inside the card, so it
          goes back to viewport-relative sizing (1 jar unit = 1vmin, the original
          look). Inside the jar it stays card-relative. */
       --jar-u: 1vmin;
@@ -2116,101 +2106,58 @@
     @media (prefers-reduced-motion: reduce) {
       * { animation-duration: 0.01s !important; transition-duration: 0.01s !important; }
     }
-
-    @media (max-width: 600px) {
-      }
-
 </style>
-<style>
-/* ===== FULLSCREEN BUTTON - ALL DEVICES - START ===== */
-#avFullscreenBtn {
-  position: fixed !important;
-  top: 12px !important;
-  right: 12px !important;
-  left: auto !important;
-  bottom: auto !important;
-  width: 46px !important;
-  height: 46px !important;
-  min-width: 46px !important;
-  min-height: 46px !important;
-  background: linear-gradient(135deg, #ff3a3a 0%, #ff0000 50%, #cc0000 100%) !important;
-  color: #ffffff !important;
-  border: 2px solid rgba(255,255,255,0.9) !important;
-  border-radius: 50% !important;
-  z-index: 2147483647 !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  font-size: 20px !important;
-  cursor: pointer !important;
-  box-shadow: 0 4px 20px rgba(255,0,0,0.6), 0 2px 8px rgba(0,0,0,0.5), inset 0 1px 2px rgba(255,255,255,0.8) !important;
-  -webkit-appearance: none !important;
-  appearance: none !important;
-  padding: 0 !important;
-  margin: 0 !important;
-  outline: none !important;
-  transition: all 0.25s ease !important;
-  -webkit-tap-highlight-color: transparent !important;
-  user-select: none !important;
-}
-#avFullscreenBtn:hover, #avFullscreenBtn:focus, #avFullscreenBtn:active {
-  background: #ffffff !important;
-  color: #ff0000 !important;
-  border-color: #ff0000 !important;
-  transform: scale(1.12) !important;
-  box-shadow: 0 6px 25px rgba(255,0,0,0.7) !important;
-}
-#avFullscreenBtn i { pointer-events: none !important; font-size: 20px !important; line-height: 1 !important; }
-/* Tooltip - desktop only */
-#avFullscreenBtn::after {
-  content: attr(data-tooltip);
-  position: absolute;
-  right: 54px;
-  top: 50%;
-  transform: translateY(-50%);
-  background: #1a0a0a;
-  color: #fff;
-  border: 1px solid #ff3333;
-  padding: 6px 12px;
-  border-radius: 20px;
-  font-size: 11px;
-  font-family: Montserrat, sans-serif;
-  font-weight: 600;
-  white-space: nowrap;
-  opacity: 0;
-  visibility: hidden;
-  transition: 0.2s ease;
-  pointer-events: none;
-}
-#avFullscreenBtn:hover::after { opacity: 1; visibility: visible; }
-@media (max-width: 768px) {
-  #avFullscreenBtn { width: 42px !important; height: 42px !important; min-width: 42px !important; min-height: 42px !important; top: 10px !important; right: 10px !important; font-size: 18px !important; }
-  #avFullscreenBtn::after { display: none !important; }
-}
-@media (max-width: 480px) {
-  #avFullscreenBtn { width: 38px !important; height: 38px !important; min-width: 38px !important; min-height: 38px !important; top: 8px !important; right: 8px !important; }
-}
-/* ===== FULLSCREEN BUTTON - ALL DEVICES - END ===== */
 
-/* ===== FULLSCREEN BUTTON - FIXED TOP RIGHT - ALL DEVICES ===== */
+
+<style id="av-fullscreen-style">
+/* FULLSCREEN ICON ONLY - NO BUTTON BACKGROUND */
 #avFullscreenBtn{
-  position:fixed!important;top:12px!important;right:12px!important;
-  width:46px!important;height:46px!important;
-  background:#ff0000!important;color:#fff!important;
-  border:2.5px solid #fff!important;border-radius:50%!important;
-  z-index:2147483647!important;display:flex!important;
-  align-items:center!important;justify-content:center!important;
-  font-size:20px!important;cursor:pointer!important;
-  box-shadow:0 0 20px rgba(255,0,0,0.8)!important;
+  position:fixed!important;
+  top:14px!important;
+  right:14px!important;
+  width:auto!important;
+  height:auto!important;
+  background:transparent!important;
+  background-color:transparent!important;
+  color:#ffffff!important;
+  border:none!important;
+  border-radius:0!important;
+  z-index:2147483647!important;
+  display:flex!important;
+  align-items:center!important;
+  justify-content:center!important;
+  font-size:26px!important;
+  cursor:pointer!important;
+  box-shadow:none!important;
+  padding:6px!important;
+  margin:0!important;
+  outline:none!important;
+  -webkit-tap-highlight-color:transparent!important;
+  line-height:1!important;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.8), 0 0 10px rgba(255,0,0,0.5)!important;
+  transition: all 0.2s ease!important;
 }
-#avFullscreenBtn:hover{background:#fff!important;color:#ff0000!important;transform:scale(1.15)!important}
-#avFullscreenBtn i{pointer-events:none!important}
-@media(max-width:600px){#avFullscreenBtn{width:40px!important;height:40px!important;top:10px!important;right:10px!important}}
-/* ===== END FULLSCREEN ===== */
-
+#avFullscreenBtn:hover{
+  color:#ff0000!important;
+  transform:scale(1.2)!important;
+  background:transparent!important;
+  text-shadow: 0 2px 12px rgba(255,0,0,0.8)!important;
+}
+#avFullscreenBtn i{
+  pointer-events:none!important;
+  font-size:26px!important;
+  background:transparent!important;
+}
+@media(max-width:600px){
+  #avFullscreenBtn{top:10px!important;right:10px!important;font-size:22px!important}
+  #avFullscreenBtn i{font-size:22px!important}
+}
 </style>
+
 </head>
 <body>
+<button id="avFullscreenBtn" style="background:transparent;border:none;box-shadow:none;" type="button" aria-label="Fullscreen"><i id="avFullscreenIcon" class="fa-solid fa-expand"></i></button>
+
   <div id="introRoot" aria-hidden="true">
     <div class="intro-stage">
       <div class="intro-logo-wrap">
@@ -4949,109 +4896,30 @@ button:focus-visible,select:focus-visible,input:focus-visible{outline-color:#ffc
       });
     })();
     </script>
-<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a3f17fa3dfe185bd',t:'MTc5MDA4MjA4OQ=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
-  <!-- FULLSCREEN SCRIPT - ALL DEVICES - START -->
-<script>
-(function(){
-  'use strict';
-  function initFullscreen(){
-    var btn = document.getElementById('avFullscreenBtn');
-    var icon = document.getElementById('avFullscreenIcon');
-    if(!btn || !icon) { console.warn('Fullscreen button not found'); return; }
-    
-    function isFullscreen(){
-      return !!(document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement);
-    }
-    
-    function updateIcon(){
-      var fs = isFullscreen();
-      if(fs){
-        icon.className = 'fa-solid fa-compress';
-        btn.setAttribute('data-tooltip','Exit Fullscreen');
-        btn.setAttribute('aria-label','Exit Fullscreen');
-      } else {
-        icon.className = 'fa-solid fa-expand';
-        btn.setAttribute('data-tooltip','Fullscreen');
-        btn.setAttribute('aria-label','Enter Fullscreen');
-      }
-    }
-    
-    function requestFs(elem){
-      if(elem.requestFullscreen) return elem.requestFullscreen();
-      if(elem.webkitRequestFullscreen) return elem.webkitRequestFullscreen();
-      if(elem.webkitEnterFullscreen) return elem.webkitEnterFullscreen(); // iOS video
-      if(elem.mozRequestFullScreen) return elem.mozRequestFullScreen();
-      if(elem.msRequestFullscreen) return elem.msRequestFullscreen();
-      return Promise.reject('Fullscreen not supported');
-    }
-    
-    function exitFs(){
-      if(document.exitFullscreen) return document.exitFullscreen();
-      if(document.webkitExitFullscreen) return document.webkitExitFullscreen();
-      if(document.mozCancelFullScreen) return document.mozCancelFullScreen();
-      if(document.msExitFullscreen) return document.msExitFullscreen();
-      return Promise.reject('Exit fullscreen not supported');
-    }
-    
-    btn.addEventListener('click', function(e){
-      e.preventDefault();
-      e.stopPropagation();
-      try {
-        if(!isFullscreen()){
-          requestFs(document.documentElement).then(updateIcon).catch(function(err){
-            console.log('Fullscreen error:', err);
-            // Fallback for iOS - try body
-            try { requestFs(document.body); } catch(e2){}
-          });
-        } else {
-          exitFs().then(updateIcon).catch(function(err){ console.log('Exit error:', err); });
-        }
-      } catch(err){
-        console.log('Fullscreen exception:', err);
-      }
-    });
-    
-    // Touch support - prevent double tap issues
-    btn.addEventListener('touchend', function(e){ e.preventDefault(); btn.click(); }, {passive:false});
-    
-    // Listen for fullscreen changes - all vendor prefixes
-    ['fullscreenchange','webkitfullscreenchange','mozfullscreenchange','MSFullscreenChange'].forEach(function(ev){
-      document.addEventListener(ev, updateIcon, false);
-    });
-    
-    // Initial state
-    updateIcon();
-    console.log('✅ Fullscreen button initialized - works on all devices');
-  }
-  
-  // Init after DOM ready
-  if(document.readyState === 'loading'){
-    document.addEventListener('DOMContentLoaded', initFullscreen);
-  } else {
-    initFullscreen();
-  }
-  
-  // Re-init after 2 sec as safety (if intro screen hides it)
-  setTimeout(initFullscreen, 2000);
-})();
-</script>
-<!-- FULLSCREEN SCRIPT - ALL DEVICES - END -->
-
-<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a4030e6f0e104475',t:'MTc5MDI2NjE5Ng=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><script>
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a3f17fa3dfe185bd',t:'MTc5MDA4MjA4OQ=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><script id="av-fullscreen-script">
 (function(){
   var btn=document.getElementById('avFullscreenBtn');
   var icon=document.getElementById('avFullscreenIcon');
-  if(!btn) return;
+  if(!btn||!icon) return;
   function isFs(){return !!(document.fullscreenElement||document.webkitFullscreenElement||document.mozFullScreenElement||document.msFullscreenElement);}
-  function upd(){icon.className=isFs()?'fa-solid fa-compress':'fa-solid fa-expand';}
+  function updateIcon(){icon.className=isFs()?'fa-solid fa-compress':'fa-solid fa-expand';}
   btn.addEventListener('click',function(e){
     e.preventDefault();
-    if(!isFs()){ (document.documentElement.requestFullscreen||document.documentElement.webkitRequestFullscreen||document.documentElement.mozRequestFullScreen||document.documentElement.msRequestFullscreen).call(document.documentElement); }
-    else { (document.exitFullscreen||document.webkitExitFullscreen||document.mozCancelFullScreen||document.msExitFullscreen).call(document); }
+    if(!isFs()){
+      var el=document.documentElement;
+      var req=el.requestFullscreen||el.webkitRequestFullscreen||el.mozRequestFullScreen||el.msRequestFullscreen;
+      if(req) req.call(el).catch(function(){});
+    }else{
+      var ex=document.exitFullscreen||document.webkitExitFullscreen||document.mozCancelFullScreen||document.msExitFullscreen;
+      if(ex) ex.call(document).catch(function(){});
+    }
   });
-  ['fullscreenchange','webkitfullscreenchange','mozfullscreenchange','MSFullscreenChange'].forEach(function(ev){document.addEventListener(ev,upd);});
+  ['fullscreenchange','webkitfullscreenchange','mozfullscreenchange','MSFullscreenChange'].forEach(function(ev){
+    document.addEventListener(ev,updateIcon);
+  });
+  console.log('Fullscreen button ready - all devices');
 })();
 </script>
 
-<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a4031448ce0916f6',t:'MTc5MDI2NjQzNQ=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a4031bc4ceaa16f6',t:'MTc5MDI2Njc0Mg=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
