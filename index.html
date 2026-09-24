@@ -2117,13 +2117,16 @@
 .card-face{backface-visibility:hidden!important;-webkit-backface-visibility:hidden!important}
 .card-face.front{transform:rotateY(0deg) translateZ(1px)!important}
 .card-face.back{transform:rotateY(180deg) translateZ(1px)!important}
-.side-link-fab{width:24px!important;height:24px!important;background:linear-gradient(145deg,#1a1a1a 0%,#000 45%,#0a0a0a 100%)!important;color:#fff!important;border:1px solid rgba(255,255,255,0.18)!important}
+.side-link-fab{width:24px!important;height:24px!important;background:linear-gradient(145deg,#1a1a1a 0%,#000 45%,#0a0a0a 100%)!important;color:#fff!important;border:1px solid rgba(255,255,255,0.18)!important;box-shadow:0 2px 6px rgba(0,0,0,0.5)!important;pointer-events:auto!important;cursor:pointer!important;z-index:9999!important}
+.side-link-fab:hover{background:linear-gradient(145deg,#2a2a2a 0%,#111 100%)!important;transform:scale(1.08)!important}
 .side-link-fab i{color:#fff!important;font-size:11px!important}
 .side-link-fab.converter-link{bottom:172px!important}
 .side-link-fab.game-link{bottom:144px!important}
 .side-link-fab.museum-link{bottom:116px!important}
 .side-link-fab.portfolio-link{bottom:88px!important}
-
+#avFullscreenBtn{position:fixed!important;top:14px!important;right:14px!important;width:auto!important;height:auto!important;background:transparent!important;border:none!important;box-shadow:none!important;color:rgba(255,255,255,0.92)!important;display:flex!important;align-items:center!important;justify-content:center!important;cursor:pointer!important;z-index:2147483647!important;font-size:24px!important;padding:6px!important;transition:all 0.2s ease!important;text-shadow:0 2px 8px rgba(0,0,0,0.8), 0 0 10px rgba(255,0,0,0.35)!important}
+#avFullscreenBtn:hover{background:transparent!important;color:#ff2222!important;transform:scale(1.25)!important;box-shadow:none!important}
+#avFullscreenBtn i{font-size:24px!important;pointer-events:none!important}
 .turn-card-btn{width:24px!important;height:24px!important;min-width:24px!important;min-height:24px!important;border-radius:50%!important;border:1px solid rgba(255,255,255,0.18)!important;background:linear-gradient(145deg,#1a1a1a 0%,#000 45%,#0a0a0a 100%)!important;color:#fff!important;display:inline-flex!important;align-items:center!important;justify-content:center!important}
 .turn-card-btn i{font-size:10px!important;color:#fff!important}
 .turn-card-btn:hover{background:linear-gradient(145deg,#2a2a2a 0%,#111 100%)!important;transform:scale(1.08)!important}
@@ -2133,12 +2136,6 @@
 .calculator-screen::after{content:'';position:absolute;inset:0;background:linear-gradient(108deg, transparent 12%, rgba(255,0,128,0.14) 26%, rgba(0,255,255,0.16) 40%, transparent 78%);background-size:280% 100%;mix-blend-mode:color-dodge;pointer-events:none;z-index:3;border-radius:10px;animation:frontHoloSweep 3.8s ease-in-out infinite}
 @keyframes frontHoloSweep{0%{background-position:180% 0;opacity:0}12%{opacity:0.95}48%{background-position:-20% 0;opacity:0.9}88%{opacity:0}100%{background-position:-20% 0;opacity:0}}
 </style>
-<style>
-#avFullscreenBtn{position:fixed!important;top:14px!important;right:14px!important;width:auto!important;height:auto!important;background:transparent!important;border:none!important;box-shadow:none!important;color:rgba(255,255,255,0.92)!important;display:flex!important;align-items:center!important;justify-content:center!important;cursor:pointer!important;z-index:2147483647!important;font-size:24px!important;padding:6px!important;transition:all 0.2s ease!important;text-shadow:0 2px 8px rgba(0,0,0,0.8), 0 0 10px rgba(255,0,0,0.35)!important}
-#avFullscreenBtn:hover{background:transparent!important;color:#ff2222!important;transform:scale(1.25)!important;box-shadow:none!important}
-#avFullscreenBtn i{font-size:24px!important;pointer-events:none!important}
-</style>
-
 
 </head>
 <body>
@@ -4888,77 +4885,48 @@ button:focus-visible,select:focus-visible,input:focus-visible{outline-color:#ffc
 (function(){
   var fsBtn = document.getElementById('avFullscreenBtn');
   var fsIcon = document.getElementById('avFullscreenIcon');
-  function isFs(){return !!(document.fullscreenElement||document.webkitFullscreenElement||document.mozFullScreenElement||document.msFullscreenElement);}
-  function updIcon(){ if(!fsIcon) return; fsIcon.className = isFs() ? 'fa-solid fa-compress' : 'fa-solid fa-expand'; }
-  function requestFs(){
+  function isFs(){ return !!(document.fullscreenElement||document.webkitFullscreenElement||document.mozFullScreenElement||document.msFullscreenElement); }
+  function updIcon(){ if(fsIcon) fsIcon.className = isFs() ? 'fa-solid fa-compress' : 'fa-solid fa-expand'; }
+  function reqFs(){
     var el = document.documentElement;
-    if(el.requestFullscreen) return el.requestFullscreen().catch(function(){});
-    if(el.webkitRequestFullscreen) return el.webkitRequestFullscreen();
-    if(el.mozRequestFullScreen) return el.mozRequestFullScreen();
-    if(el.msRequestFullscreen) return el.msRequestFullscreen();
-    return Promise.resolve();
+    try{
+      if(el.requestFullscreen) { el.requestFullscreen().catch(function(){}); return; }
+      if(el.webkitRequestFullscreen) { el.webkitRequestFullscreen(); return; }
+      if(el.mozRequestFullScreen) { el.mozRequestFullScreen(); return; }
+      if(el.msRequestFullscreen) { el.msRequestFullscreen(); return; }
+    }catch(e){}
   }
   function exitFs(){
-    if(document.exitFullscreen) return document.exitFullscreen().catch(function(){});
-    if(document.webkitExitFullscreen) return document.webkitExitFullscreen();
-    if(document.mozCancelFullScreen) return document.mozCancelFullScreen();
-    if(document.msExitFullscreen) return document.msExitFullscreen();
-    return Promise.resolve();
+    try{
+      if(document.exitFullscreen) { document.exitFullscreen().catch(function(){}); return; }
+      if(document.webkitExitFullscreen) { document.webkitExitFullscreen(); return; }
+      if(document.mozCancelFullScreen) { document.mozCancelFullScreen(); return; }
+      if(document.msExitFullscreen) { document.msExitFullscreen(); return; }
+    }catch(e){}
   }
   if(fsBtn){
     fsBtn.addEventListener('click', function(e){
       e.preventDefault();
       e.stopPropagation();
-      if(!isFs()){ requestFs().then(updIcon); } else { exitFs().then(updIcon); }
+      if(!isFs()) reqFs(); else exitFs();
+      setTimeout(updIcon, 300);
     });
   }
   document.addEventListener('fullscreenchange', updIcon);
   document.addEventListener('webkitfullscreenchange', updIcon);
   document.addEventListener('mozfullscreenchange', updIcon);
   document.addEventListener('MSFullscreenChange', updIcon);
-
-  // All side links open directly in fullscreen on all devices
   var sideLinks = document.querySelectorAll('.side-link-fab');
   sideLinks.forEach(function(link){
+    if(link.tagName.toLowerCase() !== 'a') return;
     link.addEventListener('click', function(e){
-      // For sound button which is not a link, skip
-      if(link.tagName.toLowerCase() !== 'a') return;
-      var href = link.getAttribute('href');
-      if(!href) return;
-      // Don't prevent if user wants to open in new tab via ctrl/cmd
-      if(e.ctrlKey || e.metaKey) return;
-      
-      e.preventDefault();
-      var target = link.getAttribute('target') || '_blank';
-      
-      // Request fullscreen first on user gesture (works on all devices)
-      requestFs().then(function(){
-        setTimeout(function(){
-          if(target === '_blank'){
-            window.open(href, '_blank', 'noopener');
-          } else {
-            window.location.href = href;
-          }
-        }, 120);
-      }).catch(function(){
-        // If fullscreen fails (iOS Safari etc), still open link
-        if(target === '_blank'){
-          window.open(href, '_blank', 'noopener');
-        } else {
-          window.location.href = href;
-        }
-      });
-    }, {passive: false});
+      reqFs();
+      setTimeout(updIcon, 300);
+    });
+    link.addEventListener('touchstart', function(){ reqFs(); }, {passive:true});
   });
-
-  // Also make all card links (contact, social) open in fullscreen if needed
-  // Optional: uncomment to make ALL links fullscreen
-  // document.querySelectorAll('.business-card a, .contact-btn').forEach(function(a){
-  //   a.addEventListener('click', function(e){ if(!isFs()) requestFs(); });
-  // });
-
 })();
 </script>
 
-<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a404107dd8c1493e',t:'MTc5MDI3Njc2Ng=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</body>
 </html>
