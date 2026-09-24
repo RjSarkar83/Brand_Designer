@@ -1256,7 +1256,13 @@
 
     /* ---------- Free-roaming firefly (same firefly, just released from the jar) ---------- */
     .firefly.roaming {
-      /* Once released the firefly lives on <body>, not inside the card, so it
+      /* Once released the firefly lives on <body>
+  <!-- FULLSCREEN BUTTON - TOP RIGHT - START -->
+  <button id="avFullscreenBtn" class="av-fullscreen-btn" aria-label="Enter Fullscreen" data-tip="Fullscreen">
+    <i class="fa-solid fa-expand" id="avFullscreenIcon"></i>
+  </button>
+  <!-- FULLSCREEN BUTTON - END -->
+, not inside the card, so it
          goes back to viewport-relative sizing (1 jar unit = 1vmin, the original
          look). Inside the jar it stays card-relative. */
       --jar-u: 1vmin;
@@ -2106,6 +2112,47 @@
     @media (prefers-reduced-motion: reduce) {
       * { animation-duration: 0.01s !important; transition-duration: 0.01s !important; }
     }
+
+    /* ---- AV Fullscreen Button - Top Right Corner - UPDATED ---- */
+    #avFullscreenBtn.av-fullscreen-btn {
+      position: fixed !important;
+      top: 12px !important;
+      right: 12px !important;
+      width: 40px !important;
+      height: 40px !important;
+      border-radius: 50% !important;
+      border: 1.5px solid rgba(255,255,255,0.32) !important;
+      background: linear-gradient(160deg, rgba(255,110,110,0.98) 0%, rgba(255,0,0,0.96) 45%, rgba(150,0,0,0.98) 100%) !important;
+      color: #fff !important;
+      display: inline-flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+      cursor: pointer !important;
+      z-index: 10000 !important;
+      box-shadow: 0 2px 18px rgba(255,0,0,0.28), 0 4px 14px rgba(0,0,0,0.42), inset 0 2px 2px rgba(255,255,255,0.7) !important;
+      transition: all 0.22s ease !important;
+    }
+    #avFullscreenBtn.av-fullscreen-btn i { font-size: 17px !important; }
+    #avFullscreenBtn.av-fullscreen-btn:hover, #avFullscreenBtn.av-fullscreen-btn:focus-visible {
+      background: #fff !important;
+      color: #e0002b !important;
+      transform: scale(1.1) !important;
+      outline: none !important;
+    }
+    #avFullscreenBtn.av-fullscreen-btn.is-fullscreen { background: #fff !important; color: #e0002b !important; }
+    #avFullscreenBtn.av-fullscreen-btn::after {
+      content: attr(data-tip);
+      position: absolute; right: 48px; top: 50%; transform: translateY(-50%);
+      background: linear-gradient(45deg, #ff0000, #ff3333); color: #fff;
+      border: 1px solid rgba(255,255,255,0.28); border-radius: 14px; padding: 5px 10px;
+      font-family: 'Montserrat', Arial, sans-serif; font-size: 11px; font-weight: 600; white-space: nowrap;
+      opacity: 0; visibility: hidden; transition: 0.15s ease; pointer-events: none;
+    }
+    #avFullscreenBtn.av-fullscreen-btn:hover::after { opacity: 1; visibility: visible; }
+    @media (max-width: 600px) {
+      #avFullscreenBtn.av-fullscreen-btn { width: 36px !important; height: 36px !important; top: 8px !important; right: 8px !important; }
+    }
+
 </style>
 </head>
 <body>
@@ -4847,5 +4894,45 @@ button:focus-visible,select:focus-visible,input:focus-visible{outline-color:#ffc
       });
     })();
     </script>
-<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a3f17fa3dfe185bd',t:'MTc5MDA4MjA4OQ=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a3f17fa3dfe185bd',t:'MTc5MDA4MjA4OQ=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
+  <!-- FULLSCREEN SCRIPT - START -->
+  <script>
+  (function(){
+    const btn = document.getElementById('avFullscreenBtn');
+    const icon = document.getElementById('avFullscreenIcon');
+    if(!btn) return;
+    function isFs(){ return !!(document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement); }
+    function updateUI(){
+      const fs = isFs();
+      if(!btn || !icon) return;
+      btn.classList.toggle('is-fullscreen', fs);
+      icon.className = fs ? 'fa-solid fa-compress' : 'fa-solid fa-expand';
+      btn.setAttribute('data-tip', fs ? 'Exit Fullscreen' : 'Fullscreen');
+      btn.setAttribute('aria-label', fs ? 'Exit Fullscreen' : 'Enter Fullscreen');
+      console.log('[AV Fullscreen] isFullscreen:', fs);
+    }
+    function enterFs(){
+      const el = document.documentElement;
+      const fn = el.requestFullscreen || el.webkitRequestFullscreen || el.mozRequestFullScreen || el.msRequestFullscreen;
+      if(fn) { try{ const p=fn.call(el); if(p&&p.catch) p.catch(e=>console.log(e)); }catch(e){} }
+    }
+    function exitFs(){
+      const fn = document.exitFullscreen || document.webkitExitFullscreen || document.mozCancelFullScreen || document.msExitFullscreen;
+      if(fn) { try{ const p=fn.call(document); if(p&&p.catch) p.catch(e=>console.log(e)); }catch(e){} }
+    }
+    btn.addEventListener('click', function(e){
+      e.preventDefault(); e.stopPropagation();
+      if(isFs()) exitFs(); else enterFs();
+    });
+    ['fullscreenchange','webkitfullscreenchange','mozfullscreenchange','MSFullscreenChange'].forEach(ev=>{
+      document.addEventListener(ev, updateUI);
+    });
+    updateUI();
+    // Debug: show button visible
+    setTimeout(()=>{ btn.style.display='inline-flex'; console.log('[AV Fullscreen] Button injected'); }, 500);
+  })();
+  </script>
+  <!-- FULLSCREEN SCRIPT - END -->
+
+</body>
 </html>
