@@ -1102,7 +1102,6 @@
     .side-link-fab.portfolio-link { bottom: 88px; }
     .side-link-fab.museum-link { bottom: 116px; }
     .side-link-fab.game-link { bottom: 144px; }
-    .side-link-fab.converter-link { bottom: 172px; }
     .side-link-fab:focus { outline: var(--focus-outline); box-shadow: var(--focus-shadow); }
     .side-link-fab:hover, .side-link-fab:focus-visible {
       transform: scale(1.07) rotate(360deg);
@@ -1257,7 +1256,9 @@
 
     /* ---------- Free-roaming firefly (same firefly, just released from the jar) ---------- */
     .firefly.roaming {
-      /* Once released the firefly lives on <body>, not inside the card, so it
+      /* Once released the firefly lives on <body>
+<button id="avFullscreenBtn" type="button" aria-label="Fullscreen"><i id="avFullscreenIcon" class="fa-solid fa-expand"></i></button>
+, not inside the card, so it
          goes back to viewport-relative sizing (1 jar unit = 1vmin, the original
          look). Inside the jar it stays card-relative. */
       --jar-u: 1vmin;
@@ -2110,55 +2111,125 @@
 </style>
 
 
-<style id="av-fullscreen-style">
-/* FULLSCREEN ICON ONLY - NO BUTTON BACKGROUND */
+
+<style id="final-additions">
+/* ===== FINAL SPEC: ENQUIRY+TURN = RIGHT BTN SIZE, FULLSCREEN BACK, 4 BTNS BLACK ===== */
+
+/* Center display - original */
+.container{display:flex!important;flex-direction:column!important;justify-content:center!important;align-items:center!important;min-height:100vh!important;width:100vw!important}
+.card-container{display:flex!important;justify-content:center!important;align-items:center!important;margin:0 auto!important;width:var(--card-w)!important}
+.card-flip-container{width:var(--card-w)!important;aspect-ratio:var(--card-ratio)!important;margin:0 auto!important;perspective:1200px!important;display:flex!important;justify-content:center!important;align-items:center!important}
+.card-flip{width:100%!important;height:100%!important;transform-style:preserve-3d!important;transition:transform 0.8s cubic-bezier(0.4,0,0.2,1)!important}
+.card-flip.flipped{transform:rotateY(180deg)!important}
+.card-face{backface-visibility:hidden!important;-webkit-backface-visibility:hidden!important}
+.card-face.front{transform:rotateY(0deg) translateZ(1px)!important}
+.card-face.back{transform:rotateY(180deg) translateZ(1px)!important}
+
+/* ===== RIGHT 4 BUTTONS ABOVE SOUND - BLACK ===== */
+.side-link-fab{
+  width:24px!important;height:24px!important;
+  background: linear-gradient(145deg, #1a1a1a 0%, #000000 45%, #0a0a0a 100%)!important;
+  background-color:#000!important;
+  color:#fff!important;
+  border:1px solid rgba(255,255,255,0.18)!important;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.5), inset 0 1px 1px rgba(255,255,255,0.15)!important;
+}
+.side-link-fab:hover, .side-link-fab:focus-visible{
+  background: linear-gradient(145deg, #2a2a2a 0%, #111 100%)!important;
+  color:#fff!important;
+  border-color: rgba(255,255,255,0.32)!important;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.6), 0 0 10px rgba(255,255,255,0.15)!important;
+}
+.side-link-fab i{color:#fff!important; font-size:11px!important;}
+.side-link-fab.converter-link{bottom:172px!important;}
+.side-link-fab.game-link{bottom:144px!important;}
+.side-link-fab.museum-link{bottom:116px!important;}
+.side-link-fab.portfolio-link{bottom:88px!important;}
+
+/* ===== FULLSCREEN WAPAS LAO - BUTTON STYLE ===== */
 #avFullscreenBtn{
   position:fixed!important;
-  top:14px!important;
-  right:14px!important;
-  width:auto!important;
-  height:auto!important;
-  background:transparent!important;
-  background-color:transparent!important;
-  color:#ffffff!important;
-  border:none!important;
-  border-radius:0!important;
-  z-index:2147483647!important;
-  display:flex!important;
-  align-items:center!important;
-  justify-content:center!important;
-  font-size:26px!important;
+  top:12px!important; right:12px!important;
+  width:38px!important; height:38px!important;
+  border-radius:50%!important;
+  border:1.5px solid rgba(255,255,255,0.28)!important;
+  background: linear-gradient(160deg, rgba(255,110,110,0.95) 0%, rgba(255,0,0,0.92) 45%, rgba(150,0,0,0.95) 100%)!important;
+  color:#fff!important;
+  display:flex!important; align-items:center!important; justify-content:center!important;
   cursor:pointer!important;
-  box-shadow:none!important;
-  padding:6px!important;
-  margin:0!important;
-  outline:none!important;
-  -webkit-tap-highlight-color:transparent!important;
-  line-height:1!important;
-  text-shadow: 0 2px 8px rgba(0,0,0,0.8), 0 0 10px rgba(255,0,0,0.5)!important;
-  transition: all 0.2s ease!important;
+  z-index:2147483647!important;
+  box-shadow: 0 2px 12px rgba(255,0,0,0.28), 0 4px 10px rgba(0,0,0,0.4), inset 0 1.5px 2px rgba(255,255,255,0.65)!important;
+  font-size:16px!important;
+  padding:0!important;
+  transition: all 0.22s ease!important;
 }
-#avFullscreenBtn:hover{
-  color:#ff0000!important;
-  transform:scale(1.2)!important;
-  background:transparent!important;
-  text-shadow: 0 2px 12px rgba(255,0,0,0.8)!important;
+#avFullscreenBtn:hover, #avFullscreenBtn:focus-visible{
+  background:#fff!important; color:#e0002b!important;
+  transform:scale(1.08)!important;
 }
-#avFullscreenBtn i{
-  pointer-events:none!important;
-  font-size:26px!important;
-  background:transparent!important;
+#avFullscreenBtn i{font-size:16px!important; pointer-events:none!important;}
+
+/* ===== ENQUIRY AND TURN BUTTON - SAME AS RIGHT BUTTONS SIZE (24px) ===== */
+.turn-card-btn{
+  width:24px!important; height:24px!important;
+  min-width:24px!important; min-height:24px!important;
+  border-radius:50%!important;
+  border:1px solid rgba(255,255,255,0.18)!important;
+  background: linear-gradient(145deg, #1a1a1a 0%, #000000 45%, #0a0a0a 100%)!important;
+  color:#fff!important;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.5), inset 0 1px 1px rgba(255,255,255,0.15)!important;
+  display:inline-flex!important; align-items:center!important; justify-content:center!important;
+  padding:0!important;
+  transition: all 0.18s ease!important;
 }
-@media(max-width:600px){
-  #avFullscreenBtn{top:10px!important;right:10px!important;font-size:22px!important}
-  #avFullscreenBtn i{font-size:22px!important}
+.turn-card-btn i{font-size:10px!important; color:#fff!important;}
+.turn-card-btn:hover, .turn-card-btn:focus-visible{
+  background: linear-gradient(145deg, #2a2a2a 0%, #111 100%)!important;
+  color:#fff!important;
+  transform:scale(1.08)!important;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.6)!important;
 }
+.turn-card-label{
+  font-size:0.52rem!important;
+  color:rgba(255,255,255,0.82)!important;
+  margin-top:3px!important;
+}
+.card-controls-row{gap:18px!important; margin-top:14px!important;}
+
+/* Enquiry button - if it's contact-btn or offer-btn, make same size? The enquiry fab? */
+/* avLeadFab is turn? Actually enquiry is separate modal trigger - make its trigger also 24px if needed */
+#avLeadFab.turn-card-btn{
+  width:24px!important; height:24px!important;
+}
+
+/* ===== FRONT DISPLAY - LIQUID CHROME + HOLOGRAPHIC + CYBERPUNK (KEEP) ===== */
+.calculator-screen{
+  position:relative!important; overflow:hidden!important;
+  background: linear-gradient(135deg, rgba(150,14,14,0.72) 0%, rgba(30,6,6,0.84) 52%, rgba(150,14,14,0.72) 100%)!important;
+  backdrop-filter: blur(20px) saturate(155%) brightness(0.68)!important;
+  -webkit-backdrop-filter: blur(20px) saturate(155%) brightness(0.68)!important;
+  border:1px solid rgba(255,80,80,0.28)!important;
+}
+.calculator-screen::before{
+  content:''; position:absolute; inset:-50%; width:200%; height:200%;
+  background: radial-gradient(ellipse 380px 260px at 22% 28%, rgba(255,255,255,0.14) 0%, rgba(255,180,180,0.06) 22%, transparent 52%), radial-gradient(ellipse 420px 320px at 78% 72%, rgba(255,40,40,0.10) 0%, transparent 58%);
+  filter: blur(14px) contrast(1.25); animation: frontChromeFlow 11s ease-in-out infinite; pointer-events:none; z-index:1; mix-blend-mode:screen;
+  border-radius:35% 65% 65% 35% / 35% 35% 65% 65%;
+}
+@keyframes frontChromeFlow{0%,100%{transform:translate(0,0) rotate(0deg) scale(1)}33%{transform:translate(2.5%,-1.8%) rotate(0.8deg) scale(1.04)}66%{transform:translate(-1.5%,2.2%) rotate(-0.6deg) scale(0.98)}}
+.calculator-screen::after{
+  content:''; position:absolute; inset:0;
+  background: linear-gradient(108deg, transparent 12%, rgba(255,0,128,0.14) 26%, rgba(0,255,255,0.16) 40%, rgba(255,255,0,0.10) 56%, transparent 78%);
+  background-size:280% 100%; mix-blend-mode:color-dodge; opacity:0; pointer-events:none; z-index:3; border-radius:10px; animation: frontHoloSweep 3.8s ease-in-out infinite;
+}
+@keyframes frontHoloSweep{0%{background-position:180% 0;opacity:0}12%{opacity:0.95}48%{background-position:-20% 0;opacity:0.9}88%{opacity:0}100%{background-position:-20% 0;opacity:0}}
+.calculator-screen{animation: cyberBorderPulse 2.8s ease-in-out infinite;}
+@keyframes cyberBorderPulse{0%,100%{border-color:rgba(255,80,80,0.28); box-shadow:0 8px 32px rgba(0,0,0,0.6), 0 0 18px rgba(255,0,0,0.18)}50%{border-color:rgba(255,120,120,0.45); box-shadow:0 8px 32px rgba(0,0,0,0.6), 0 0 32px rgba(255,0,0,0.35), 0 0 60px rgba(255,30,30,0.18)}}
+.calculator-screen .neon-text, .calculator-screen .subtitle, .calculator-screen .year-animate, .calculator-screen .screen-headline-bar{position:relative!important; z-index:5!important;}
 </style>
 
 </head>
 <body>
-<button id="avFullscreenBtn" style="background:transparent;border:none;box-shadow:none;" type="button" aria-label="Fullscreen"><i id="avFullscreenIcon" class="fa-solid fa-expand"></i></button>
-
   <div id="introRoot" aria-hidden="true">
     <div class="intro-stage">
       <div class="intro-logo-wrap">
@@ -2349,9 +2420,7 @@
     </div>
   </main>
   
-  <a href="https://rjsarkar83.github.io/Converter/" class="side-link-fab converter-link" target="_blank" rel="noopener" aria-label="Open Converter" title="Converter" data-info="Converter">
-    <i class="fa-solid fa-right-left"></i>
-  </a>
+  <a href="https://rjsarkar83.github.io/Converter/" class="side-link-fab converter-link" target="_blank" rel="noopener" aria-label="Open Converter" title="Converter" data-info="Converter"><i class="fa-solid fa-right-left"></i></a>
   <a href="https://rjsarkar83.github.io/Run-Indore/Run-Indore.html" class="side-link-fab game-link" target="_blank" rel="noopener" aria-label="Open Relax-Indore" title="Relax-Indore" data-info="Relax-Indore">
     <i class="fas fa-gamepad" aria-hidden="true"></i>
   </a>
@@ -4900,30 +4969,44 @@ button:focus-visible,select:focus-visible,input:focus-visible{outline-color:#ffc
       });
     })();
     </script>
-<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a3f17fa3dfe185bd',t:'MTc5MDA4MjA4OQ=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><script id="av-fullscreen-script">
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a3f17fa3dfe185bd',t:'MTc5MDA4MjA4OQ=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><script>
 (function(){
-  var btn=document.getElementById('avFullscreenBtn');
-  var icon=document.getElementById('avFullscreenIcon');
-  if(!btn||!icon) return;
-  function isFs(){return !!(document.fullscreenElement||document.webkitFullscreenElement||document.mozFullScreenElement||document.msFullscreenElement);}
-  function updateIcon(){icon.className=isFs()?'fa-solid fa-compress':'fa-solid fa-expand';}
-  btn.addEventListener('click',function(e){
-    e.preventDefault();
-    if(!isFs()){
-      var el=document.documentElement;
-      var req=el.requestFullscreen||el.webkitRequestFullscreen||el.mozRequestFullScreen||el.msRequestFullscreen;
-      if(req) req.call(el).catch(function(){});
-    }else{
-      var ex=document.exitFullscreen||document.webkitExitFullscreen||document.mozCancelFullScreen||document.msExitFullscreen;
-      if(ex) ex.call(document).catch(function(){});
-    }
-  });
-  ['fullscreenchange','webkitfullscreenchange','mozfullscreenchange','MSFullscreenChange'].forEach(function(ev){
-    document.addEventListener(ev,updateIcon);
-  });
-  console.log('Fullscreen button ready - all devices');
+ var b=document.getElementById('avFullscreenBtn');
+ var i=document.getElementById('avFullscreenIcon');
+ if(!b) return;
+ function isFs(){return !!(document.fullscreenElement||document.webkitFullscreenElement);}
+ function upd(){i.className=isFs()?'fa-solid fa-compress':'fa-solid fa-expand';}
+ b.addEventListener('click',function(e){e.preventDefault(); if(!isFs()) document.documentElement.requestFullscreen().catch(()=>{}); else document.exitFullscreen().catch(()=>{});});
+ document.addEventListener('fullscreenchange',upd);
+ document.addEventListener('webkitfullscreenchange',upd);
 })();
 </script>
 
-<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a4033a64291b46f6',t:'MTc5MDI2Nzk5Ng=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+
+<script>
+(function(){
+  // Front display liquid ripple
+  var calcScreen = document.querySelector('.calculator-screen');
+  if(calcScreen){
+    calcScreen.addEventListener('click', function(e){
+      if(e.target.closest('button, a')) return;
+      var rect = calcScreen.getBoundingClientRect();
+      var x = e.clientX - rect.left;
+      var y = e.clientY - rect.top;
+      var ripple = document.createElement('div');
+      ripple.className = 'liquid-ripple-front';
+      ripple.style.left = x + 'px';
+      ripple.style.top = y + 'px';
+      ripple.style.width = ripple.style.height = '24px';
+      calcScreen.appendChild(ripple);
+      setTimeout(function(){ ripple.remove(); }, 950);
+      // Chrome flash
+      calcScreen.style.filter = 'brightness(1.25) contrast(1.15)';
+      setTimeout(function(){ calcScreen.style.filter = ''; }, 280);
+    });
+  }
+})();
+</script>
+
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a40402a2fda0493e',t:'MTc5MDI3NjE5OA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
