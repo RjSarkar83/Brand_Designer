@@ -2108,20 +2108,70 @@
     }
 </style>
 
-<style id="final-minimal">
-.container{display:flex!important;flex-direction:column!important;justify-content:center!important;align-items:center!important;min-height:100vh!important}
-.card-container{display:flex!important;justify-content:center!important;align-items:center!important;margin:0 auto!important}
-.card-flip-container{margin:0 auto!important;perspective:1200px!important;display:flex!important;justify-content:center!important;align-items:center!important}
-.side-link-fab{width:24px!important;height:24px!important;background:#000!important;background-color:#000!important;background-image:none!important;color:#fff!important;border:1px solid rgba(255,255,255,0.2)!important;pointer-events:auto!important;cursor:pointer!important;z-index:99999!important;display:flex!important;align-items:center!important;justify-content:center!important}
+<style id="final-all-working">
+/* Center display like original */
+.container{display:flex!important;flex-direction:column!important;justify-content:center!important;align-items:center!important;min-height:100vh!important;width:100vw!important}
+.card-container{display:flex!important;justify-content:center!important;align-items:center!important;margin:0 auto!important;width:var(--card-w)!important}
+.card-flip-container{width:var(--card-w)!important;aspect-ratio:var(--card-ratio)!important;margin:0 auto!important;perspective:1200px!important;display:flex!important;justify-content:center!important;align-items:center!important}
+
+/* Side buttons - BLACK 24px + WORKING + TOOLTIP */
+.side-link-fab{
+  width:24px!important;height:24px!important;
+  background:#000!important;background-color:#000!important;background-image:none!important;
+  color:#fff!important;
+  border:1px solid rgba(255,255,255,0.22)!important;
+  box-shadow:0 2px 6px rgba(0,0,0,0.5)!important;
+  pointer-events:auto!important;cursor:pointer!important;z-index:99999!important;
+  display:flex!important;align-items:center!important;justify-content:center!important;
+  position:fixed!important;right:8px!important;
+}
 .side-link-fab i{color:#fff!important;font-size:11px!important}
+.side-link-fab:hover{background:#222!important;transform:scale(1.1)!important;box-shadow:0 4px 12px rgba(0,0,0,0.6)!important}
 .side-link-fab.converter-link{bottom:172px!important}
 .side-link-fab.game-link{bottom:144px!important}
 .side-link-fab.museum-link{bottom:116px!important}
 .side-link-fab.portfolio-link{bottom:88px!important}
-#avFullscreenBtn{position:fixed!important;top:14px!important;right:14px!important;width:auto!important;height:auto!important;background:transparent!important;border:none!important;box-shadow:none!important;color:#fff!important;font-size:24px!important;z-index:2147483647!important;cursor:pointer!important;padding:6px!important;text-shadow:0 2px 8px rgba(0,0,0,0.8)!important}
-#avFullscreenBtn i{font-size:24px!important}
-.turn-card-btn{width:24px!important;height:24px!important;background:#000!important;color:#fff!important;border:1px solid rgba(255,255,255,0.2)!important}
+/* Tooltip - show Converter text on hover */
+.side-link-fab::after{
+  content:attr(data-info)!important;
+  position:absolute!important;right:32px!important;top:50%!important;
+  transform:translateY(-50%) translateX(6px)!important;
+  background:linear-gradient(45deg,#000,#222)!important;
+  color:#fff!important;
+  border:1px solid rgba(255,255,255,0.2)!important;
+  padding:4px 8px!important;border-radius:6px!important;
+  font-size:11px!important;white-space:nowrap!important;
+  opacity:0!important;pointer-events:none!important;
+  transition:all 0.2s ease!important;
+  z-index:100000!important;
+}
+.side-link-fab:hover::after{opacity:1!important;transform:translateY(-50%) translateX(0)!important}
+
+/* Fullscreen - ICON ONLY transparent */
+#avFullscreenBtn{
+  position:fixed!important;top:14px!important;right:14px!important;
+  width:auto!important;height:auto!important;
+  background:transparent!important;border:none!important;box-shadow:none!important;
+  color:rgba(255,255,255,0.95)!important;
+  font-size:24px!important;z-index:2147483647!important;
+  cursor:pointer!important;padding:6px!important;
+  display:flex!important;align-items:center!important;justify-content:center!important;
+  text-shadow:0 2px 8px rgba(0,0,0,0.8)!important;
+  transition:all 0.2s ease!important;
+}
+#avFullscreenBtn:hover{background:transparent!important;color:#ff2222!important;transform:scale(1.25)!important}
+#avFullscreenBtn i{font-size:24px!important;pointer-events:none!important}
+
+/* Turn + Enquiry - BLACK 24px same as right buttons */
+.turn-card-btn{
+  width:24px!important;height:24px!important;min-width:24px!important;min-height:24px!important;
+  background:#000!important;background-color:#000!important;
+  color:#fff!important;border:1px solid rgba(255,255,255,0.22)!important;
+  display:inline-flex!important;align-items:center!important;justify-content:center!important;
+  box-shadow:0 2px 6px rgba(0,0,0,0.5)!important;
+}
 .turn-card-btn i{font-size:10px!important;color:#fff!important}
+.turn-card-btn:hover{background:#222!important;transform:scale(1.1)!important}
 </style>
 
 </head>
@@ -2318,7 +2368,7 @@
     </div>
   </main>
   
-  <a href="https://rjsarkar83.github.io/Converter/" class="side-link-fab converter-link" target="_blank" rel="noopener" aria-label="Open Converter" title="Converter"><i class="fa-solid fa-right-left"></i></a>
+  <a href="https://rjsarkar83.github.io/Converter/" class="side-link-fab converter-link" target="_blank" rel="noopener" aria-label="Open Converter" title="Converter" data-info="Converter"><i class="fa-solid fa-right-left"></i></a>
   <a href="https://rjsarkar83.github.io/Run-Indore/Run-Indore.html" class="side-link-fab game-link" target="_blank" rel="noopener" aria-label="Open Relax-Indore" title="Relax-Indore" data-info="Relax-Indore">
     <i class="fas fa-gamepad" aria-hidden="true"></i>
   </a>
@@ -4870,28 +4920,58 @@ button:focus-visible,select:focus-visible,input:focus-visible{outline-color:#ffc
 <script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a3f17fa3dfe185bd',t:'MTc5MDA4MjA4OQ=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>
 <script>
 (function(){
+  // Fullscreen icon
   var fsBtn=document.getElementById('avFullscreenBtn');
   var fsIcon=document.getElementById('avFullscreenIcon');
   function isFs(){return !!(document.fullscreenElement||document.webkitFullscreenElement);}
   function upd(){if(fsIcon) fsIcon.className=isFs()?'fa-solid fa-compress':'fa-solid fa-expand';}
   function reqFs(){var el=document.documentElement; try{if(el.requestFullscreen) el.requestFullscreen(); else if(el.webkitRequestFullscreen) el.webkitRequestFullscreen();}catch(e){}}
   function exitFs(){try{if(document.exitFullscreen) document.exitFullscreen(); else if(document.webkitExitFullscreen) document.webkitExitFullscreen();}catch(e){}}
-  if(fsBtn){fsBtn.addEventListener('click',function(e){e.preventDefault(); if(!isFs()) reqFs(); else exitFs(); setTimeout(upd,300);});}
+  if(fsBtn){
+    fsBtn.addEventListener('click',function(e){
+      e.preventDefault();
+      if(!isFs()) reqFs(); else exitFs();
+      setTimeout(upd,300);
+    });
+  }
   document.addEventListener('fullscreenchange',upd);
   document.addEventListener('webkitfullscreenchange',upd);
-  // Make side links work and also go fullscreen on touch/click without blocking
+
+  // All side buttons - FINAL WORKING VERSION
   document.querySelectorAll('.side-link-fab').forEach(function(a){
     if(a.tagName.toLowerCase()!=='a') return;
-    a.addEventListener('mousedown', function(){ reqFs(); }, {passive:true});
-    a.addEventListener('touchstart', function(){ reqFs(); }, {passive:true});
+    // Ensure data-info exists for tooltip
+    if(!a.getAttribute('data-info')){
+      var title = a.getAttribute('title') || a.getAttribute('aria-label') || 'Link';
+      a.setAttribute('data-info', title);
+    }
+    a.addEventListener('click', function(e){
+      e.preventDefault();
+      var href=this.getAttribute('href');
+      var target=this.getAttribute('target')||'_blank';
+      // Fullscreen + open new tab - both in same tick
+      reqFs();
+      setTimeout(upd,300);
+      if(target==='_blank'){
+        window.open(href,'_blank','noopener');
+      } else {
+        window.location.href=href;
+      }
+    });
   });
-  // Ensure intro doesn't block
+
+  // Fix intro blocking
   setTimeout(function(){
     var ir=document.getElementById('introRoot');
-    if(ir){ ir.style.pointerEvents='none'; ir.style.display='none'; document.documentElement.classList.remove('intro-lock'); }
-  }, 5000);
+    if(ir){
+      ir.style.display='none';
+      ir.style.pointerEvents='none';
+      document.documentElement.classList.remove('intro-lock');
+      document.body.classList.remove('intro-lock');
+    }
+  }, 4000);
 })();
 </script>
 
-<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a4045d670e7aff99',t:'MTc5MDI3OTkxNg=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a4046b0b3a758a21',t:'MTc5MDI4MDQ3NQ=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
