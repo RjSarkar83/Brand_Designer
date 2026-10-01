@@ -2130,6 +2130,24 @@
 .turn-card-btn:hover{transform:translateY(-2px) scale(1.12)!important}
 </style>
 
+<style id="fab-minimize">
+/* spacing: 40px pitch between right-bottom buttons */
+#fabToggle{bottom:6px!important}
+#shareFab{bottom:48px!important;right:10px!important}
+#audio-toggle{bottom:88px!important;right:10px!important}
+.side-link-fab.portfolio-link{bottom:128px!important}
+.side-link-fab.museum-link{bottom:168px!important}
+.side-link-fab.game-link{bottom:208px!important}
+.side-link-fab.converter-link{bottom:248px!important}
+.side-link-fab.counter-link{bottom:288px!important}
+#fabToggle{position:fixed!important;right:8px!important;bottom:2px!important;width:28px!important;height:28px!important;border-radius:50%!important;border:1.5px solid rgba(255,255,255,0.22)!important;background:radial-gradient(ellipse at 28% 22%, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0.35) 14%, transparent 42%), linear-gradient(160deg, #2a2a2a 0%, #111 18%, #000 45%, #0a0a0a 85%)!important;color:#fff!important;box-shadow:0 3px 8px rgba(0,0,0,0.45), inset 0 1.8px 2.5px rgba(255,255,255,0.75), inset 0 -2.5px 4px rgba(0,0,0,0.8)!important;display:flex!important;align-items:center!important;justify-content:center!important;padding:0!important;cursor:pointer!important;z-index:100000!important;transition:transform .25s ease!important;-webkit-appearance:none;appearance:none}
+#fabToggle i{font-size:11px!important;color:#fff!important;transition:transform .3s ease}
+#fabToggle:hover{transform:scale(1.12)!important}
+#fabToggle:focus-visible{outline:2px solid #fff;outline-offset:2px}
+body:not(.fabs-min) #fabToggle i{transform:rotate(180deg)}
+.side-link-fab,#shareFab,#audio-toggle{transition:opacity .22s ease,transform .25s cubic-bezier(.34,1.56,.64,1),visibility 0s linear 0s!important}
+body.fabs-min .side-link-fab,body.fabs-min #shareFab,body.fabs-min #audio-toggle{opacity:0!important;visibility:hidden!important;pointer-events:none!important;transform:translateY(30px) scale(.3)!important;transition:opacity .2s ease,transform .22s ease,visibility 0s linear .22s!important}
+</style>
 </head>
 <body>
 <button id="avFullscreenBtn" type="button" aria-label="Fullscreen"><i id="avFullscreenIcon" class="fa-solid fa-expand"></i></button>
@@ -2343,6 +2361,8 @@
   </button>
 
   <button id="audio-toggle">&#x1F507;</button>
+
+  <button id="fabToggle" type="button" aria-label="Show / hide quick buttons" aria-expanded="false" title="Menu"><i class="fa-solid fa-chevron-up" aria-hidden="true"></i></button>
 
   <button class="replay-intro-btn" id="replayIntroBtn" type="button"><i class="fas fa-rotate-left"></i>ReIntro</button>
 
@@ -4905,5 +4925,20 @@ button:focus-visible,select:focus-visible,input:focus-visible{outline-color:#ffc
 })();
 </script>
 
-<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a42ad0a8ae9a3a51',t:'MTc5MDY4MzA5Ng=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a436822d1bd84212',t:'MTc5MDgwNTcxMA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a42ad0a8ae9a3a51',t:'MTc5MDY4MzA5Ng=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><script id="fab-minimize-js">
+(function(){
+  var b=document.getElementById('fabToggle'); if(!b) return;
+  var KEY='av_fabs_min';
+  function set(min){
+    document.body.classList.toggle('fabs-min',min);
+    b.setAttribute('aria-expanded',String(!min));
+    b.title=min?'Show buttons':'Hide buttons';
+    try{localStorage.setItem(KEY,min?'1':'0');}catch(e){}
+  }
+  var saved=null; try{saved=localStorage.getItem(KEY);}catch(e){}
+  set(saved!=='0');   // default: minimized
+  b.addEventListener('click',function(){set(!document.body.classList.contains('fabs-min'));});
+})();
+</script>
+</body>
 </html>
