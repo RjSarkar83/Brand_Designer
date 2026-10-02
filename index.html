@@ -3,6 +3,10 @@
 <head>
   <meta charset="UTF-8">
   <title>RJ Sarkar: Creative Lead — Design & Execution 2026</title>
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon-16.png">
+  <link rel="apple-touch-icon" href="favicon-48.png">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="description" content="🏁 🚀 ♾️ ArtViSiON: PRODUCTiōn̄ DESiGN ✨ &quot;Your Vision, Our Creation&quot; ✨ 📢 ADVERTiSiNG | 🏷️ BRANDiNG | 🧠 CREATiVE | 🎨 DESiGNiNG | ✂️ EDiTiNG | 🔥 FUSiON | 🖼️ GRAPHiCS">
   <!-- fonts: non-blocking load (first paint par hichki nahi) -->
@@ -13,6 +17,126 @@
   <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet"><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet"></noscript>
   <style>
+    /* ===== FORCE intro gate on top of EVERYTHING ===== */
+    #introRoot{ z-index: 2147483647 !important; }
+    body.intro-active .corner-owl-wrap,
+    body.intro-active #avFullscreenBtn,
+    body.intro-active #fabToggle,
+    body.intro-active #shareFab,
+    body.intro-active #audio-toggle,
+    body.intro-active .side-link-fab,
+    body.intro-active .dock,
+    body.intro-active .toast,
+    body.intro-active .quantum-cursor,
+    body.intro-active #avLeadFab{
+      display:none !important;
+      opacity:0 !important;
+      visibility:hidden !important;
+      pointer-events:none !important;
+    }
+
+    /* ===== Owl + Vector Art (top-left) ===== */
+    .corner-owl-wrap{
+      position:fixed;top:12px;left:12px;
+      z-index:99998;
+      display:none;
+      flex-direction:column;align-items:center;gap:5px;
+      pointer-events:none;
+    }
+    .corner-owl{
+      -webkit-appearance:none;appearance:none;
+      background:transparent;border:none;padding:0;margin:0;cursor:pointer;
+      pointer-events:none;
+      height:44px;width:auto;
+      opacity:0;transform:scale(.3);
+      transition:opacity .4s cubic-bezier(.2,.8,.2,1), transform .5s cubic-bezier(.34,1.65,.64,1);
+      -webkit-user-select:none;user-select:none;
+      display:block;
+    }
+    .corner-owl img{display:block;height:44px;width:auto;pointer-events:none;}
+    .corner-owl:active{transform:scale(.88) !important;}
+    .corner-owl-label{
+      font-family:'Montserrat',Arial,sans-serif;
+      font-size:9.5px;font-weight:600;letter-spacing:.16em;
+      color:rgba(255,255,255,.82);
+      text-transform:none;
+      pointer-events:none;
+      text-shadow:0 1px 4px rgba(0,0,0,.85);
+      line-height:1;
+      opacity:0;transform:scale(.5);
+      transition:opacity .35s ease, transform .4s cubic-bezier(.34,1.65,.64,1);
+    }
+
+    /* ===== Default hidden state for ALL floating UI — one-by-one reveal after intro ===== */
+    #avFullscreenBtn,
+    #fabToggle,#shareFab,#audio-toggle,
+    .side-link-fab,
+    .dock{
+      opacity:0 !important;visibility:hidden !important;pointer-events:none !important;
+      transform:scale(.3);
+      transition:opacity .38s cubic-bezier(.2,.8,.2,1),
+                 transform .48s cubic-bezier(.34,1.65,.64,1),
+                 visibility 0s linear .5s !important;
+    }
+
+    /* ===== One-by-one pop-in cascade (saamne se, scale up — professional) ===== */
+    /* Sequence: Owl → Fullscreen → Counter → Converter → Game → Museum → Portfolio → Audio → Share → Minimize → "Vector Art" label → Chat dock */
+    .ui-ready .corner-owl-wrap{ display:flex; }
+    .ui-ready .corner-owl{
+      opacity:1;pointer-events:auto;transform:scale(1);
+      transition-delay:.00s;
+    }
+    .ui-ready #avFullscreenBtn{
+      opacity:1 !important;visibility:visible !important;pointer-events:auto !important;transform:scale(1);
+      transition-delay:.12s;
+    }
+    .ui-ready .side-link-fab.counter-link{
+      opacity:1 !important;visibility:visible !important;pointer-events:auto !important;transform:scale(1);
+      transition-delay:.24s;
+    }
+    .ui-ready .side-link-fab.converter-link{
+      opacity:1 !important;visibility:visible !important;pointer-events:auto !important;transform:scale(1);
+      transition-delay:.36s;
+    }
+    .ui-ready .side-link-fab.game-link{
+      opacity:1 !important;visibility:visible !important;pointer-events:auto !important;transform:scale(1);
+      transition-delay:.48s;
+    }
+    .ui-ready .side-link-fab.museum-link{
+      opacity:1 !important;visibility:visible !important;pointer-events:auto !important;transform:scale(1);
+      transition-delay:.60s;
+    }
+    .ui-ready .side-link-fab.portfolio-link{
+      opacity:1 !important;visibility:visible !important;pointer-events:auto !important;transform:scale(1);
+      transition-delay:.72s;
+    }
+    .ui-ready #audio-toggle{
+      opacity:1 !important;visibility:visible !important;pointer-events:auto !important;transform:scale(1);
+      transition-delay:.84s;
+    }
+    .ui-ready #shareFab{
+      opacity:1 !important;visibility:visible !important;pointer-events:auto !important;transform:scale(1);
+      transition-delay:.96s;
+    }
+    .ui-ready #fabToggle{
+      opacity:1 !important;visibility:visible !important;pointer-events:auto !important;transform:scale(1);
+      transition-delay:1.08s;
+    }
+    .ui-ready .corner-owl-label{
+      opacity:1;transform:scale(1);
+      transition-delay:1.16s;
+    }
+    .ui-ready .dock{
+      opacity:1 !important;visibility:visible !important;pointer-events:auto !important;transform:scale(1);
+      transition-delay:1.32s;
+    }
+
+    @media (max-width:480px){
+      .corner-owl-wrap{top:8px;left:8px;gap:3px;}
+      .corner-owl{height:32px;}
+      .corner-owl img{height:32px !important;}
+      .corner-owl-label{font-size:8px;letter-spacing:.13em;}
+    }
     :root {
       /* ---- 24 karat gold palette (single source of truth) ---- */
       --au-white:  #fffdf2;   /* specular hit          */
@@ -2116,11 +2240,11 @@
 .side-link-fab i{color:#fff!important;font-size:11px!important;text-shadow:0 1px 2px rgba(0,0,0,0.8)!important}
 .side-link-fab:hover{transform:translateY(-2px) scale(1.12)!important;background:linear-gradient(160deg,#3a3a3a 0%,#000 100%)!important}
 .side-link-fab:active{transform:translateY(1px) scale(0.94)!important}
-.side-link-fab.counter-link{bottom:200px!important}
-.side-link-fab.converter-link{bottom:172px!important}
-.side-link-fab.game-link{bottom:144px!important}
-.side-link-fab.museum-link{bottom:116px!important}
-.side-link-fab.portfolio-link{bottom:88px!important}
+.side-link-fab.counter-link{bottom:240px!important}
+.side-link-fab.converter-link{bottom:212px!important}
+.side-link-fab.game-link{bottom:184px!important}
+.side-link-fab.museum-link{bottom:156px!important}
+.side-link-fab.portfolio-link{bottom:128px!important}
 .side-link-fab::after{content:attr(data-info)!important;position:absolute!important;right:36px!important;top:50%!important;transform:translateY(-50%)!important;background:#000!important;color:#fff!important;border:1px solid rgba(255,255,255,0.2)!important;padding:4px 8px!important;border-radius:6px!important;font-size:11px!important;white-space:nowrap!important;opacity:0!important;pointer-events:none!important;transition:all 0.2s ease!important}
 .side-link-fab:hover::after{opacity:1!important}
 #avFullscreenBtn{position:fixed!important;top:14px!important;right:14px!important;width:auto!important;height:auto!important;background:transparent!important;border:none!important;box-shadow:none!important;color:#fff!important;font-size:24px!important;z-index:2147483647!important;cursor:pointer!important;padding:6px!important;display:flex!important}
@@ -2132,15 +2256,15 @@
 
 <style id="fab-minimize">
 /* spacing: 40px pitch between right-bottom buttons */
-#fabToggle{bottom:6px!important}
-#shareFab{bottom:48px!important;right:10px!important}
-#audio-toggle{bottom:88px!important;right:10px!important}
-.side-link-fab.portfolio-link{bottom:128px!important}
-.side-link-fab.museum-link{bottom:168px!important}
-.side-link-fab.game-link{bottom:208px!important}
-.side-link-fab.converter-link{bottom:248px!important}
-.side-link-fab.counter-link{bottom:288px!important}
-#fabToggle{position:fixed!important;right:8px!important;bottom:2px!important;width:28px!important;height:28px!important;border-radius:50%!important;border:1.5px solid rgba(255,255,255,0.22)!important;background:radial-gradient(ellipse at 28% 22%, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0.35) 14%, transparent 42%), linear-gradient(160deg, #2a2a2a 0%, #111 18%, #000 45%, #0a0a0a 85%)!important;color:#fff!important;box-shadow:0 3px 8px rgba(0,0,0,0.45), inset 0 1.8px 2.5px rgba(255,255,255,0.75), inset 0 -2.5px 4px rgba(0,0,0,0.8)!important;display:flex!important;align-items:center!important;justify-content:center!important;padding:0!important;cursor:pointer!important;z-index:100000!important;transition:transform .25s ease!important;-webkit-appearance:none;appearance:none}
+#fabToggle{bottom:22px!important}
+#shareFab{bottom:64px!important;right:10px!important}
+#audio-toggle{bottom:104px!important;right:10px!important}
+.side-link-fab.portfolio-link{bottom:144px!important}
+.side-link-fab.museum-link{bottom:184px!important}
+.side-link-fab.game-link{bottom:224px!important}
+.side-link-fab.converter-link{bottom:264px!important}
+.side-link-fab.counter-link{bottom:304px!important}
+#fabToggle{position:fixed!important;right:8px!important;bottom:18px!important;width:28px!important;height:28px!important;border-radius:50%!important;border:1.5px solid rgba(255,255,255,0.22)!important;background:radial-gradient(ellipse at 28% 22%, rgba(255,255,255,0.85) 0%, rgba(255,255,255,0.35) 14%, transparent 42%), linear-gradient(160deg, #2a2a2a 0%, #111 18%, #000 45%, #0a0a0a 85%)!important;color:#fff!important;box-shadow:0 3px 8px rgba(0,0,0,0.45), inset 0 1.8px 2.5px rgba(255,255,255,0.75), inset 0 -2.5px 4px rgba(0,0,0,0.8)!important;display:flex!important;align-items:center!important;justify-content:center!important;padding:0!important;cursor:pointer!important;z-index:100000!important;transition:transform .25s ease!important;-webkit-appearance:none;appearance:none}
 #fabToggle i{font-size:11px!important;color:#fff!important;transition:transform .3s ease}
 #fabToggle:hover{transform:scale(1.12)!important}
 #fabToggle:focus-visible{outline:2px solid #fff;outline-offset:2px}
@@ -2151,6 +2275,13 @@ body.fabs-min .side-link-fab,body.fabs-min #shareFab,body.fabs-min #audio-toggle
 </head>
 <body>
 <button id="avFullscreenBtn" type="button" aria-label="Fullscreen"><i id="avFullscreenIcon" class="fa-solid fa-expand"></i></button>
+  <div class="corner-owl-wrap" id="cornerOwlWrap">
+    <button class="corner-owl" id="owlTrigger" title="Vector Art — 3D Portfolio" aria-label="Open Vector Art Portfolio">
+      <img src="owl-icon-48.png" alt="Vector Art">
+    </button>
+    <span class="corner-owl-label">Vector Art</span>
+  </div>
+
 
   <div id="introRoot" aria-hidden="true">
     <div class="intro-stage">
@@ -4940,5 +5071,35 @@ button:focus-visible,select:focus-visible,input:focus-visible{outline-color:#ffc
   b.addEventListener('click',function(){set(!document.body.classList.contains('fabs-min'));});
 })();
 </script>
-</body>
+
+<script>
+(function(){
+  var owl = document.getElementById('owlTrigger');
+  var ENV_URL = 'https://rjsarkar83.github.io/vector-portfolio/';
+  function go(){ window.location.href = ENV_URL; }
+  if(owl){
+    owl.addEventListener('click', go);
+    owl.addEventListener('touchend', function(e){ e.preventDefault(); go(); }, {passive:false});
+  }
+  function revealUI(){ document.documentElement.classList.add('ui-ready'); }
+  function onIntroDone(){
+    // Wait for the intro gate to finish closing + card to begin its bounce (≈300ms after introDone event)
+    setTimeout(revealUI, 320);
+  }
+  if (document.body.classList.contains('intro-active')) {
+    document.addEventListener('introDone', onIntroDone, {once:true});
+    // Safety net (if event already fired)
+    var iv = setInterval(function(){
+      if (!document.body.classList.contains('intro-active')) {
+        clearInterval(iv); onIntroDone();
+      }
+    }, 150);
+    setTimeout(function(){ clearInterval(iv); }, 20000);
+  } else {
+    revealUI();
+  }
+})();
+</script>
+
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a4475709de95483b',t:'MTc5MDk4MjIwMQ=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
