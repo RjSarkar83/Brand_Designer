@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="ui-booting">
 <head>
   <meta charset="UTF-8">
   <title>RJ Sarkar: Creative Lead — Design & Execution 2026</title>
@@ -17,125 +17,53 @@
   <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet"><link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" rel="stylesheet"></noscript>
   <style>
-    /* ===== FORCE intro gate on top of EVERYTHING ===== */
+    /* ===== Force intro gate on top of EVERYTHING ===== */
     #introRoot{ z-index: 2147483647 !important; }
-    body.intro-active .corner-owl-wrap,
-    body.intro-active #avFullscreenBtn,
-    body.intro-active #fabToggle,
-    body.intro-active #shareFab,
-    body.intro-active #audio-toggle,
-    body.intro-active .side-link-fab,
-    body.intro-active .dock,
-    body.intro-active .toast,
-    body.intro-active .quantum-cursor,
-    body.intro-active #avLeadFab{
-      display:none !important;
-      opacity:0 !important;
-      visibility:hidden !important;
-      pointer-events:none !important;
-    }
 
-    /* ===== Owl + Vector Art (top-left) ===== */
-    .corner-owl-wrap{
+    /* ===== Owl (top-left) — standalone, no label ===== */
+    .corner-owl{
       position:fixed;top:12px;left:12px;
       z-index:99998;
-      display:none;
-      flex-direction:column;align-items:center;gap:5px;
-      pointer-events:none;
-    }
-    .corner-owl{
       -webkit-appearance:none;appearance:none;
       background:transparent;border:none;padding:0;margin:0;cursor:pointer;
-      pointer-events:none;
       height:44px;width:auto;
-      opacity:0;transform:scale(.3);
-      transition:opacity .4s cubic-bezier(.2,.8,.2,1), transform .5s cubic-bezier(.34,1.65,.64,1);
-      -webkit-user-select:none;user-select:none;
       display:block;
+      -webkit-user-select:none;user-select:none;
     }
     .corner-owl img{display:block;height:44px;width:auto;pointer-events:none;}
     .corner-owl:active{transform:scale(.88) !important;}
-    .corner-owl-label{
-      font-family:'Montserrat',Arial,sans-serif;
-      font-size:9.5px;font-weight:600;letter-spacing:.16em;
-      color:rgba(255,255,255,.82);
-      text-transform:none;
-      pointer-events:none;
-      text-shadow:0 1px 4px rgba(0,0,0,.85);
-      line-height:1;
-      opacity:0;transform:scale(.5);
-      transition:opacity .35s ease, transform .4s cubic-bezier(.34,1.65,.64,1);
-    }
-
-    /* ===== Default hidden state for ALL floating UI — one-by-one reveal after intro ===== */
-    #avFullscreenBtn,
-    #fabToggle,#shareFab,#audio-toggle,
-    .side-link-fab,
-    .dock{
-      opacity:0 !important;visibility:hidden !important;pointer-events:none !important;
-      transform:scale(.3);
-      transition:opacity .38s cubic-bezier(.2,.8,.2,1),
-                 transform .48s cubic-bezier(.34,1.65,.64,1),
-                 visibility 0s linear .5s !important;
-    }
-
-    /* ===== One-by-one pop-in cascade (saamne se, scale up — professional) ===== */
-    /* Sequence: Owl → Fullscreen → Counter → Converter → Game → Museum → Portfolio → Audio → Share → Minimize → "Vector Art" label → Chat dock */
-    .ui-ready .corner-owl-wrap{ display:flex; }
-    .ui-ready .corner-owl{
-      opacity:1;pointer-events:auto;transform:scale(1);
-      transition-delay:.00s;
-    }
-    .ui-ready #avFullscreenBtn{
-      opacity:1 !important;visibility:visible !important;pointer-events:auto !important;transform:scale(1);
-      transition-delay:.12s;
-    }
-    .ui-ready .side-link-fab.counter-link{
-      opacity:1 !important;visibility:visible !important;pointer-events:auto !important;transform:scale(1);
-      transition-delay:.24s;
-    }
-    .ui-ready .side-link-fab.converter-link{
-      opacity:1 !important;visibility:visible !important;pointer-events:auto !important;transform:scale(1);
-      transition-delay:.36s;
-    }
-    .ui-ready .side-link-fab.game-link{
-      opacity:1 !important;visibility:visible !important;pointer-events:auto !important;transform:scale(1);
-      transition-delay:.48s;
-    }
-    .ui-ready .side-link-fab.museum-link{
-      opacity:1 !important;visibility:visible !important;pointer-events:auto !important;transform:scale(1);
-      transition-delay:.60s;
-    }
-    .ui-ready .side-link-fab.portfolio-link{
-      opacity:1 !important;visibility:visible !important;pointer-events:auto !important;transform:scale(1);
-      transition-delay:.72s;
-    }
-    .ui-ready #audio-toggle{
-      opacity:1 !important;visibility:visible !important;pointer-events:auto !important;transform:scale(1);
-      transition-delay:.84s;
-    }
-    .ui-ready #shareFab{
-      opacity:1 !important;visibility:visible !important;pointer-events:auto !important;transform:scale(1);
-      transition-delay:.96s;
-    }
-    .ui-ready #fabToggle{
-      opacity:1 !important;visibility:visible !important;pointer-events:auto !important;transform:scale(1);
-      transition-delay:1.08s;
-    }
-    .ui-ready .corner-owl-label{
-      opacity:1;transform:scale(1);
-      transition-delay:1.16s;
-    }
-    .ui-ready .dock{
-      opacity:1 !important;visibility:visible !important;pointer-events:auto !important;transform:scale(1);
-      transition-delay:1.32s;
-    }
-
     @media (max-width:480px){
-      .corner-owl-wrap{top:8px;left:8px;gap:3px;}
-      .corner-owl{height:32px;}
+      .corner-owl{top:8px;left:8px;height:32px;}
       .corner-owl img{height:32px !important;}
-      .corner-owl-label{font-size:8px;letter-spacing:.13em;}
+    }
+
+    /* ===== Initial hidden state for ALL floating UI (before intro ends) =====
+       Use !important here to guarantee no flash during welcome gate, but we
+       MUST remove this class before fabs-min can work. JS adds .ui-ready to
+       <html> after intro, and then .ui-in to each element in sequence. */
+    html.ui-booting .corner-owl,
+    html.ui-booting #avFullscreenBtn,
+    html.ui-booting #fabToggle,
+    html.ui-booting #shareFab,
+    html.ui-booting #audio-toggle,
+    html.ui-booting .side-link-fab,
+    html.ui-booting .dock,
+    html.ui-booting .replay-intro-btn{
+      opacity:0 !important;
+      visibility:hidden !important;
+      pointer-events:none !important;
+      transform:scale(.3) !important;
+      transition:none !important;
+    }
+
+    /* ===== Per-element pop-in (added via JS stagger; NO !important so fabs-min rules still work) ===== */
+    .ui-pop{
+      opacity:1;
+      visibility:visible;
+      pointer-events:auto;
+      transform:scale(1);
+      transition:opacity .4s cubic-bezier(.2,.8,.2,1),
+                 transform .5s cubic-bezier(.34,1.65,.64,1) !important;
     }
     :root {
       /* ---- 24 karat gold palette (single source of truth) ---- */
@@ -2275,12 +2203,9 @@ body.fabs-min .side-link-fab,body.fabs-min #shareFab,body.fabs-min #audio-toggle
 </head>
 <body>
 <button id="avFullscreenBtn" type="button" aria-label="Fullscreen"><i id="avFullscreenIcon" class="fa-solid fa-expand"></i></button>
-  <div class="corner-owl-wrap" id="cornerOwlWrap">
-    <button class="corner-owl" id="owlTrigger" title="Vector Art — 3D Portfolio" aria-label="Open Vector Art Portfolio">
-      <img src="owl-icon-48.png" alt="Vector Art">
-    </button>
-    <span class="corner-owl-label">Vector Art</span>
-  </div>
+  <button class="corner-owl" id="owlTrigger" title="3D Portfolio" aria-label="Open 3D Portfolio">
+    <img src="owl-icon-48.png" alt="Portfolio">
+  </button>
 
 
   <div id="introRoot" aria-hidden="true">
@@ -5074,21 +4999,58 @@ button:focus-visible,select:focus-visible,input:focus-visible{outline-color:#ffc
 
 <script>
 (function(){
-  var owl = document.getElementById('owlTrigger');
   var ENV_URL = 'https://rjsarkar83.github.io/vector-portfolio/';
+
+  // Owl click → portfolio
+  var owl = document.getElementById('owlTrigger');
   function go(){ window.location.href = ENV_URL; }
   if(owl){
     owl.addEventListener('click', go);
     owl.addEventListener('touchend', function(e){ e.preventDefault(); go(); }, {passive:false});
   }
-  function revealUI(){ document.documentElement.classList.add('ui-ready'); }
-  function onIntroDone(){
-    // Wait for the intro gate to finish closing + card to begin its bounce (≈300ms after introDone event)
-    setTimeout(revealUI, 320);
+
+  // Staggered reveal sequence (querySelectorAll respects DOM order)
+  var sequence = [
+    '.corner-owl',                          // 0: owl
+    '#avFullscreenBtn',                     // 1: fullscreen
+    '.side-link-fab.counter-link',          // 2: counter (top of right stack)
+    '.side-link-fab.converter-link',        // 3: converter
+    '.side-link-fab.game-link',             // 4: game
+    '.side-link-fab.museum-link',           // 5: museum
+    '.side-link-fab.portfolio-link',        // 6: portfolio
+    '#audio-toggle',                        // 7: audio
+    '#shareFab',                            // 8: share
+    '#fabToggle',                           // 9: minimize toggle
+    '.replay-intro-btn',                    // 10: replay intro
+    '.dock'                                 // 11: chat dock
+  ];
+  var GAP = 110; // ms between each element
+
+  function popElement(sel, delay){
+    setTimeout(function(){
+      var el = document.querySelector(sel);
+      if(el) el.classList.add('ui-pop');
+    }, delay);
   }
+
+  function startReveal(){
+    // Remove the boot lock (ui-booting !important hides) BEFORE starting the cascade
+    document.documentElement.classList.remove('ui-booting');
+    document.documentElement.classList.add('ui-ready');
+    // Force reflow so the transition picks up from scale(.3) → scale(1)
+    void document.body.offsetWidth;
+    for(var i=0;i<sequence.length;i++){
+      popElement(sequence[i], i*GAP);
+    }
+  }
+
+  function onIntroDone(){
+    // Wait for the intro gate to close and card to start settling
+    setTimeout(startReveal, 350);
+  }
+
   if (document.body.classList.contains('intro-active')) {
     document.addEventListener('introDone', onIntroDone, {once:true});
-    // Safety net (if event already fired)
     var iv = setInterval(function(){
       if (!document.body.classList.contains('intro-active')) {
         clearInterval(iv); onIntroDone();
@@ -5096,10 +5058,11 @@ button:focus-visible,select:focus-visible,input:focus-visible{outline-color:#ffc
     }, 150);
     setTimeout(function(){ clearInterval(iv); }, 20000);
   } else {
-    revealUI();
+    // Intro already done (back navigation / cached)
+    startReveal();
   }
 })();
 </script>
 
-<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a4475709de95483b',t:'MTc5MDk4MjIwMQ=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</body>
 </html>
