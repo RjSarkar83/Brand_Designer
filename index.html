@@ -20,20 +20,20 @@
     /* ===== Force intro gate on top of EVERYTHING ===== */
     #introRoot{ z-index: 2147483647 !important; }
 
-    /* ===== Owl badge — enlarged with fast motion + neon Speed label ===== */
+    /* ===== Compact owl badge — icon only ===== */
     .corner-owl{
       position:fixed;top:10px;left:10px;z-index:4000;
       -webkit-appearance:none;appearance:none;background:transparent;border:none;padding:0;margin:0;cursor:pointer;
-      width:72px;height:94px;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:2px;
+      width:58px;height:58px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0;
       -webkit-user-select:none;user-select:none;animation:none;
       filter:drop-shadow(0 0 3px rgba(95,0,12,.7)) drop-shadow(0 0 7px rgba(70,0,8,.45));
     }
-    .corner-owl img{display:block;height:64px;width:auto;pointer-events:none;}
-    .corner-owl::after{content:'Vector';display:block;color:#fff;font:800 0.56rem/1.1 Montserrat,Arial,sans-serif;letter-spacing:1.2px;text-transform:uppercase;text-shadow:0 0 3px #fff,0 0 7px #ff1638,0 0 14px #ff002b,0 0 24px #ff002b;}
+    .corner-owl img{display:block;height:50px;width:auto;pointer-events:none;}
+    
     .corner-owl:active{transform:scale(.88) !important;}
     @keyframes owl-speed{from{transform:translateY(0) rotate(-3deg)}to{transform:translateY(-7px) rotate(3deg)}}
     @keyframes neon-speed{0%,100%{opacity:1}50%{opacity:.55}75%{opacity:.9}}
-    @media (max-width:480px){.corner-owl{top:7px;left:7px;width:58px;height:76px}.corner-owl img{height:50px !important}.corner-owl::after{font-size:.56rem;letter-spacing:1.2px}}
+    @media (max-width:480px){.corner-owl{top:7px;left:7px;width:44px;height:44px}.corner-owl img{height:38px !important}}
 
 
     /* ===== Initial hidden state for ALL floating UI (before intro ends) =====
@@ -2201,6 +2201,7 @@ body.fabs-min .side-link-fab,body.fabs-min #shareFab,body.fabs-min #audio-toggle
 /* In minimized mode, keep only audio and share controls visible beside the menu button. */
 body.fabs-min #shareFab,body.fabs-min #audio-toggle{opacity:1!important;visibility:visible!important;pointer-events:auto!important;transform:none!important;transition:opacity .2s ease,transform .22s ease!important}
 </style>
+  <link rel="stylesheet" href="portfolio-ad.css">
 </head>
 <body>
 <button id="avFullscreenBtn" type="button" aria-label="Fullscreen"><i id="avFullscreenIcon" class="fa-solid fa-expand"></i></button>
@@ -2284,6 +2285,70 @@ body.fabs-min #shareFab,body.fabs-min #audio-toggle{opacity:1!important;visibili
                   </div>
                 </div>
               </div>
+              <div class="av-portfolio-ad" id="avPortfolioAd" role="region" hidden aria-hidden="true" aria-label="ArtViSiON vector portfolio preview advertisement">
+                <div class="av-ad-topline">
+                  <div class="av-ad-brand">
+                    <img src="assets/portfolio-ad/logo.svg" alt="" aria-hidden="true">
+                    <span>ARTViSiON<small>PRODUCTiON DESiGN · PORTFOLIO PREVIEW</small></span>
+                  </div>
+                  <button class="av-ad-skip" id="avAdSkip" type="button" aria-label="Skip portfolio advertisement">SKIP ×</button>
+                </div>
+                <div class="av-ad-scenes" aria-live="polite">
+                  <article class="av-ad-scene is-active" data-duration="2500" aria-hidden="false" aria-label="Scene 1 of 5">
+                    <img class="av-ad-art" src="assets/portfolio-ad/acp-brand-store.svg" alt="" aria-hidden="true">
+                    <div class="av-ad-wash" aria-hidden="true"></div>
+                    <div class="av-ad-copy">
+                      <p class="av-ad-eyebrow">01 · FIRST IMPACT</p>
+                      <h2 class="av-ad-title">BE SEEN<br><em>BEFORE A WORD.</em></h2>
+                      <p class="av-ad-description">Mobile brand stores · ACP facades · fascia signs</p>
+                    </div>
+                    <span class="av-ad-counter"><b>01</b> / 05</span>
+                  </article>
+                  <article class="av-ad-scene" data-duration="2500" aria-hidden="true" aria-label="Scene 2 of 5">
+                    <img class="av-ad-art" src="assets/portfolio-ad/masterpiece-presentation.svg" alt="" aria-hidden="true">
+                    <div class="av-ad-wash" aria-hidden="true"></div>
+                    <div class="av-ad-copy">
+                      <p class="av-ad-eyebrow">02 · ONE CLEAR SYSTEM</p>
+                      <h2 class="av-ad-title">ONE IDENTITY.<br><em>EVERY SURFACE.</em></h2>
+                      <p class="av-ad-description">Retail rollouts · signage systems · campaigns</p>
+                    </div>
+                    <span class="av-ad-counter"><b>02</b> / 05</span>
+                  </article>
+                  <article class="av-ad-scene" data-duration="2500" aria-hidden="true" aria-label="Scene 3 of 5">
+                    <img class="av-ad-art" src="assets/portfolio-ad/project-7-expo-pavilion.svg" alt="" aria-hidden="true">
+                    <div class="av-ad-wash" aria-hidden="true"></div>
+                    <div class="av-ad-copy">
+                      <p class="av-ad-eyebrow">03 · SPACE WITH PURPOSE</p>
+                      <h2 class="av-ad-title">MAKE ROOM<br><em>FOR IMPACT.</em></h2>
+                      <p class="av-ad-description">Exhibitions · kiosks · wayfinding</p>
+                    </div>
+                    <span class="av-ad-counter"><b>03</b> / 05</span>
+                  </article>
+                  <article class="av-ad-scene" data-duration="2500" aria-hidden="true" aria-label="Scene 4 of 5">
+                    <img class="av-ad-art" src="assets/portfolio-ad/retail-8-recce-to-installed.svg" alt="" aria-hidden="true">
+                    <div class="av-ad-wash" aria-hidden="true"></div>
+                    <div class="av-ad-copy">
+                      <p class="av-ad-eyebrow">04 · DESIGN TO EXECUTION</p>
+                      <h2 class="av-ad-title">FROM IDEA<br><em>TO INSTALLED.</em></h2>
+                      <p class="av-ad-description">Recce → design → fabricate → install</p>
+                    </div>
+                    <span class="av-ad-counter"><b>04</b> / 05</span>
+                  </article>
+                  <article class="av-ad-scene av-ad-final" data-duration="4200" aria-hidden="true" aria-label="Scene 5 of 5. The owl icon is highlighted to open the portfolio.">
+                    <img class="av-ad-art" src="assets/portfolio-ad/logo.svg" alt="ArtViSiON">
+                    <div class="av-ad-wash" aria-hidden="true"></div>
+                    <div class="av-ad-copy">
+                      <p class="av-ad-eyebrow">ARTViSiON · PRODUCTiON DESiGN</p>
+                      <h2 class="av-ad-title">Your vision,<br><em>carried all the way.</em></h2>
+                      <p class="av-ad-description">Explore the full vector portfolio.</p>
+                      <span class="av-ad-cta">Tap the owl to explore <b aria-hidden="true">↖</b></span>
+                    </div>
+                    <span class="av-ad-counter"><b>05</b> / 05</span>
+                  </article>
+                </div>
+                <div class="av-ad-progress" aria-hidden="true"><span id="avAdProgressBar"></span></div>
+              </div>
+              <button class="av-ad-replay" id="avAdReplay" type="button" aria-label="Replay the ArtViSiON portfolio advertisement" hidden>↻ REPLAY</button>
             </div>
             <nav class="contact-grid" aria-label="Contact methods">
               <a href="https://sites.google.com/view/rj-sarkar/the-offer?authuser=0" class="offer-btn" target="_blank" rel="noopener" aria-label="Special Offer">
@@ -5105,5 +5170,23 @@ button:focus-visible,select:focus-visible,input:focus-visible{outline-color:#ffc
 })();
 </script>
 
-<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a44b35f77f083a51',t:'MTc5MTAyMjc5MA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a45228a0fec746aa',t:'MTc5MTA5NTY0NA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a44b35f77f083a51',t:'MTc5MTAyMjc5MA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a45228a0fec746aa',t:'MTc5MTA5NTY0NA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script>  <svg class="av-ad-pointer" id="avAdOwlLasers" aria-hidden="true" focusable="false" viewBox="0 0 100 100" preserveAspectRatio="none">
+    <defs>
+      <linearGradient id="avAdLaserWarm" x1="0" y1="0" x2="1" y2="0">
+        <stop offset="0" stop-color="#f5c86e"></stop>
+        <stop offset=".5" stop-color="#ff744f"></stop>
+        <stop offset="1" stop-color="#ff2848"></stop>
+      </linearGradient>
+    </defs>
+    <path class="av-ad-laser-aura av-ad-laser-left" id="avAdLaserLeftAura" pathLength="1" d=""></path>
+    <path class="av-ad-laser-beam av-ad-laser-left" id="avAdLaserLeftBeam" pathLength="1" d=""></path>
+    <path class="av-ad-laser-core av-ad-laser-left" id="avAdLaserLeftCore" pathLength="1" d=""></path>
+    <path class="av-ad-laser-flow av-ad-laser-left" id="avAdLaserLeftFlow" pathLength="1" d=""></path>
+    <path class="av-ad-laser-aura av-ad-laser-right" id="avAdLaserRightAura" pathLength="1" d=""></path>
+    <path class="av-ad-laser-beam av-ad-laser-right" id="avAdLaserRightBeam" pathLength="1" d=""></path>
+    <path class="av-ad-laser-core av-ad-laser-right" id="avAdLaserRightCore" pathLength="1" d=""></path>
+    <path class="av-ad-laser-flow av-ad-laser-right" id="avAdLaserRightFlow" pathLength="1" d=""></path>
+  </svg>
+  <script src="portfolio-ad.js"></script>
+</body>
 </html>
