@@ -20,22 +20,21 @@
     /* ===== Force intro gate on top of EVERYTHING ===== */
     #introRoot{ z-index: 2147483647 !important; }
 
-    /* ===== Owl (top-left) — standalone, no label ===== */
+    /* ===== Owl badge — enlarged with fast motion + neon Speed label ===== */
     .corner-owl{
-      position:fixed;top:12px;left:12px;
-      z-index:99998;
-      -webkit-appearance:none;appearance:none;
-      background:transparent;border:none;padding:0;margin:0;cursor:pointer;
-      height:44px;width:auto;
-      display:block;
-      -webkit-user-select:none;user-select:none;
+      position:fixed;top:10px;left:10px;z-index:99998;
+      -webkit-appearance:none;appearance:none;background:transparent;border:none;padding:0;margin:0;cursor:pointer;
+      width:72px;height:94px;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:2px;
+      -webkit-user-select:none;user-select:none;animation:none;
+      filter:drop-shadow(0 0 3px rgba(95,0,12,.7)) drop-shadow(0 0 7px rgba(70,0,8,.45));
     }
-    .corner-owl img{display:block;height:44px;width:auto;pointer-events:none;}
+    .corner-owl img{display:block;height:64px;width:auto;pointer-events:none;}
+    .corner-owl::after{content:'Vector';display:block;color:#fff;font:800 0.56rem/1.1 Montserrat,Arial,sans-serif;letter-spacing:1.2px;text-transform:uppercase;text-shadow:0 0 3px #fff,0 0 7px #ff1638,0 0 14px #ff002b,0 0 24px #ff002b;}
     .corner-owl:active{transform:scale(.88) !important;}
-    @media (max-width:480px){
-      .corner-owl{top:8px;left:8px;height:32px;}
-      .corner-owl img{height:32px !important;}
-    }
+    @keyframes owl-speed{from{transform:translateY(0) rotate(-3deg)}to{transform:translateY(-7px) rotate(3deg)}}
+    @keyframes neon-speed{0%,100%{opacity:1}50%{opacity:.55}75%{opacity:.9}}
+    @media (max-width:480px){.corner-owl{top:7px;left:7px;width:58px;height:76px}.corner-owl img{height:50px !important}.corner-owl::after{font-size:.56rem;letter-spacing:1.2px}}
+
 
     /* ===== Initial hidden state for ALL floating UI (before intro ends) =====
        Use !important here to guarantee no flash during welcome gate, but we
@@ -3075,7 +3074,7 @@ body.fabs-min .side-link-fab,body.fabs-min #shareFab,body.fabs-min #audio-toggle
       const BPM = 132;             // MATCHES IndianTrance so the two synth layers lock together
       const SPB = 60 / BPM;        // seconds per beat
       const STEP = SPB / 4;        // 16th-note steps
-      const VOLUME = 0.13;        // pro-mix: fallback lead bed — sits under Navras (50%)
+      const VOLUME = 0.06;        // soft background mix
 
       // moody progression: A minor -> F -> C -> G (roots in Hz)
       const CHORDS = [
@@ -3256,7 +3255,7 @@ body.fabs-min .side-link-fab,body.fabs-min #shareFab,body.fabs-min #audio-toggle
       const BPM = 132;
       const SPB = 60 / BPM;      // seconds per beat
       const STEP = SPB / 4;      // 16th-note steps
-      const VOLUME = 0.10;      // pro-mix: support layer tucked under the lead track
+      const VOLUME = 0.045;      // soft support layer tucked under the lead track
 
       // tanpura drone strings: Sa - Pa - Sa  (A2 E3 A3)
       const DRONE = [110.00, 164.81, 220.00];
@@ -3534,7 +3533,7 @@ body.fabs-min .side-link-fab,body.fabs-min #shareFab,body.fabs-min #audio-toggle
     // Background music starts only AFTER the intro forest ambience has played,
     // so the intro stays calm and curious before the track drops in.
     const SC_URL = "https://w.soundcloud.com/player/?url=https%3A//soundcloud.com/rj-sarkar/navras-drum-and-bass-remix&color=%23ff5500&auto_play=true&hide_related=true&show_comments=false&show_user=false&show_reposts=false&show_teaser=false&visual=false&loop=false";
-    const SC_VOLUME = 50;   // percent (0-100) — Navras matrix music at 50% volume
+    const SC_VOLUME = 25;   // percent (0-100) — soft Navras background mix
     let synthStarted = false;   // true jab synth background music chal raha ho
     let navrasDone = false;     // true jab Navras poora baj chuka ho (ya skip hua ho)
 
@@ -4251,7 +4250,23 @@ const TOPICS = {
   },
   branding: {
     name:'Branding',aliases:['branding','ब्रांडिंग'],hi:'Branding में identity, visual language और अलग-अलग touchpoints पर consistency शामिल है। मैं brief, deliverable list और design-to-execution planning में मदद करती हूँ।',en:'Branding includes identity, visual language and consistency across touchpoints. I can help with briefs, deliverable lists and design-to-execution planning.',checksHi:['Brand name, audience और positioning स्पष्ट करें।','Existing assets, references और usage rights confirm करें।','Required deliverables, sizes, languages और approval owner तय करें।'],checksEn:['Clarify the brand name, audience and positioning.','Confirm existing assets, references and usage rights.','Agree deliverables, sizes, languages and the approval owner.'],questionHi:'नई brand identity बनानी है या existing brand का adaptation?',questionEn:'Do you need a new identity or adaptations for an existing brand?'
-  }
+  },
+
+  art_theory:{name:'Art Theory',aliases:['art theory','art theories'],hi:'Art theory कला के उद्देश्य, भावना, composition, balance और visual meaning को समझने का framework है।',en:'Art theory explains purpose, emotion, composition, balance and visual meaning in art.',checksHi:['Purpose और audience तय करें।','Composition, balance और emphasis देखें।'],checksEn:['Define the purpose and audience.','Review composition, balance and emphasis.'],questionHi:'Art theory को किस project पर apply करना है?',questionEn:'Which project should use art theory?'},
+  advertising_theory:{name:'Advertising Theory',aliases:['advertising theory','advertising theories'],hi:'Advertising theory बताती है कि message, audience, attention और action को कैसे जोड़ा जाए।',en:'Advertising theory connects message, audience, attention and action.',checksHi:['Audience और objective तय करें।','एक clear message और call to action रखें।'],checksEn:['Define the audience and objective.','Use one clear message and call to action.'],questionHi:'Campaign का objective क्या है?',questionEn:'What is the campaign objective?'},
+  branding_theory:{name:'Branding Theory',aliases:['branding theory'],hi:'Branding theory identity, positioning, promise और हर touchpoint पर consistency पर आधारित है।',en:'Branding theory is built on identity, positioning, promise and consistency across touchpoints.',checksHi:['Brand promise और audience लिखें।','Logo, colour, type और tone consistent रखें।'],checksEn:['Write the brand promise and audience.','Keep logo, colour, type and tone consistent.'],questionHi:'Brand की identity बनानी है या refresh करनी है?',questionEn:'Do you need a new identity or a refresh?'},
+  colour_theory:{name:'Colour Theory',aliases:['colour theory','color theory'],hi:'Colour theory colours के hue, value, saturation और harmony को समझाती है।',en:'Colour theory explains hue, value, saturation and colour harmony.',checksHi:['Primary colour और contrast तय करें।','Print में CMYK और screen में RGB check करें।'],checksEn:['Choose a primary colour and contrast.','Check CMYK for print and RGB for screens.'],questionHi:'Colour screen के लिए है या print के लिए?',questionEn:'Is the colour for screen or print?'},
+  design_theory:{name:'Design Theory',aliases:['design theory'],hi:'Design theory hierarchy, alignment, proximity, contrast और repetition से clear visual communication बनाती है।',en:'Design theory creates clear visual communication through hierarchy, alignment, proximity, contrast and repetition.',checksHi:['सबसे important element को priority दें।','Grid, spacing और alignment consistent रखें।'],checksEn:['Prioritise the most important element.','Keep grid, spacing and alignment consistent.'],questionHi:'Design का मुख्य message क्या है?',questionEn:'What is the main design message?'},
+  texture_theory:{name:'Texture Theory',aliases:['texture theory'],hi:'Texture theory surface के visual या tactile feel को बताती है और depth, mood व material perception बढ़ाती है।',en:'Texture theory uses visual or tactile surface qualities to add depth, mood and material perception.',checksHi:['Texture को purpose के साथ use करें।','Legibility और print scale check करें।'],checksEn:['Use texture with a clear purpose.','Check legibility and print scale.'],questionHi:'Texture digital है या physical material में?',questionEn:'Is the texture digital or a physical material?'},
+  typography_theory:{name:'Typography Theory',aliases:['typography theory'],hi:'Typography theory typeface, hierarchy, spacing, alignment और readability पर आधारित है।',en:'Typography theory focuses on typeface, hierarchy, spacing, alignment and readability.',checksHi:['एक clear type hierarchy रखें।','Font size, line height और contrast check करें।'],checksEn:['Create a clear type hierarchy.','Check font size, line height and contrast.'],questionHi:'Typography किस language और format के लिए है?',questionEn:'Which language and format is the typography for?'},
+  pattern_theory:{name:'Pattern Theory',aliases:['pattern theory'],hi:'Pattern theory repeated shapes, rhythm, scale और variation से visual system बनाती है।',en:'Pattern theory builds a visual system through repeated shapes, rhythm, scale and variation.',checksHi:['Repeat unit और scale तय करें।','Seam, tile और production repeat check करें।'],checksEn:['Define the repeat unit and scale.','Check seams, tiling and production repeat.'],questionHi:'Pattern print, surface या digital use के लिए है?',questionEn:'Is the pattern for print, surface or digital use?'},
+  vector_theory:{name:'Vector Theory',aliases:['vector theory','vector'],hi:'Vector theory paths, points, curves और scalable geometry पर आधारित है। इसलिए vector artwork size बदलने पर sharp रहता है।',en:'Vector theory uses paths, points, curves and scalable geometry, so artwork stays sharp at different sizes.',checksHi:['Closed paths और clean nodes रखें।','Scale, stroke और output format check करें।'],checksEn:['Keep paths closed and nodes clean.','Check scale, stroke and output format.'],questionHi:'Vector artwork print, CNC या digital use के लिए है?',questionEn:'Is the vector artwork for print, CNC or digital use?'},
+  measurement:{name:'Measurement',aliases:['measurement','measurements','dimension','dimensions'],hi:'Measurement सही width, height, depth और unit record करने की प्रक्रिया है। Site measurement हमेशा verify करें।',en:'Measurement records correct width, height, depth and units. Always verify site measurements.',checksHi:['Unit और scale लिखें।','दो बार measure करें और site photo रखें।'],checksEn:['Record units and scale.','Measure twice and keep site photos.'],questionHi:'कौन-सी dimensions और unit उपलब्ध हैं?',questionEn:'Which dimensions and units are available?'},
+  material:{name:'Material',aliases:['material','materials'],hi:'Material selection use, strength, thickness, finish, exposure और budget पर निर्भर करती है।',en:'Material selection depends on use, strength, thickness, finish, exposure and budget.',checksHi:['Application और exposure तय करें।','Sample और supplier specification verify करें।'],checksEn:['Define application and exposure.','Verify a sample and supplier specification.'],questionHi:'Material indoor है या outdoor use के लिए?',questionEn:'Is the material for indoor or outdoor use?'},
+  production:{name:'Production',aliases:['production theory','production'],hi:'Production design approved artwork को print, cutting, fabrication और finishing के लिए तैयार करती है।',en:'Production design prepares approved artwork for print, cutting, fabrication and finishing.',checksHi:['Final artwork और technical specification lock करें।','Proof, sample और QA approval लें।'],checksEn:['Lock final artwork and technical specifications.','Approve proof, sample and QA.'],questionHi:'Production का output print, CNC या fabrication है?',questionEn:'Is the production output print, CNC or fabrication?'},
+  machine_learning:{name:'Machine Learning',aliases:['machine learning','ml','ai'],hi:'Machine learning data से patterns सीखकर prediction या classification करता है। अच्छे results के लिए quality data और human review ज़रूरी हैं।',en:'Machine learning learns patterns from data for prediction or classification. Quality data and human review are essential.',checksHi:['Goal और data source स्पष्ट करें।','Output को human review से verify करें।'],checksEn:['Define the goal and data source.','Verify outputs with human review.'],questionHi:'Machine learning का use design, data या automation में करना है?',questionEn:'Will machine learning be used for design, data or automation?'},
+  execution:{name:'Execution',aliases:['execution','design execution'],hi:'Execution approved concept को site पर सही material, measurement, vendor coordination और quality control के साथ लागू करना है।',en:'Execution turns an approved concept into a site-ready result through correct materials, measurements, coordination and quality control.',checksHi:['Approved artwork और scope share करें।','Site check, installation और final QA document करें।'],checksEn:['Share approved artwork and scope.','Document site check, installation and final QA.'],questionHi:'Execution design, vendor coordination या installation से जुड़ी है?',questionEn:'Is the execution about design, vendor coordination or installation?'}
+
 };
 
 function normalizeInput(text){return String(text).normalize('NFKC').toLowerCase().replace(/[^\p{L}\p{M}\p{N}\s]/gu,' ').replace(/\s+/g,' ').trim();}
@@ -4270,7 +4285,7 @@ function respondConversation(text,state={},language='hi-IN'){
   if(/^(hi|hii+|hello|hey|helo|namaste|namaskar|नमस्ते|नमस्कार|हाय|हेलो)( ji| there| av)?$/.test(q))return say('नमस्ते! आपका स्वागत है। मैं AV हूँ और branding व production design में आपकी मदद करती हूँ। Design, Printing, Cutting या किसी दूसरे काम के बारे में पूछिए।','Hello, welcome! I’m AV, your branding and production-design assistant. Ask me about vinyl, signage or another work topic.', 'conversation');
   if(/^(thanks|thank you|thankyou|thank u|thank you so much|thanks a lot|thx|thank|shukriya|dhanyavad|dhanyavaad|dhanyawaad|dhanyawad|धन्यवाद|शुक्रिया|थैंक्स)( ji| av)?$/.test(q))return say('आपका स्वागत है! खुशी हुई कि मैं आपकी मदद कर पाई।','You’re welcome! I’m glad I could help.');
   if(/^(great|nice|good|awesome|perfect|बहुत अच्छा|बढ़िया|बहुत बढ़िया)$/.test(q))return say('धन्यवाद! आगे किसी detail में मदद चाहिए तो बताइए।','Thank you! Let me know if you need help with another detail.');
-  if(/^(help|help me|मदद|मदद चाहिए)$/.test(q))return say('ज़रूर, मैं मदद करती हूँ। Vinyl, signage, print या packaging में किस काम की जानकारी चाहिए?','Of course. Do you need help with vinyl, signage, print or packaging?');
+  if(/^(help|help me|मदद|मदद चाहिए)$/.test(q))return say('ज़रूर, मैं मदद करती हूँ। Art, advertising, branding, colour, design, typography, vector, measurement, material, production या execution में किस topic की simple information चाहिए?','Of course. Which topic do you need simple information about: art, advertising, branding, colour, design, typography, vector, measurement, material, production or execution?');
   if(/^(no thanks|no thank you)$/.test(q)&&next.pending!=='offer')return say('ठीक है, अभी आगे नहीं बढ़ाती हूँ। जब मदद चाहिए, बता दीजिए।','Okay, I won’t continue for now. Let me know when you need help.','conversation',{pending:null,question:''});
   if(/^(welcome|welcom|you re welcome|you are welcome|स्वागत|स्वागत है|वेलकम)$/.test(q))return say('धन्यवाद! मैं आपकी मदद करने के लिए तैयार हूँ।','Thank you! I’m ready to help.');
   if(/^(good morning|good afternoon|good evening|good night|शुभ प्रभात|शुभ रात्रि)$/.test(q))return say(q.includes('night')||q.includes('रात्रि')?'शुभ रात्रि! फिर बात करेंगे।':'नमस्ते! मैं आपकी मदद के लिए तैयार हूँ। किस काम की जानकारी चाहिए?',q.includes('night')?'Good night! We can continue later.':'Hello! I’m ready to help. What are you working on?');
@@ -4576,7 +4591,7 @@ button:focus-visible,select:focus-visible,input:focus-visible{outline-color:#ffc
 .av-flight-pilot .av-flight-stars{left:calc(50% - 40px);top:77%;width:80px;white-space:nowrap;font-size:12px;letter-spacing:4px;text-align:center}
 
 </style>
-<div class="dock"><button class="launcher" aria-label="ArtViSiON chat kholein" aria-expanded="false" aria-controls="chat-panel">${robot}</button><button class="tip"><b>Hi, i m AV</b>Can i HELP you.</button></div>
+<div class="dock"><button class="launcher" aria-label="Open AV ArtViSiON assistant" aria-expanded="false" aria-controls="chat-panel">${robot}</button><button class="tip"><b>AV · ArtViSiON Assistant</b>Professional support for branding, production design and execution.</button></div>
 <section class="panel" id="chat-panel" role="region" aria-label="ArtViSiON production assistant" hidden>
 <div class="head"><button type="button" class="monogram brand-logo" aria-label="Bot ko dance karayein" title="Tap to dance"><img src="${introLogo}" alt="ArtViSiON logo"></button><div class="title"><b>ArtViSiON Assistant</b><div class="status"><span class="dot"></span><span class="state">Design se execution tak</span></div></div><button class="icon voice" aria-label="Voice off karein" aria-pressed="true" title="Voice on/off">🔊</button><button class="icon close" aria-label="Chat band karein">×</button></div>
 <div class="bar"><span class="mode">${liveMode ? 'AI MODE · WEBSITE KNOWLEDGE' : 'LOCAL CHAT · AI OFFLINE'}</span><select class="language-select" aria-label="Reply language"><option value="hi-IN">हिन्दी / Hindi</option><option value="en-IN">English</option></select><button type="button" class="voice-settings-toggle" aria-expanded="false" aria-controls="voice-settings">Voice ⚙</button></div>
@@ -5084,5 +5099,5 @@ button:focus-visible,select:focus-visible,input:focus-visible{outline-color:#ffc
 })();
 </script>
 
-<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a44b35f77f083a51',t:'MTc5MTAyMjc5MA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a44b35f77f083a51',t:'MTc5MTAyMjc5MA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a451cb0e3cae0e98',t:'MTc5MTA5MTgxMQ=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
