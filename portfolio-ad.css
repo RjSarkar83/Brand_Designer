@@ -1,0 +1,457 @@
+/* ArtViSiON portfolio promo — embedded in the Brand_Designer display. */
+.av-portfolio-ad[hidden],
+.av-ad-replay[hidden] {
+  display: none !important;
+}
+
+.av-portfolio-ad {
+  --av-ad-gold: #f4d49a;
+  --av-ad-white: #fff8e9;
+  position: absolute;
+  /* Above the site's existing headline marquee (z-index: 10) while playing. */
+  z-index: 20;
+  inset: 0;
+  overflow: hidden;
+  isolation: isolate;
+  box-sizing: border-box;
+  border-radius: inherit;
+  background: #10090c;
+  color: var(--av-ad-white);
+  text-align: left;
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 360ms ease, transform 360ms ease;
+  font-family: Montserrat, Arial, sans-serif;
+  line-height: 1.15;
+  -webkit-font-smoothing: antialiased;
+}
+
+.av-portfolio-ad::before,
+.av-portfolio-ad::after {
+  content: "";
+  position: absolute;
+  z-index: 1;
+  inset: 0;
+  pointer-events: none;
+}
+
+.av-portfolio-ad::before {
+  background:
+    radial-gradient(75% 75% at 85% 15%, rgba(255, 192, 112, .14), transparent 70%),
+    linear-gradient(135deg, rgba(76, 13, 21, .46), transparent 56%);
+  mix-blend-mode: screen;
+}
+
+.av-portfolio-ad::after {
+  box-shadow: inset 0 0 24px rgba(0, 0, 0, .44);
+  border: 1px solid rgba(255, 230, 190, .12);
+  border-radius: inherit;
+}
+
+.av-portfolio-ad.is-closing {
+  opacity: 0;
+  transform: scale(.985);
+  pointer-events: none;
+}
+
+.av-ad-topline {
+  position: absolute;
+  z-index: 8;
+  top: 8px;
+  left: 11px;
+  right: 9px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  min-height: 23px;
+  pointer-events: none;
+}
+
+.av-ad-brand {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  min-width: 0;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, .7);
+}
+
+.av-ad-brand img {
+  display: block;
+  width: 31px;
+  height: 21px;
+  object-fit: contain;
+  transform-origin: center;
+  filter: drop-shadow(0 0 7px rgba(244, 212, 154, .3));
+  animation: av-ad-brand-hover 3.2s ease-in-out infinite;
+}
+
+@keyframes av-ad-brand-hover {
+  0%, 100% { transform: translateY(0) scale(1); opacity: .9; }
+  50% { transform: translateY(-1px) scale(1.04); opacity: 1; }
+}
+
+.av-ad-brand span {
+  display: block;
+  color: #fff8e9;
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: .13em;
+  line-height: 1.05;
+  white-space: nowrap;
+}
+
+.av-ad-brand small {
+  display: block;
+  margin-top: 3px;
+  color: var(--av-ad-gold);
+  font-size: 5.5px;
+  font-weight: 700;
+  letter-spacing: .2em;
+}
+
+.av-ad-skip {
+  pointer-events: auto;
+  appearance: none;
+  border: 1px solid rgba(255, 244, 223, .32);
+  border-radius: 999px;
+  padding: 4px 7px;
+  background: rgba(19, 8, 11, .58);
+  color: rgba(255, 248, 233, .88);
+  font: 700 6px/1 Montserrat, Arial, sans-serif;
+  letter-spacing: .12em;
+  cursor: pointer;
+  transition: background .2s ease, border-color .2s ease, color .2s ease;
+}
+
+.av-ad-skip:hover,
+.av-ad-skip:focus-visible {
+  outline: none;
+  border-color: var(--av-ad-gold);
+  background: rgba(106, 24, 35, .88);
+  color: #fff;
+}
+
+.av-ad-scenes {
+  position: absolute;
+  z-index: 2;
+  inset: 0;
+  overflow: hidden;
+  border-radius: inherit;
+}
+
+.av-ad-scene {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  visibility: hidden;
+  opacity: 0;
+  transform: translateX(8px) scale(1.015);
+  transition: opacity 460ms ease, transform 720ms cubic-bezier(.2, .7, .2, 1), visibility 0s linear 460ms;
+}
+
+.av-ad-scene.is-active {
+  visibility: visible;
+  opacity: 1;
+  transform: translateX(0) scale(1);
+  transition: opacity 460ms ease, transform 720ms cubic-bezier(.2, .7, .2, 1), visibility 0s;
+}
+
+.av-ad-art {
+  position: absolute;
+  top: 0;
+  right: -8%;
+  width: 76%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  opacity: .88;
+  transform: scale(1.04);
+  transition: transform 1.7s cubic-bezier(.2, .65, .2, 1), opacity .6s ease;
+}
+
+.av-ad-scene.is-active .av-ad-art {
+  transform: scale(1);
+  opacity: .96;
+}
+
+.av-ad-wash {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(90deg, rgba(13, 7, 10, .99) 0%, rgba(13, 7, 10, .94) 31%, rgba(13, 7, 10, .63) 56%, rgba(13, 7, 10, .15) 100%),
+    linear-gradient(0deg, rgba(8, 4, 6, .66), transparent 58%);
+}
+
+.av-ad-copy {
+  position: absolute;
+  z-index: 3;
+  top: 50%;
+  left: 13px;
+  width: min(68%, 235px);
+  transform: translateY(-43%);
+  padding-top: 5px;
+}
+
+.av-ad-eyebrow {
+  margin: 0 0 8px;
+  color: var(--av-ad-gold);
+  font-size: 7px;
+  font-weight: 800;
+  letter-spacing: .21em;
+  line-height: 1.1;
+  text-transform: uppercase;
+  text-shadow: 0 1px 7px #10090c;
+}
+
+.av-ad-title {
+  margin: 0;
+  color: #fffaf0;
+  font-family: Montserrat, Arial, sans-serif;
+  font-size: clamp(20px, 6.5vw, 26px);
+  font-weight: 900;
+  letter-spacing: -.055em;
+  line-height: .98;
+  text-transform: uppercase;
+  text-shadow: 0 2px 18px rgba(0, 0, 0, .75);
+}
+
+.av-ad-title em {
+  color: var(--av-ad-gold);
+  font-style: normal;
+}
+
+.av-ad-description {
+  max-width: 205px;
+  margin: 9px 0 0;
+  color: rgba(255, 248, 233, .84);
+  font-size: 8px;
+  font-weight: 500;
+  letter-spacing: .025em;
+  line-height: 1.45;
+  text-shadow: 0 1px 6px rgba(0, 0, 0, .95);
+}
+
+.av-ad-counter {
+  position: absolute;
+  z-index: 4;
+  right: 11px;
+  bottom: 10px;
+  color: rgba(255, 248, 233, .8);
+  font: 700 6px/1 Montserrat, Arial, sans-serif;
+  letter-spacing: .19em;
+  text-shadow: 0 1px 5px #12080b;
+}
+
+.av-ad-counter b {
+  color: var(--av-ad-gold);
+}
+
+.av-ad-final .av-ad-art {
+  top: 24%;
+  right: 4%;
+  width: 38%;
+  height: 53%;
+  object-fit: contain;
+  opacity: .97;
+  filter: drop-shadow(0 4px 17px rgba(244, 212, 154, .2));
+}
+
+/* On the final card, the ArtViSiON mark arrives softly and holds a warm glow. */
+.av-ad-final.is-active .av-ad-art {
+  animation: av-ad-logo-arrive 920ms cubic-bezier(.18, .72, .24, 1) both,
+             av-ad-logo-breathe 2.8s ease-in-out 920ms infinite alternate;
+}
+
+@keyframes av-ad-logo-arrive {
+  0% { opacity: 0; transform: translateY(9px) scale(.82) rotate(-1.4deg); }
+  68% { opacity: 1; transform: translateY(-2px) scale(1.045) rotate(.25deg); }
+  100% { opacity: .97; transform: translateY(0) scale(1) rotate(0); }
+}
+
+@keyframes av-ad-logo-breathe {
+  from { transform: translateY(0) scale(1); opacity: .94; }
+  to { transform: translateY(-1px) scale(1.02); opacity: 1; }
+}
+
+.av-ad-final .av-ad-wash {
+  background:
+    radial-gradient(ellipse at 78% 46%, rgba(113, 33, 44, .48), transparent 38%),
+    linear-gradient(90deg, rgba(13, 7, 10, .99) 0%, rgba(13, 7, 10, .92) 45%, rgba(13, 7, 10, .3) 100%),
+    linear-gradient(0deg, rgba(8, 4, 6, .6), transparent 70%);
+}
+
+.av-ad-final .av-ad-copy {
+  width: min(75%, 250px);
+  top: 56%;
+  transform: translateY(-44%);
+}
+
+.av-ad-final .av-ad-title {
+  font-size: clamp(18px, 5.8vw, 23px);
+  line-height: 1.02;
+  text-transform: none;
+  letter-spacing: -.045em;
+}
+
+.av-ad-final .av-ad-description {
+  margin-top: 8px;
+}
+
+.av-ad-cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 11px;
+  padding: 6px 9px;
+  border: 1px solid rgba(244, 212, 154, .7);
+  border-radius: 999px;
+  background: linear-gradient(105deg, rgba(244, 212, 154, .19), rgba(255, 255, 255, .07));
+  color: #fff7e7;
+  font-size: 7px;
+  font-weight: 800;
+  letter-spacing: .12em;
+  line-height: 1;
+  text-transform: uppercase;
+  box-shadow: 0 0 18px rgba(243, 196, 124, .12), inset 0 1px 0 rgba(255, 255, 255, .2);
+}
+
+.av-ad-cta b {
+  color: var(--av-ad-gold);
+  font-size: 12px;
+  line-height: .8;
+}
+
+.av-ad-progress {
+  position: absolute;
+  z-index: 12;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, .13);
+}
+
+.av-ad-progress span {
+  display: block;
+  width: 100%;
+  height: 100%;
+  transform: scaleX(0);
+  transform-origin: left center;
+  background: linear-gradient(90deg, #a7333d, #f4d49a 54%, #fff2d0);
+  box-shadow: 0 0 9px rgba(244, 212, 154, .7);
+}
+
+.av-ad-replay {
+  position: absolute;
+  z-index: 11;
+  left: 8px;
+  bottom: 6px;
+  appearance: none;
+  border: 1px solid rgba(244, 212, 154, .58);
+  border-radius: 999px;
+  padding: 4px 7px;
+  background: rgba(22, 7, 12, .78);
+  color: #ffe9bf;
+  font: 800 6px/1 Montserrat, Arial, sans-serif;
+  letter-spacing: .13em;
+  cursor: pointer;
+  box-shadow: 0 1px 9px rgba(0, 0, 0, .35);
+}
+
+.av-ad-replay:hover,
+.av-ad-replay:focus-visible {
+  outline: 2px solid #fff1cf;
+  outline-offset: 2px;
+  background: #53131e;
+}
+
+/* Point to the real owl link with a warm red/gold glow, not a circle/ring. */
+.corner-owl.ad-owl-target {
+  z-index: 4000 !important;
+}
+
+.corner-owl.ad-owl-target img {
+  transform-origin: 50% 50%;
+  filter: drop-shadow(0 0 6px rgba(244, 212, 154, .72));
+  animation: av-owl-target-glow 1.35s ease-in-out infinite alternate;
+}
+
+@keyframes av-owl-target-glow {
+  from { transform: scale(1); opacity: .88; }
+  to { transform: scale(1.045); opacity: 1; }
+}
+
+.av-ad-pointer {
+  position: fixed;
+  z-index: 3998;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: visible;
+  visibility: hidden;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 320ms ease, visibility 0s linear 320ms;
+}
+
+.av-ad-pointer.is-visible {
+  visibility: visible;
+  opacity: 1;
+  transition: opacity 320ms ease, visibility 0s;
+}
+
+.av-ad-pointer .av-ad-laser-beam {
+  fill: none;
+  stroke: url(#avAdLaserWarm);
+  stroke-width: 2.3;
+  stroke-linecap: round;
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  vector-effect: non-scaling-stroke;
+  opacity: .96;
+}
+
+.av-ad-pointer.is-visible .av-ad-laser-beam {
+  animation: av-ad-laser-ignite .58s ease-out forwards,
+             av-ad-laser-breathe 1.15s ease-in-out .58s infinite alternate;
+}
+
+.av-ad-pointer.is-visible .av-ad-laser-right {
+  animation-delay: .12s, .70s;
+}
+
+@keyframes av-ad-laser-ignite {
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes av-ad-laser-breathe {
+  from { opacity: .72; }
+  to { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .av-portfolio-ad,
+  .av-ad-scene,
+  .av-ad-art,
+  .av-ad-pointer {
+    transition-duration: .01ms !important;
+  }
+
+  .av-ad-brand img,
+  .av-ad-final.is-active .av-ad-art,
+  .corner-owl.ad-owl-target img {
+    animation: none !important;
+    transform: none;
+  }
+
+  .corner-owl.ad-owl-target img {
+    filter: drop-shadow(0 0 8px rgba(244, 212, 154, .72));
+  }
+
+  .av-ad-pointer .av-ad-laser-beam {
+    animation: none !important;
+    stroke-dashoffset: 0;
+  }
+}
