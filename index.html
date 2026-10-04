@@ -22,7 +22,7 @@
 
     /* ===== Owl badge — enlarged with fast motion + neon Speed label ===== */
     .corner-owl{
-      position:fixed;top:10px;left:10px;z-index:99998;
+      position:fixed;top:10px;left:10px;z-index:4000;
       -webkit-appearance:none;appearance:none;background:transparent;border:none;padding:0;margin:0;cursor:pointer;
       width:72px;height:94px;display:flex;flex-direction:column;align-items:center;justify-content:flex-start;gap:2px;
       -webkit-user-select:none;user-select:none;animation:none;
@@ -2198,6 +2198,8 @@
 body:not(.fabs-min) #fabToggle i{transform:rotate(180deg)}
 .side-link-fab,#shareFab,#audio-toggle{transition:opacity .22s ease,transform .25s cubic-bezier(.34,1.56,.64,1),visibility 0s linear 0s!important}
 body.fabs-min .side-link-fab,body.fabs-min #shareFab,body.fabs-min #audio-toggle{opacity:0!important;visibility:hidden!important;pointer-events:none!important;transform:translateY(30px) scale(.3)!important;transition:opacity .2s ease,transform .22s ease,visibility 0s linear .22s!important}
+/* In minimized mode, keep only audio and share controls visible beside the menu button. */
+body.fabs-min #shareFab,body.fabs-min #audio-toggle{opacity:1!important;visibility:visible!important;pointer-events:auto!important;transform:none!important;transition:opacity .2s ease,transform .22s ease!important}
 </style>
 </head>
 <body>
@@ -4591,7 +4593,7 @@ button:focus-visible,select:focus-visible,input:focus-visible{outline-color:#ffc
 .av-flight-pilot .av-flight-stars{left:calc(50% - 40px);top:77%;width:80px;white-space:nowrap;font-size:12px;letter-spacing:4px;text-align:center}
 
 </style>
-<div class="dock"><button class="launcher" aria-label="Open AV ArtViSiON assistant" aria-expanded="false" aria-controls="chat-panel">${robot}</button><button class="tip"><b>AV · ArtViSiON Assistant</b>Professional support for branding, production design and execution.</button></div>
+<div class="dock"><button class="launcher" aria-label="Open AV ArtViSiON assistant" aria-expanded="false" aria-controls="chat-panel">${robot}</button><button class="tip"><b>AV · Assistant</b>Support for A-to-Z Design to Execution.</button></div>
 <section class="panel" id="chat-panel" role="region" aria-label="ArtViSiON production assistant" hidden>
 <div class="head"><button type="button" class="monogram brand-logo" aria-label="Bot ko dance karayein" title="Tap to dance"><img src="${introLogo}" alt="ArtViSiON logo"></button><div class="title"><b>ArtViSiON Assistant</b><div class="status"><span class="dot"></span><span class="state">Design se execution tak</span></div></div><button class="icon voice" aria-label="Voice off karein" aria-pressed="true" title="Voice on/off">🔊</button><button class="icon close" aria-label="Chat band karein">×</button></div>
 <div class="bar"><span class="mode">${liveMode ? 'AI MODE · WEBSITE KNOWLEDGE' : 'LOCAL CHAT · AI OFFLINE'}</span><select class="language-select" aria-label="Reply language"><option value="hi-IN">हिन्दी / Hindi</option><option value="en-IN">English</option></select><button type="button" class="voice-settings-toggle" aria-expanded="false" aria-controls="voice-settings">Voice ⚙</button></div>
@@ -5059,7 +5061,7 @@ button:focus-visible,select:focus-visible,input:focus-visible{outline-color:#ffc
     '.replay-intro-btn',                    // 10: replay intro
     '.dock'                                 // 11: chat dock
   ];
-  var GAP = 110; // ms between each element
+  var GAP = 220; // ms between each element — clear one-by-one reveal
 
   function popElement(sel, delay){
     setTimeout(function(){
@@ -5069,6 +5071,10 @@ button:focus-visible,select:focus-visible,input:focus-visible{outline-color:#ffc
   }
 
   function startReveal(){
+    // Keep the controls expanded during the reveal so every card feature is visible.
+    document.body.classList.remove('fabs-min');
+    var menuBtn = document.getElementById('fabToggle');
+    if(menuBtn) menuBtn.setAttribute('aria-expanded','true');
     // Remove the boot lock (ui-booting !important hides) BEFORE starting the cascade
     document.documentElement.classList.remove('ui-booting');
     document.documentElement.classList.add('ui-ready');
@@ -5099,5 +5105,5 @@ button:focus-visible,select:focus-visible,input:focus-visible{outline-color:#ffc
 })();
 </script>
 
-<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a44b35f77f083a51',t:'MTc5MTAyMjc5MA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a451cb0e3cae0e98',t:'MTc5MTA5MTgxMQ=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+<script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a44b35f77f083a51',t:'MTc5MTAyMjc5MA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script><script>(function(){function c(){var b=a.contentDocument||(a.contentWindow&&a.contentWindow.document);if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'a451e9824ede3aa5',t:'MTc5MTA5MzA1OA=='};var a=document.createElement('script');a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
