@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://rjsarkar83.github.io/Brand_Designer/sitemap.xml
